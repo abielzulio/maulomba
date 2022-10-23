@@ -1,1 +1,1 @@
-export const CURRENT_YEAR: string = new Date().getFullYear()
+export const CURRENT_YEAR: string = new Date().getFullYear().toString()
