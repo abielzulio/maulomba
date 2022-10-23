@@ -1,4 +1,4 @@
-# editpasfoto.com
+# Maulomba.com
 
 > [Maulomba](https://maulomba.com) is a web-based Indonesian college/high-school level competition media platform. Maulomba built using Next.js + Typescript + TailwindCSS + Supabase deployed using Vercel.
 
