@@ -11,6 +11,17 @@ module.exports = {
           "linear-gradient(to right bottom, rgb(255, 255, 255) 30%, rgba(255, 255, 255, 0.38))",
         "black-radial-gradient": "radial-gradient(#0e1720, #0e1b2c)",
       },
+      colors: {
+        gray: {
+          50: "#c8d1d9",
+          900: "#1c1b22",
+        },
+        white: "#f0f6fc",
+        blue: {
+          500: "#1f6feb",
+        },
+        black: "#0d1116",
+      },
     },
   },
   plugins: [],
