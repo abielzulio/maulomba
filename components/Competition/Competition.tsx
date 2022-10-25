@@ -10,7 +10,11 @@ const competition = [
     title:
       "PEC 2022, Padjajaran English Competition (Speech, Story Telling, Poetry, and Essay)",
     desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod.",
-    tag: ["Videography & Short Film", "Technology & Engineering"],
+    tag: [
+      "Videography & Short Film",
+      "Technology & Engineering",
+      "Technology & Engineering",
+    ],
     url: "https://www.google.com",
     img: "/1.jpg",
   },
