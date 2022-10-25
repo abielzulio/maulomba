@@ -21,11 +21,11 @@ const Filter = (props: FilterProps) => {
   return (
     <div className="sticky top-[0px] z-20 flex w-full flex-col">
       <span className="-mb-[10px] h-[40px] w-full bg-black" />
-      <div className="mb-[30px] flex min-h-min flex-col gap-[10px] bg-black pb-[20px] shadow-xl shadow-black md:flex-row md:gap-[30px]">
-        <div className="flex w-full items-center gap-[10px] rounded-md border-[0.5px] border-white border-opacity-20 bg-white bg-opacity-5 py-[10px] px-[20px] text-sm text-white transition hover:border-opacity-50 focus:border-opacity-100 focus:bg-opacity-50 md:w-max">
+      <div className="flex min-h-min flex-col gap-[10px] bg-black pb-[20px] md:flex-row md:gap-[30px]">
+        <div className="group flex w-full items-center gap-[10px] rounded-md border-[0.5px] border-white/10 bg-white/5 py-[10px] px-[20px] text-sm text-white transition hover:border-opacity-50 focus:border-opacity-100 focus:bg-opacity-50 md:w-max">
           <MagnifyingGlassIcon className="h-[18px] w-[18px]" />
           <input
-            className="w-min bg-transparent placeholder:text-white focus:outline-none"
+            className="w-min bg-transparent transition placeholder:text-white placeholder:text-opacity-50 focus:outline-none focus:placeholder:text-opacity-100"
             type="text"
             placeholder="Cari lomba..."
             defaultValue={props.searchValue}
@@ -41,6 +41,7 @@ const Filter = (props: FilterProps) => {
           ))}
         </div>
       </div>
+      <span className="h-[20px] w-full bg-gradient-to-b from-black to-transparent" />
     </div>
   )
 }
