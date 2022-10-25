@@ -1,10 +1,11 @@
 import { ContentContainer, ImageContainer } from "components/Container"
 import Filter from "components/Filter"
-import NextLink from "next/link"
+import { motion } from "framer-motion"
+import { useState } from "react"
+import Marquee from "react-fast-marquee"
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry"
 import { DeadlineLabel, FeaturedLabel, TagLabel } from "./Label/Label"
-import Marquee from "react-fast-marquee"
-import { useEffect, useState } from "react"
+import NextLink from "next/link"
 
 const competition = [
   {
@@ -18,7 +19,7 @@ const competition = [
     ],
     url: "https://www.google.com",
     img: "/1.jpg",
-    eo: "Himpunan Mahasiswa Departemen Geografi Universitas Indonesia",
+    eo: "ASEAN",
   },
   {
     title: "Hackathon 2",
@@ -64,6 +65,7 @@ const competition = [
 
 const CompetitionSection = () => {
   const [searchValue, setSearchValue] = useState<string>("")
+  const [tagValue, setTagValue] = useState<string[]>([""])
   return (
     <ContentContainer>
       <Filter searchValue={searchValue} setSearchValue={setSearchValue} />
@@ -79,8 +81,15 @@ const CompetitionSection = () => {
               // || comp.tag.map((tag) => tag.toLowerCase()).includes(searchValue.toLowerCase())
             )
             .map((comp, id) => (
-              <NextLink prefetch passHref href={comp.url} key={id}>
-                <a className="group relative flex h-fit w-full flex-col gap-[20px]">
+              <NextLink passHref href={comp.url} key={id}>
+                <motion.a
+                  animate={{ opacity: 1 }}
+                  initial={{ opacity: 0 }}
+                  exit={{ opacity: 0 }}
+                  layout
+                  className="group relative flex h-fit w-full flex-col gap-[15px]"
+                  key={id}
+                >
                   <div className="relative h-full w-full overflow-hidden rounded-md border-[1px] border-white border-opacity-30 shadow-2xl transition hover:shadow-blue-500/30">
                     <span className="absolute z-10 h-[100px] w-full bg-gradient-to-b from-gray-900/50 to-transparent" />
                     <FeaturedLabel />
@@ -93,17 +102,16 @@ const CompetitionSection = () => {
                       <Marquee
                         play={comp.eo.length > 30}
                         pauseOnHover
+                        gradient={comp.eo.length > 30}
                         gradientColor={[0, 0, 0]}
-                        gradientWidth={10}
+                        gradientWidth={20}
                         className="text-sm opacity-50"
                       >
-                        <span className="px-[2px]">
-                          {comp.eo.length > 30 ? comp.eo + "|" : comp.eo}
+                        <span className="px-[2px] font-medium">
+                          {comp.eo.length > 30 ? comp.eo + " |" : comp.eo}
                         </span>
                       </Marquee>
-                      <div className="flex flex-col text-right">
-                        <p className="text-sm opacity-50">Nasional</p>
-                      </div>
+                      {/*                     <p className="text-sm opacity-50">Nasional</p> */}
                     </div>
                     <div className="flex flex-col gap-[3px]">
                       <p className="text-md font-semibold tracking-tight">
@@ -114,7 +122,7 @@ const CompetitionSection = () => {
                       </p>
                     </div>
                   </div>
-                </a>
+                </motion.a>
               </NextLink>
             ))}
         </Masonry>
