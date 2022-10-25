@@ -18,6 +18,7 @@ const competition = [
     ],
     url: "https://www.google.com",
     img: "/1.jpg",
+    eo: "Himpunan Mahasiswa Departemen Geografi Universitas Indonesia",
   },
   {
     title: "Hackathon 2",
@@ -25,6 +26,7 @@ const competition = [
     tag: ["yes", "oke"],
     url: "https://www.google.com",
     img: "/2.jpg",
+    eo: "Himpunan Mahasiswa Departemen Geografi Universitas Indonesia",
   },
   {
     title: "Hackathon 2",
@@ -32,6 +34,7 @@ const competition = [
     tag: ["yes", "oke"],
     url: "https://www.google.com",
     img: "/3.jpeg",
+    eo: "Himpunan Mahasiswa Departemen Geografi Universitas Indonesia",
   },
   {
     title: "Hackathon 2",
@@ -39,6 +42,7 @@ const competition = [
     tag: ["yes", "oke"],
     url: "https://www.google.com",
     img: "/3.jpeg",
+    eo: "Himpunan Mahasiswa Departemen Geografi Universitas Indonesia",
   },
   {
     title: "Hackathon 2",
@@ -46,6 +50,7 @@ const competition = [
     tag: ["yes", "oke"],
     url: "https://www.google.com",
     img: "/2.jpg",
+    eo: "Himpunan Mahasiswa Departemen Geografi Universitas Indonesia",
   },
   {
     title: "Gacky",
@@ -53,6 +58,7 @@ const competition = [
     tag: ["yes", "oke"],
     url: "https://www.google.com",
     img: "/1.jpg",
+    eo: "Himpunan Mahasiswa Departemen Geografi Universitas Indonesia",
   },
 ]
 
@@ -82,29 +88,30 @@ const CompetitionSection = () => {
                     <TagLabel tag={comp.tag} />
                     <ImageContainer src={comp.img} />
                   </div>
-                  <div className="flex flex-row justify-between gap-[20px]">
-                    <div className="flex flex-col gap-[3px]">
+                  <div className="flex flex-col gap-[5px]">
+                    <div className="flex flex-row justify-between gap-[20px]">
                       <Marquee
-                        // play when string exceed n word
+                        play={comp.eo.length > 30}
                         pauseOnHover
                         gradientColor={[0, 0, 0]}
                         gradientWidth={10}
                         className="text-sm opacity-50"
                       >
                         <span className="px-[2px]">
-                          Himpunan Mahasiswa Departemen Geografi Universitas
-                          Indonesia |
+                          {comp.eo.length > 30 ? comp.eo + "|" : comp.eo}
                         </span>
                       </Marquee>
+                      <div className="flex flex-col text-right">
+                        <p className="text-sm opacity-50">Nasional</p>
+                      </div>
+                    </div>
+                    <div className="flex flex-col gap-[3px]">
                       <p className="text-md font-semibold tracking-tight">
                         {comp.title}
                       </p>
                       <p className="text-sm opacity-50">
                         23 December 2022, 23:59
                       </p>
-                    </div>
-                    <div className="flex flex-col text-right">
-                      <p className="text-sm opacity-50">Nasional</p>
                     </div>
                   </div>
                 </a>
