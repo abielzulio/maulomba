@@ -4,7 +4,7 @@ const Container = (props: ContainerProps) => {
   const { className = `` } = props
   return (
     <section
-      className={`flex w-full flex-col justify-center ${className}`}
+      className={`flex w-fit flex-col justify-center ${className}`}
       {...props}
     >
       {props.children}
@@ -26,7 +26,7 @@ export const Page = (props: ContainerProps) => {
 
 export const HeroContainer = (props: ContainerProps) => {
   return (
-    <Container className="my-[60px] h-fit w-full" {...props}>
+    <Container className="mt-[60px] mb-[30px] h-fit w-full" {...props}>
       <div className="flex flex-col gap-[20px]">{props.children}</div>
     </Container>
   )
@@ -34,7 +34,7 @@ export const HeroContainer = (props: ContainerProps) => {
 
 export const ContentContainer = (props: ContainerProps) => {
   return (
-    <Container className="min-h-screen w-fit" {...props}>
+    <Container className="mb-[60px] min-h-screen w-full" {...props}>
       {props.children}
     </Container>
   )
