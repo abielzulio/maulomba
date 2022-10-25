@@ -3,13 +3,14 @@ import Filter from "components/Filter"
 import NextLink from "next/link"
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry"
 import { DeadlineLabel, FeaturedLabel, TagLabel } from "./Label/Label"
+import Marquee from "react-fast-marquee"
 
 const competition = [
   {
     title:
       "PEC 2022, Padjajaran English Competition (Speech, Story Telling, Poetry, and Essay)",
     desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod.",
-    tag: ["yes", "yaaaa"],
+    tag: ["Videography & Short Film", "Technology & Engineering"],
     url: "https://www.google.com",
     img: "/1.jpg",
   },
@@ -68,16 +69,24 @@ const CompetitionSection = () => {
                   <TagLabel tag={comp.tag} />
                   <ImageContainer src={comp.img} />
                 </div>
-                <div className="flex flex-row justify-between">
-                  <div className="flex flex-col">
-                    <p className="text-sm opacity-50">
-                      Himpunan Mahasiswa Departemen Geografi Universitas
-                      Indonesia
-                    </p>
+                <div className="flex flex-row justify-between gap-[20px]">
+                  <div className="flex flex-col gap-[3px]">
+                    <Marquee
+                      // play when string exceed n word
+                      pauseOnHover
+                      gradientColor={[0, 0, 0]}
+                      gradientWidth={10}
+                      className="text-sm opacity-50"
+                    >
+                      <span className="px-[2px]">
+                        Himpunan Mahasiswa Departemen Geografi Universitas
+                        Indonesia |
+                      </span>
+                    </Marquee>
                     <p className="text-md font-semibold tracking-tight">
                       {comp.title}
                     </p>
-                    <p className="mt-[3px] text-sm opacity-50">
+                    <p className="text-sm opacity-50">
                       23 December 2022, 23:59
                     </p>
                   </div>

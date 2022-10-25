@@ -1,3 +1,5 @@
+import Marquee from "react-fast-marquee"
+
 interface TagLabelProps {
   tag: string[]
 }
@@ -29,13 +31,15 @@ export const DeadlineLabel = () => {
 export const TagLabel = (props: TagLabelProps) => {
   return (
     <div className="absolute bottom-[10px] left-[10px] z-10 h-min w-min">
-      <div className="flex flex-row gap-[5px]">
-        {props.tag.map((tag, id) => (
-          <div className="h-min rounded-md bg-gray-900 bg-opacity-50 p-[5px] opacity-100 backdrop-blur-lg backdrop-filter transition xl:opacity-0 xl:group-hover:opacity-100">
-            <p className="text-[12px] font-semibold">{tag}</p>
-          </div>
-        ))}
-      </div>
+      <Marquee play={props.tag.length > 2} pauseOnHover gradient={false}>
+        <div className="flex flex-row gap-[5px]">
+          {props.tag.map((tag, id) => (
+            <p className="h-fit w-fit whitespace-nowrap rounded-md bg-gray-900 bg-opacity-50 p-[5px] text-[12px] font-semibold opacity-100 backdrop-blur-lg backdrop-filter transition xl:opacity-0 xl:group-hover:opacity-100">
+              {tag}
+            </p>
+          ))}
+        </div>
+      </Marquee>
     </div>
   )
 }
