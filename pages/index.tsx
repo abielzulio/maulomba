@@ -24,13 +24,12 @@ const Home: NextPage = () => {
         <ButtonContainer>
           <Button
             icon={<ArrowUpTrayIcon className="h-[18px] w-[18px]" />}
-            title="Unggah Lomba"
+            title="Unggah lomba"
           />
-          <Button
-            icon={<ArrowSmallDownIcon className="h-[18px] w-[18px]" />}
-            title="Cari Lomba"
-            kind="secondary"
-          />
+          <div className="flex w-full items-center gap-[10px] rounded-full p-[10px] text-sm font-semibold text-blue-500 transition md:w-max">
+            <ArrowSmallDownIcon className="h-[18px] w-[18px] animate-bounce" />
+            <span>Cari lomba</span>
+          </div>
         </ButtonContainer>
       </HeroContainer>
       <CompetitionSection />
