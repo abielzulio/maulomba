@@ -1,5 +1,3 @@
-import Marquee from "react-fast-marquee"
-
 interface TagLabelProps {
   tag: string[]
 }
