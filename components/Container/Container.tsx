@@ -1,4 +1,6 @@
-import { ContainerProps } from "types/component"
+import { ContainerProps, ImageContainerProps } from "types/component"
+import { useState } from "react"
+import NextImage from "next/image"
 
 const Container = (props: ContainerProps) => {
   const { className = `` } = props
@@ -45,3 +47,21 @@ export const ButtonContainer = (props: ContainerProps) => (
     {props.children}
   </div>
 )
+
+export const ImageContainer = (props: ImageContainerProps) => {
+  const [paddingTop, setPaddingTop] = useState(`0`)
+  return (
+    <div className="relative" style={{ paddingTop }}>
+      <NextImage
+        src={props.src}
+        layout="fill"
+        objectFit="contain"
+        className="transition hover:scale-110"
+        onLoad={({ target }) => {
+          const { naturalWidth, naturalHeight } = target as HTMLImageElement
+          setPaddingTop(`calc(100% / (${naturalWidth} / ${naturalHeight})`)
+        }}
+      />
+    </div>
+  )
+}
