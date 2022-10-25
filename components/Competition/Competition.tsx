@@ -24,7 +24,7 @@ const competition = [
   {
     title: "Hackathon 2",
     desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod.",
-    tag: ["yes", "oke"],
+    tag: ["UI/UX", "oke"],
     url: "https://www.google.com",
     img: "/2.jpg",
     eo: "Himpunan Mahasiswa Departemen Geografi Universitas Indonesia",
@@ -32,7 +32,7 @@ const competition = [
   {
     title: "Hackathon 2",
     desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod.",
-    tag: ["yes", "oke"],
+    tag: ["yes", "Mobile"],
     url: "https://www.google.com",
     img: "/3.jpeg",
     eo: "Himpunan Mahasiswa Departemen Geografi Universitas Indonesia",
@@ -68,7 +68,12 @@ const CompetitionSection = () => {
   const [tagValue, setTagValue] = useState<string[]>([""])
   return (
     <ContentContainer>
-      <Filter searchValue={searchValue} setSearchValue={setSearchValue} />
+      <Filter
+        searchValue={searchValue}
+        setSearchValue={setSearchValue}
+        tagValue={tagValue}
+        setTagValue={setTagValue}
+      />
       <ResponsiveMasonry
         columnsCountBreakPoints={{ 350: 1, 750: 2, 900: 3, 1200: 4 }}
       >
@@ -80,6 +85,11 @@ const CompetitionSection = () => {
               // || comp.desc.toLowerCase().includes(searchValue.toLowerCase())
               // || comp.tag.map((tag) => tag.toLowerCase()).includes(searchValue.toLowerCase())
             )
+            .filter((comp) =>
+              tagValue.length > 1
+                ? comp.tag.find((tag) => tagValue.includes(tag))
+                : true
+            )
             .map((comp, id) => (
               <NextLink passHref href={comp.url} key={id}>
                 <motion.a
@@ -87,8 +97,7 @@ const CompetitionSection = () => {
                   initial={{ opacity: 0 }}
                   exit={{ opacity: 0 }}
                   layout
-                  className="group relative flex h-fit w-full flex-col gap-[15px]"
-                  key={id}
+                  className="group flex h-fit w-full flex-col gap-[15px]"
                 >
                   <div className="relative h-full w-full overflow-hidden rounded-md border-[1px] border-white border-opacity-30 shadow-2xl transition hover:shadow-blue-500/30">
                     <span className="absolute z-10 h-[100px] w-full bg-gradient-to-b from-gray-900/50 to-transparent" />

@@ -1,7 +1,10 @@
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline"
 import { useState } from "react"
+import { createStyles, Chip } from "@mantine/core"
 
 const filteroptions = [
+  { title: "Videography & Short Film" },
+  { title: "Technology & Engineering" },
   { title: "UI/UX" },
   { title: "Frontend" },
   { title: "Backend" },
@@ -12,12 +15,35 @@ const filteroptions = [
   { title: "Machine Learning" },
 ]
 
+const useStyles = createStyles((theme, _params, getRef) => ({
+  label: {
+    backgroundColor: "transparent",
+    "&[data-checked]": {
+      "&, &:hover": {
+        backgroundColor: "transparent",
+        color: "white",
+      },
+
+      [`& .${getRef("iconWrapper")}`]: {
+        color: "white",
+      },
+    },
+  },
+
+  iconWrapper: {
+    ref: getRef("iconWrapper"),
+  },
+}))
+
 interface FilterProps {
   searchValue: string
   setSearchValue: (value: string) => void
+  tagValue: string[]
+  setTagValue: (value: string[]) => void
 }
 
 const Filter = (props: FilterProps) => {
+  const { classes } = useStyles()
   return (
     <div className="sticky top-[0px] z-20 flex w-full flex-col">
       <span className="-mb-[10px] h-[40px] w-full bg-black" />
@@ -32,13 +58,34 @@ const Filter = (props: FilterProps) => {
             onChange={(e) => props.setSearchValue(e.target.value)}
           />
         </div>
-        <div className="flex flex-row gap-[20px]">
-          {filteroptions.map((option) => (
-            <div className="flex items-center gap-[10px] text-sm">
-              <input type="checkbox" />
-              <p>{option.title}</p>
-            </div>
-          ))}
+        <div className="flex flex-row gap-[10px]">
+          <Chip.Group
+            value={props.tagValue}
+            onChange={props.setTagValue}
+            multiple
+          >
+            {filteroptions.map((option, id) => (
+              <Chip
+                className="font-medium"
+                styles={{
+                  label: {
+                    backgroundColor: "#0f3058 !important",
+                    backgroundOpacity: "0.1 !important",
+                    color: "#0090ff",
+                    borderColor: "transparent !important",
+                    borderWidth: "1.75px !important",
+                  },
+                  checkIcon: {
+                    borderColor: "white !important",
+                  },
+                }}
+                value={option.title}
+                key={id}
+              >
+                {option.title}
+              </Chip>
+            ))}
+          </Chip.Group>
         </div>
       </div>
       <span className="h-[20px] w-full bg-gradient-to-b from-black to-transparent" />
