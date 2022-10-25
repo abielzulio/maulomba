@@ -1,4 +1,5 @@
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline"
+import { useState } from "react"
 
 const filteroptions = [
   { title: "UI/UX" },
@@ -11,7 +12,12 @@ const filteroptions = [
   { title: "Machine Learning" },
 ]
 
-const Filter = () => {
+interface FilterProps {
+  searchValue: string
+  setSearchValue: (value: string) => void
+}
+
+const Filter = (props: FilterProps) => {
   return (
     <div className="sticky top-[0px] z-20 flex w-full flex-col">
       <span className="-mb-[10px] h-[40px] w-full bg-black" />
@@ -22,6 +28,8 @@ const Filter = () => {
             className="w-min bg-transparent placeholder:text-white focus:outline-none"
             type="text"
             placeholder="Cari lomba..."
+            defaultValue={props.searchValue}
+            onChange={(e) => props.setSearchValue(e.target.value)}
           />
         </div>
         <div className="flex flex-row gap-[20px]">

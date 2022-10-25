@@ -4,6 +4,7 @@ import NextLink from "next/link"
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry"
 import { DeadlineLabel, FeaturedLabel, TagLabel } from "./Label/Label"
 import Marquee from "react-fast-marquee"
+import { useEffect, useState } from "react"
 
 const competition = [
   {
@@ -56,51 +57,59 @@ const competition = [
 ]
 
 const CompetitionSection = () => {
+  const [searchValue, setSearchValue] = useState<string>("")
   return (
     <ContentContainer>
-      <Filter />
+      <Filter searchValue={searchValue} setSearchValue={setSearchValue} />
       <ResponsiveMasonry
         columnsCountBreakPoints={{ 350: 1, 750: 2, 900: 3, 1200: 4 }}
       >
         <Masonry columnsCount={4} gutter="30px">
-          {competition.map((comp, id) => (
-            <NextLink prefetch passHref href={comp.url} key={id}>
-              <a className="group relative flex h-fit w-full flex-col gap-[20px]">
-                <div className="relative h-full w-full overflow-hidden rounded-md border-[1px] border-white border-opacity-30 shadow-2xl transition hover:shadow-blue-500/30">
-                  <span className="absolute z-10 h-[100px] w-full bg-gradient-to-b from-gray-900/50 to-transparent" />
-                  <FeaturedLabel />
-                  <DeadlineLabel />
-                  <TagLabel tag={comp.tag} />
-                  <ImageContainer src={comp.img} />
-                </div>
-                <div className="flex flex-row justify-between gap-[20px]">
-                  <div className="flex flex-col gap-[3px]">
-                    <Marquee
-                      // play when string exceed n word
-                      pauseOnHover
-                      gradientColor={[0, 0, 0]}
-                      gradientWidth={10}
-                      className="text-sm opacity-50"
-                    >
-                      <span className="px-[2px]">
-                        Himpunan Mahasiswa Departemen Geografi Universitas
-                        Indonesia |
-                      </span>
-                    </Marquee>
-                    <p className="text-md font-semibold tracking-tight">
-                      {comp.title}
-                    </p>
-                    <p className="text-sm opacity-50">
-                      23 December 2022, 23:59
-                    </p>
+          {competition
+            .filter(
+              (comp) =>
+                comp.title.toLowerCase().includes(searchValue.toLowerCase())
+              // || comp.desc.toLowerCase().includes(searchValue.toLowerCase())
+              // || comp.tag.map((tag) => tag.toLowerCase()).includes(searchValue.toLowerCase())
+            )
+            .map((comp, id) => (
+              <NextLink prefetch passHref href={comp.url} key={id}>
+                <a className="group relative flex h-fit w-full flex-col gap-[20px]">
+                  <div className="relative h-full w-full overflow-hidden rounded-md border-[1px] border-white border-opacity-30 shadow-2xl transition hover:shadow-blue-500/30">
+                    <span className="absolute z-10 h-[100px] w-full bg-gradient-to-b from-gray-900/50 to-transparent" />
+                    <FeaturedLabel />
+                    <DeadlineLabel />
+                    <TagLabel tag={comp.tag} />
+                    <ImageContainer src={comp.img} />
                   </div>
-                  <div className="flex flex-col text-right">
-                    <p className="text-sm opacity-50">Nasional</p>
+                  <div className="flex flex-row justify-between gap-[20px]">
+                    <div className="flex flex-col gap-[3px]">
+                      <Marquee
+                        // play when string exceed n word
+                        pauseOnHover
+                        gradientColor={[0, 0, 0]}
+                        gradientWidth={10}
+                        className="text-sm opacity-50"
+                      >
+                        <span className="px-[2px]">
+                          Himpunan Mahasiswa Departemen Geografi Universitas
+                          Indonesia |
+                        </span>
+                      </Marquee>
+                      <p className="text-md font-semibold tracking-tight">
+                        {comp.title}
+                      </p>
+                      <p className="text-sm opacity-50">
+                        23 December 2022, 23:59
+                      </p>
+                    </div>
+                    <div className="flex flex-col text-right">
+                      <p className="text-sm opacity-50">Nasional</p>
+                    </div>
                   </div>
-                </div>
-              </a>
-            </NextLink>
-          ))}
+                </a>
+              </NextLink>
+            ))}
         </Masonry>
       </ResponsiveMasonry>
     </ContentContainer>
