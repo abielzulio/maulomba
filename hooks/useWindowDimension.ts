@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 
-const useWindowDimension = () => {
+export const useWindowDimension = () => {
   const [windowDimension, setWindowDimension] = useState<number>(0)
 
   const handleResize = () => {
@@ -26,4 +26,6 @@ const useWindowDimension = () => {
   return windowDimension
 }
 
-export default useWindowDimension
+export const handleMobile = (windowDimension: number) => {
+  return windowDimension < 640
+}
