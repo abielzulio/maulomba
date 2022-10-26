@@ -99,7 +99,7 @@ const TagFilter = (props: TagFilterProps) => (
       value={props.tagValue}
       onChange={props.setTagValue}
       multiple
-      className="margin-x my-auto flex flex-nowrap overflow-scroll bg-black pb-[15px]"
+      className="margin-x my-auto flex flex-nowrap gap-[3px] overflow-scroll bg-black pb-[15px]"
     >
       {filteroptions.map((option, id) => (
         <Chip
@@ -114,6 +114,9 @@ const TagFilter = (props: TagFilterProps) => (
             },
             checkIcon: {
               borderColor: "white !important",
+            },
+            root: {
+              display: "contents",
             },
           }}
           value={option.title}
@@ -132,7 +135,7 @@ const Filter = (props: FilterProps) => {
   return (
     <div className="sticky top-[0px] z-20 flex w-full flex-col">
       <span className="padding-x -mb-[10px] h-[30px] w-full bg-black" />
-      <div className="padding-x flex min-h-min flex-col gap-[10px] bg-black sm:flex-row md:items-center md:gap-[20px]">
+      <div className="padding-x flex min-h-min flex-col gap-[10px] bg-black pb-[20px] sm:flex-row md:items-center md:gap-[20px]">
         <SearchFiler
           searchValue={props.searchValue}
           setSearchValue={props.setSearchValue}
