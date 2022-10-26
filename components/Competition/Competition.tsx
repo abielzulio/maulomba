@@ -229,6 +229,15 @@ const CompetitionSection = () => {
         ? competition.tags.find((tag) => tagValue.includes(tag))
         : true
     )
+
+  const handleClearFilter = (searchValue: string, tagValue: string[]) => {
+    if (searchValue) {
+      setSearchValue("")
+    }
+    if (tagValue.length > 1) {
+      setTagValue([""])
+    }
+  }
   return (
     <ContentContainer>
       <Filter
@@ -259,9 +268,9 @@ const CompetitionSection = () => {
         >
           <div className="mx-auto flex flex-col items-center gap-[10px] opacity-80">
             <ArchiveBoxXMarkIcon className="h-[24px] w-[24px]" />
-            Jenis kompetisi yang Anda cari tidak ada
+            Kompetisi yang Anda cari tidak ada
             <button
-              onClick={() => setTagValue([""])}
+              onClick={() => handleClearFilter(searchValue, tagValue)}
               className="mt-[10px] text-sm underline opacity-50 transition hover:opacity-80"
             >
               Hapus penyaringan
