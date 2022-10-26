@@ -142,7 +142,11 @@ const Filter = (props: FilterProps) => {
             sortDateValue={props.sortDateValue}
             setSortDateValue={props.setSortDateValue}
           />
-          <TagFilterToggle showTag={showTag} setShowTag={setShowTag} />
+          <TagFilterToggle
+            showTag={showTag}
+            setShowTag={setShowTag}
+            tagValue={props.tagValue}
+          />
         </div>
       </div>
       <TagFilter

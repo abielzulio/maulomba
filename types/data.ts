@@ -5,7 +5,7 @@ export interface Image {
 }
 
 export interface Competition {
-  id: string
+  id: number
   title: string
   desc: string
   tags: string[]
