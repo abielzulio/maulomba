@@ -3,11 +3,11 @@
 @tailwind utilities;
 
 .padding-x {
-  @apply px-[30px] md:px-[60px];
+  @apply px-[15px] md:px-[60px];
 }
 
 .margin-x {
-  @apply mx-[30px] md:mx-[60px];
+  @apply mx-[15px] md:mx-[60px];
 }
 
 html,
