@@ -1,3 +1,9 @@
+import { HTMLMotionProps } from "framer-motion"
+
+export interface MotionContainerProps extends HTMLMotionProps<"section"> {
+  children: React.ReactNode
+}
+
 export interface ContainerProps extends React.HTMLAttributes<HTMLElement> {
   children: React.ReactNode
 }
