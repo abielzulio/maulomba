@@ -64,9 +64,11 @@ const DateFilter = (props: FilterProps) => (
       className="w-full bg-transparent"
       value={props.sortDateValue}
       onChange={(e) => props.setSortDateValue?.(e.target.value)}
-      defaultValue="deadline"
+      defaultValue={props.sortDateValue}
     >
-      <option value="deadline">Deadline terdekat</option>
+      <option value="deadline" selected>
+        Deadline terdekat
+      </option>
       <option value="baru">Lomba terbaru</option>
     </select>
   </div>
