@@ -18,7 +18,7 @@ export const Page = (props: ContainerProps) => {
   const { className = `` } = props
   return (
     <section
-      className={`min-w-screen relative flex min-h-screen flex-col px-[30px] md:px-[60px] ${className}`}
+      className={`min-w-screen relative flex min-h-screen flex-col ${className}`}
       {...props}
     >
       {props.children}
@@ -28,7 +28,10 @@ export const Page = (props: ContainerProps) => {
 
 export const HeroContainer = (props: ContainerProps) => {
   return (
-    <Container className="mt-[60px] mb-[30px] h-fit w-full" {...props}>
+    <Container
+      className="padding-x mt-[60px] mb-[30px] h-fit w-full"
+      {...props}
+    >
       <div className="flex flex-col gap-[20px]">{props.children}</div>
     </Container>
   )

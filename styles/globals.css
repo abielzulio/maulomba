@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+.padding-x {
+  @apply px-[30px] md:px-[60px];
+}
+
+.margin-x {
+  @apply mx-[30px] md:mx-[60px];
+}
+
 html,
 body {
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
