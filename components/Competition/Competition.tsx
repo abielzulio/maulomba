@@ -66,6 +66,7 @@ const competition = [
 const CompetitionSection = () => {
   const [searchValue, setSearchValue] = useState<string>("")
   const [tagValue, setTagValue] = useState<string[]>([""])
+  const [sortValue, setSortValue] = useState<string>("deadline")
   return (
     <ContentContainer>
       <Filter
@@ -73,11 +74,15 @@ const CompetitionSection = () => {
         setSearchValue={setSearchValue}
         tagValue={tagValue}
         setTagValue={setTagValue}
+        sortValue={sortValue}
+        setSortValue={setSortValue}
       />
+
       <ResponsiveMasonry
+        className="padding-x"
         columnsCountBreakPoints={{ 350: 1, 750: 2, 900: 3, 1200: 4 }}
       >
-        <Masonry columnsCount={4} gutter="30px">
+        <Masonry columnsCount={4} gutter="20px">
           {competition
             .filter(
               (comp) =>
@@ -99,7 +104,7 @@ const CompetitionSection = () => {
                   layout
                   className="group flex h-fit w-full flex-col gap-[15px]"
                 >
-                  <div className="relative h-full w-full overflow-hidden rounded-md border-[1px] border-white border-opacity-30 shadow-2xl transition hover:shadow-blue-500/30">
+                  <div className="relative h-full w-full overflow-hidden rounded-md border-[1px] border-white border-opacity-30 shadow-2xl transition md:hover:shadow-blue-500/30">
                     <span className="absolute z-10 h-[100px] w-full bg-gradient-to-b from-gray-900/50 to-transparent" />
                     <FeaturedLabel />
                     <DeadlineLabel />
