@@ -9,6 +9,7 @@ import { Chip } from "@mantine/core"
 import { handleMobile, useWindowDimension } from "hooks/useWindowDimension"
 import { useState } from "react"
 import { motion } from "framer-motion"
+import { isInSafari } from "hooks/useBowser"
 
 const filteroptions = [
   { title: "Videography & Short Film" },
@@ -50,16 +51,16 @@ const TagFilterToggle = (props: TagFilterProps) => (
       <EyeIcon className="h-[18px] w-[18px] opacity-50 transition group-hover:opacity-100" />
     )}
     Kategori
-    <span className="rounded-full bg-white/10 px-[6px] text-[10px]">
-      {props.tagValue && props.tagValue.length > 1
-        ? props.tagValue.length - 1
-        : null}
-    </span>
+    {props.tagValue && props.tagValue.length > 1 && (
+      <span className="rounded-full bg-white/10 px-[6px] text-[10px] font-semibold">
+        {props.tagValue.length - 1}
+      </span>
+    )}
   </button>
 )
 
 const DateFilter = (props: FilterProps) => (
-  <div className="group flex w-full items-center gap-[10px] rounded-md border-[0.5px] border-white border-opacity-10 bg-white/5 py-[10px] px-[15px] text-sm text-white text-opacity-80 transition hover:cursor-pointer hover:border-opacity-50 focus:border-opacity-100 focus:bg-opacity-50">
+  <div className="group flex w-full items-center gap-[10px] rounded-md border-[0.5px] border-white border-opacity-20 bg-white/5 py-[10px] px-[15px] text-sm text-white text-opacity-80 transition hover:cursor-pointer hover:border-opacity-50 focus:border-opacity-100 focus:bg-opacity-50">
     <CalendarIcon className="h-[18px] w-[18px] opacity-50 transition group-hover:opacity-100" />
     <select
       className="w-full bg-transparent"
