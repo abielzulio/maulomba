@@ -1,15 +1,13 @@
 import {
-  MagnifyingGlassIcon,
-  TagIcon,
   CalendarIcon,
   EyeIcon,
   EyeSlashIcon,
+  MagnifyingGlassIcon,
 } from "@heroicons/react/24/outline"
 import { Chip } from "@mantine/core"
+import { motion } from "framer-motion"
 import { handleMobile, useWindowDimension } from "hooks/useWindowDimension"
 import { useState } from "react"
-import { motion } from "framer-motion"
-import { isInSafari } from "hooks/useBowser"
 
 const filteroptions = [
   { title: "Videography & Short Film" },
