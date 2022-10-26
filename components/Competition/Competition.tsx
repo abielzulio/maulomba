@@ -49,6 +49,63 @@ const competition: Competition[] = [
     featured: true,
     id: 2,
   },
+  {
+    title:
+      "PEC 2022, Padjajaran English Competition (Speech, Story Telling, Poetry, and Essay)",
+    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod.",
+    tags: [
+      "Videography & Short Film",
+      "Technology & Engineering",
+      "Technology & Engineering",
+    ],
+    url: "https://www.google.com",
+    image: "/1.jpg",
+    eo: "ASEAN",
+    level: "Nasional",
+    likes: 1000,
+    views: 1000,
+    deadline: "23 Desember 2022, 23:59",
+    featured: true,
+    id: 2,
+  },
+  {
+    title:
+      "PEC 2022, Padjajaran English Competition (Speech, Story Telling, Poetry, and Essay)",
+    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod.",
+    tags: [
+      "Videography & Short Film",
+      "Technology & Engineering",
+      "Technology & Engineering",
+    ],
+    url: "https://www.google.com",
+    image: "/1.jpg",
+    eo: "ASEAN",
+    level: "Nasional",
+    likes: 1000,
+    views: 1000,
+    deadline: "23 Desember 2022, 23:59",
+    featured: true,
+    id: 2,
+  },
+  {
+    title:
+      "PEC 2022, Padjajaran English Competition (Speech, Story Telling, Poetry, and Essay)",
+    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod.",
+    tags: [
+      "Videography & Short Film",
+      "Technology & Engineering",
+      "Technology & Engineering",
+    ],
+    url: "https://www.google.com",
+    image: "/1.jpg",
+    eo: "ASEAN",
+    level: "Nasional",
+    likes: 1000,
+    views: 1000,
+    deadline: "23 Desember 2022, 23:59",
+    featured: true,
+    id: 2,
+  },
 ]
 
 const LikeViewSection = (props: {
