@@ -135,8 +135,12 @@ const Filter = (props: FilterProps) => {
   const isMobile: boolean = handleMobile(useWindowDimension())
   return (
     <div className="sticky top-[0px] z-20 flex w-full flex-col">
-      <span className="padding-x -mb-[10px] h-[30px] w-full bg-black" />
-      <div className="padding-x flex min-h-min flex-col gap-[10px] bg-black pb-[20px] sm:flex-row md:items-center md:gap-[20px]">
+      <span className="padding-x -mb-[5px] h-[30px] w-full bg-black" />
+      <div
+        className={`padding-x flex min-h-min flex-col gap-[10px] bg-black ${
+          showTag ? `pb-[20px]` : `pb-[10px]`
+        } sm:flex-row md:items-center md:gap-[20px]`}
+      >
         <SearchFiler
           searchValue={props.searchValue}
           setSearchValue={props.setSearchValue}
@@ -159,9 +163,7 @@ const Filter = (props: FilterProps) => {
         setTagValue={props.setTagValue}
       />
       <span
-        className={`padding-x ${
-          isMobile ? `h-[40px]` : `h-[20px]`
-        } w-full bg-gradient-to-b from-black to-transparent`}
+        className={`padding-x h-[20px] w-full bg-gradient-to-b from-black to-transparent`}
       />
     </div>
   )
