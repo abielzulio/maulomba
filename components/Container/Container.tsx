@@ -1,6 +1,11 @@
-import { ContainerProps, ImageContainerProps } from "types/component"
+import {
+  ContainerProps,
+  ImageContainerProps,
+  MotionContainerProps,
+} from "types/component"
 import { useState } from "react"
 import NextImage from "next/image"
+import { motion } from "framer-motion"
 
 const Container = (props: ContainerProps) => {
   const { className = `` } = props
@@ -14,22 +19,26 @@ const Container = (props: ContainerProps) => {
   )
 }
 
-export const Page = (props: ContainerProps) => {
+export const Page = (props: MotionContainerProps) => {
   const { className = `` } = props
   return (
-    <section
+    <motion.section
+      animate={{ opacity: 1 }}
+      initial={{ opacity: 0 }}
+      exit={{ opacity: 0 }}
+      transition={{ delay: 0.25 }}
       className={`min-w-screen relative flex min-h-screen flex-col ${className}`}
       {...props}
     >
       {props.children}
-    </section>
+    </motion.section>
   )
 }
 
 export const HeroContainer = (props: ContainerProps) => {
   return (
     <Container
-      className="padding-x mt-[60px] mb-[30px] h-fit w-full"
+      className="padding-x mt-[30px] mb-[15px] h-fit w-full md:mt-[60px] md:mb-[30px]"
       {...props}
     >
       <div className="flex flex-col gap-[20px]">{props.children}</div>
