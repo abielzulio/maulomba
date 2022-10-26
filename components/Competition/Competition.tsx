@@ -40,7 +40,7 @@ const competition: Competition[] = [
       "Technology & Engineering",
     ],
     url: "https://www.google.com",
-    image: "/1.jpg",
+    image: "/2.jpg",
     eo: "ASEAN",
     level: "Nasional",
     likes: 1000,
@@ -59,7 +59,7 @@ const competition: Competition[] = [
       "Technology & Engineering",
     ],
     url: "https://www.google.com",
-    image: "/1.jpg",
+    image: "/3.jpeg",
     eo: "ASEAN",
     level: "Nasional",
     likes: 1000,
@@ -108,23 +108,16 @@ const competition: Competition[] = [
   },
 ]
 
-const LikeViewSection = (props: {
-  likes: number
-  views: number
-  id: number
-}) => (
+const LikeViewSection = (props: { likes: number; views: number }) => (
   <div className="flex items-center justify-between gap-[10px] text-[12px] font-semibold tracking-tighter">
     <div className="flex items-center gap-[3px] opacity-50">
       <EyeIcon className="h-[12px] w-[12px]" />
       <span>{props.views}</span>
     </div>
-    <button
-      onClick={() => alert(props.id)}
-      className="flex items-center gap-[3px] opacity-50 transition hover:text-red-600 hover:opacity-100"
-    >
+    <div className="flex items-center gap-[3px] opacity-50">
       <HeartIcon className="h-[12px] w-[12px]" />
       <span>{props.likes}</span>
-    </button>
+    </div>
   </div>
 )
 
@@ -137,25 +130,28 @@ const CompetitionItem = ({ competition }: { competition: Competition }) =>
       layout
       className="group relative flex h-fit w-full flex-col gap-[15px]"
     >
-      <NextLink passHref href={competition.url} className="relative">
-        {/* Competition image compositioned */}
-        <a className="relative h-full w-full overflow-hidden rounded-md border-[1px] border-white border-opacity-30 shadow-2xl transition md:hover:shadow-blue-500/30">
-          {/* Layers on-top competition image */}
-          <span className="absolute z-10 h-[100px] w-full bg-gradient-to-b from-gray-900/60 to-transparent" />
-          {competition.featured && <FeaturedPill />}
-          {competition.deadline && <DeadlinePill />}
-          {competition.level && <LevelLabel />}
-          {/* Button to like a competition item */}
-          {/*           <button
-            onClick={() => alert(competition.id)}
-            className="absolute bottom-[10px] right-[10px] z-50 h-fit w-fit rounded-md bg-black/80 p-[5px] text-[10px] font-semibold text-white backdrop-blur-lg backdrop-filter transition"
-          >
-            <HeartIcon className="h-[14px] w-[14px]" />
-          </button> */}
-          {/* Main competition image */}
-          {competition.image && <ImageContainer src={competition.image} />}
-        </a>
-      </NextLink>
+      <div className="relative flex h-full w-full">
+        <button
+          onClick={() => alert(competition.id)}
+          className="absolute bottom-[10px] right-[10px] z-10 h-fit w-fit rounded-md bg-black/100 p-[5px] text-[10px] font-semibold text-white backdrop-blur-lg backdrop-filter transition hover:text-red-500"
+        >
+          <HeartIcon className="h-[14px] w-[14px]" />
+        </button>
+        <NextLink passHref href={competition.url} className="relative">
+          {/* Competition image compositioned */}
+          <a className="relative h-full w-full overflow-hidden rounded-md border-[1px] border-white border-opacity-30 shadow-2xl transition md:hover:shadow-blue-500/30">
+            {/* Layers on-top competition image */}
+            <span className="absolute z-10 h-[100px] w-full bg-gradient-to-b from-gray-900/60 to-transparent" />
+            {competition.featured && <FeaturedPill />}
+            {competition.deadline && <DeadlinePill />}
+            {competition.level && <LevelLabel />}
+            {/* Button to like a competition item */}
+
+            {/* Main competition image */}
+            {competition.image && <ImageContainer src={competition.image} />}
+          </a>
+        </NextLink>
+      </div>
       {/* Competition information section */}
       <div className="flex flex-col gap-[5px]">
         {/* Competition tags */}
@@ -170,7 +166,6 @@ const CompetitionItem = ({ competition }: { competition: Competition }) =>
             <LikeViewSection
               likes={competition.likes}
               views={competition.views}
-              id={competition.id}
             />
           )}
         </div>
