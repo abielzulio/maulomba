@@ -4,22 +4,29 @@ import {
   EyeSlashIcon,
   MagnifyingGlassIcon,
 } from "@heroicons/react/24/outline"
-import { Chip } from "@mantine/core"
+import { Chip, createStyles } from "@mantine/core"
 import { motion } from "framer-motion"
 import { handleMobile, useWindowDimension } from "hooks/useWindowDimension"
 import { useState } from "react"
 
 const filteroptions = [
-  { title: "Videography & Short Film" },
-  { title: "Technology & Engineering" },
-  { title: "UI/UX" },
-  { title: "Frontend" },
-  { title: "Backend" },
-  { title: "Fullstack" },
-  { title: "Mobile" },
-  { title: "DevOps" },
-  { title: "Data Science" },
-  { title: "Machine Learning" },
+  "Videography & Short Film",
+  "Technology & Engineering",
+  "UI/UX",
+  "Photography",
+  "Design",
+  "Music",
+  "Writing",
+  "Business",
+  "Social Impact",
+  "Science & Technology",
+  "Arts & Culture",
+  "Sports",
+  "Education",
+  "Health & Wellness",
+  "Food & Beverage",
+  "Fashion & Beauty",
+  "Others",
 ]
 
 interface FilterProps {
@@ -87,48 +94,75 @@ const SearchFiler = (props: FilterProps) => (
   </div>
 )
 
-const TagFilter = (props: TagFilterProps) => (
-  <motion.div
-    className="h-min w-full bg-black"
-    animate={{ opacity: 1 }}
-    initial={{ opacity: 0 }}
-    exit={{ opacity: 0 }}
-    transition={{ delay: 0.25 }}
-    style={{ display: props.showTag ? "block" : "none" }}
-  >
-    <Chip.Group
-      value={props.tagValue}
-      onChange={props.setTagValue}
-      multiple
-      className="margin-x my-auto flex flex-nowrap gap-[3px] overflow-scroll bg-black pb-[15px]"
+const TagFilter = (props: TagFilterProps) => {
+  const useStyles = createStyles((theme, _params, getRef) => ({
+    iconWrapper: {
+      ref: getRef("iconWrapper"),
+    },
+    label: {
+      "&[data-checked]": {
+        "&, &:hover": {
+          borderColor: "#0090ff !important",
+          opacity: 1,
+          color: "white !important",
+          backgroundColor: "#0090ff !important",
+          borderOpacity: 1,
+        },
+
+        [`& .${getRef("iconWrapper")}`]: {
+          color: theme.white,
+        },
+      },
+      backgroundColor: "transparent !important",
+      backgroundOpacity: "0.1 !important",
+      color: "white",
+      borderColor: "white !important",
+      opacity: 0.5,
+      borderWidth: "0.25px !important",
+      borderOpacity: 0 + "!important",
+      "&:hover": {
+        borderOpacity: 0.5,
+        opacity: 0.8,
+      },
+    },
+    checkIcon: {
+      color: "white !important",
+    },
+    root: {
+      display: "contents",
+    },
+  }))
+  const { classes } = useStyles()
+  return (
+    <motion.div
+      className="h-min w-full bg-black"
+      animate={{ opacity: 1 }}
+      initial={{ opacity: 0 }}
+      exit={{ opacity: 0 }}
+      transition={{ delay: 0.25 }}
+      style={{ display: props.showTag ? "block" : "none" }}
     >
-      {filteroptions.map((option, id) => (
-        <Chip
-          className="font-medium"
-          styles={{
-            label: {
-              backgroundColor: "#0f3058 !important",
-              backgroundOpacity: "0.1 !important",
-              color: "#0090ff",
-              borderColor: "transparent !important",
-              borderWidth: "1.75px !important",
-            },
-            checkIcon: {
-              borderColor: "white !important",
-            },
-            root: {
-              display: "contents",
-            },
-          }}
-          value={option.title}
-          key={id}
-        >
-          {option.title}
-        </Chip>
-      ))}
-    </Chip.Group>
-  </motion.div>
-)
+      <Chip.Group
+        value={props.tagValue}
+        onChange={props.setTagValue}
+        multiple
+        className="margin-x my-auto flex flex-nowrap gap-[3px] overflow-scroll bg-black pb-[15px]"
+      >
+        {filteroptions.map((option, id) => (
+          <Chip
+            className="font-medium"
+            styles={{}}
+            value={option}
+            classNames={classes}
+            key={id}
+          >
+            {option}
+          </Chip>
+        ))}
+      </Chip.Group>
+    </motion.div>
+  )
+}
 
 const Filter = (props: FilterProps) => {
   const [showTag, setShowTag] = useState<boolean>(true)
