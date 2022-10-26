@@ -10,6 +10,11 @@
   @apply mx-[15px] md:mx-[60px];
 }
 
+:root {
+  --scrollbar-width: 12px;
+  --scrollbar-color: #2e2e2e;
+}
+
 html,
 body {
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
@@ -23,10 +28,28 @@ body {
   box-sizing: border-box;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-color) transparent;
 }
 
-:where([hidden]) {
-  display: none !important;
+:where(::-webkit-scrollbar) {
+  width: var(--scrollbar-width);
+  height: var(--scrollbar-width);
+}
+:where(::-webkit-scrollbar-thumb) {
+  background-color: var(--scrollbar-color);
+  border-radius: var(--scrollbar-width);
+  border: 3px solid transparent;
+  background-clip: content-box;
+  -webkit-transition: background 0.2s ease;
+  transition: background 0.2s ease;
+}
+:where(::-webkit-scrollbar-thumb:hover) {
+  --scrollbar-color: #707070;
+}
+:where(::-webkit-scrollbar-thumb:active) {
+  --scrollbar-color: #a0a0a0;
+  scrollbar-width: var(--scrollbar-width);
 }
 
 :where(html) {
