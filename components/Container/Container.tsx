@@ -38,7 +38,7 @@ export const Page = (props: MotionContainerProps) => {
 export const HeroContainer = (props: ContainerProps) => {
   return (
     <Container
-      className="padding-x mt-[30px] mb-[15px] h-fit w-full md:mt-[60px] md:mb-[30px]"
+      className="padding-x mt-[30px] mb-[15px] h-fit w-full md:mt-[40px] md:mb-[30px]"
       {...props}
     >
       <div className="flex flex-col gap-[20px]">{props.children}</div>
@@ -48,7 +48,7 @@ export const HeroContainer = (props: ContainerProps) => {
 
 export const ContentContainer = (props: ContainerProps) => {
   return (
-    <Container className="mb-[60px] min-h-screen w-full" {...props}>
+    <Container className="mb-[60px] min-h-fit w-full" {...props}>
       {props.children}
     </Container>
   )

@@ -1,50 +1,61 @@
+import React from "react"
+import { ContainerProps } from "types/component"
+
 interface TagLabelProps {
   tag: string[]
 }
 
-export const FeaturedLabel = () => {
+const PillContainer = (props: ContainerProps) => {
+  const { className = `` } = props
   return (
-    <div className="absolute top-[10px] left-[10px] z-10 h-min w-min">
-      <div className="h-min animate-pulse rounded-full bg-blue-600 py-[5px] px-[13px] backdrop-blur-md backdrop-filter group-hover:animate-none">
-        <p className="text-[12px] font-bold tracking-tight text-white">
-          Featured
-        </p>
-      </div>
-    </div>
+    <p
+      className={`absolute z-10 h-min w-min animate-pulse rounded-full py-[5px] px-[13px] backdrop-blur-md backdrop-filter group-hover:animate-none ${className} text-[12px] font-bold tracking-tight text-white`}
+    >
+      {props.children}
+    </p>
   )
 }
 
-export const DeadlineLabel = () => {
+export const FeaturedPill = () => {
   return (
-    <div className="absolute top-[10px] right-[10px] z-10 h-min w-min">
-      <div className="h-min animate-pulse rounded-full bg-red-600 py-[5px] px-[13px] backdrop-blur-md backdrop-filter group-hover:animate-none">
-        <p className="text-[12px] font-bold tracking-tight text-white">
-          Deadline
-        </p>
-      </div>
-    </div>
+    <PillContainer className="top-[10px] left-[10px] bg-blue-600">
+      Featured
+    </PillContainer>
+  )
+}
+
+export const DeadlinePill = () => {
+  return (
+    <PillContainer className="top-[10px] right-[10px] bg-red-600">
+      Deadline
+    </PillContainer>
+  )
+}
+
+export const LevelLabel = () => {
+  return (
+    <p className="absolute bottom-[10px] left-[10px] z-10 h-fit w-fit rounded-md bg-black/80 p-[5px] text-[10px] font-semibold text-white backdrop-blur-lg backdrop-filter transition">
+      Nasional
+    </p>
   )
 }
 
 export const TagLabel = (props: TagLabelProps) => {
   const isMoreTags = props.tag.length > 2
+  const TagLabelItem = (props: { children: React.ReactNode }) => (
+    <p
+      className="h-fit w-fit whitespace-nowrap rounded-md bg-white/10 p-[5px] text-[10px] font-semibold"
+      {...props}
+    >
+      {props.children}
+    </p>
+  )
   return (
-    <div className="absolute bottom-[10px] left-[10px] z-10 h-min w-min">
-      <div className="flex flex-row gap-[5px]">
-        {props.tag.slice(0, 2).map((tag, id) => (
-          <p
-            key={id}
-            className="h-fit w-fit whitespace-nowrap rounded-md bg-gray-900 p-[5px] text-[12px] font-semibold opacity-100 backdrop-blur-lg backdrop-filter transition xl:opacity-0 xl:group-hover:opacity-100"
-          >
-            {tag}
-          </p>
-        ))}
-        {isMoreTags && (
-          <p className="h-fit w-fit whitespace-nowrap rounded-md bg-gray-900 p-[5px] text-[12px] font-semibold opacity-100 backdrop-blur-lg backdrop-filter transition xl:opacity-0 xl:group-hover:opacity-100">
-            {`+${props.tag.length - 2}`}
-          </p>
-        )}
-      </div>
+    <div className="flex flex-row flex-wrap gap-[5px]">
+      {props.tag.slice(0, 2).map((tag, id) => (
+        <TagLabelItem key={id}>{tag}</TagLabelItem>
+      ))}
+      {isMoreTags && <TagLabelItem>{`+${props.tag.length - 2}`}</TagLabelItem>}
     </div>
   )
 }
