@@ -54,8 +54,8 @@ export const ContentContainer = (props: ContainerProps) => {
   )
 }
 
-export const ButtonContainer = (props: ContainerProps) => (
-  <div className="mt-[10px] flex flex-col gap-[20px] md:flex-row" {...props}>
+export const CTAContainer = (props: ContainerProps) => (
+  <div className="mt-[10px] mr-auto flex gap-[10px] md:gap-[20px]" {...props}>
     {props.children}
   </div>
 )

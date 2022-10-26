@@ -4,7 +4,7 @@ import {
 } from "@heroicons/react/24/outline"
 import Button from "components/Button"
 import CompetitionSection from "components/Competition"
-import { ButtonContainer, HeroContainer, Page } from "components/Container"
+import { CTAContainer, HeroContainer, Page } from "components/Container"
 import Hero from "components/Hero"
 import useScrollPosition from "hooks/useScrollPosition"
 import type { NextPage } from "next"
@@ -21,16 +21,16 @@ const Home: NextPage = () => {
             "dengan mudah dan nyaman",
           ]}
         />
-        <ButtonContainer>
+        <CTAContainer>
           <Button
             icon={<ArrowUpTrayIcon className="h-[18px] w-[18px]" />}
             title="Unggah lomba"
           />
-          <div className="flex w-full items-center gap-[10px] rounded-full p-[10px] text-sm font-semibold text-blue-500 transition md:w-max">
+          <div className="flex min-w-fit items-center gap-[10px] rounded-full p-[10px] text-sm font-semibold text-blue-500 transition">
             <ArrowSmallDownIcon className="h-[18px] w-[18px] animate-bounce" />
             <span>Cari lomba</span>
           </div>
-        </ButtonContainer>
+        </CTAContainer>
       </HeroContainer>
       <CompetitionSection />
     </Page>

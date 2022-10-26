@@ -75,13 +75,13 @@ const DateFilter = (props: FilterProps) => (
 )
 
 const SearchFiler = (props: FilterProps) => (
-  <div className="group flex w-full items-center gap-[10px] rounded-md border-[0.5px] border-white border-opacity-20 bg-white/0 py-[10px] pl-[15px] text-sm text-white transition hover:border-opacity-50 focus:border-opacity-100">
+  <div className="group flex w-full items-center gap-[10px] rounded-md border-[0.5px] border-white border-opacity-20 bg-white/0 py-[10px] pl-[15px] text-sm text-white transition hover:border-opacity-50 focus:border-[0.1px] focus:border-opacity-100">
     <MagnifyingGlassIcon className="h-[18px] w-[18px] opacity-50 transition group-hover:opacity-100" />
     <input
       className="w-full bg-transparent transition placeholder:text-white placeholder:text-opacity-50 focus:outline-none focus:placeholder:text-opacity-100"
       type="text"
       placeholder="Cari lomba..."
-      defaultValue={props.searchValue}
+      value={props.searchValue}
       onChange={(e) => props.setSearchValue?.(e.target.value)}
     />
   </div>
