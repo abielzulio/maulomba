@@ -210,7 +210,7 @@ const CompetitionItem = ({ competition }: { competition: Competition }) =>
 
 const CompetitionSection = () => {
   const [searchValue, setSearchValue] = useState<string>("")
-  const [selectedTags, setSelectedTags] = useState<string[]>([""])
+  const [selectedTags, setSelectedTags] = useState<string[]>([])
   const [sortDateValue, setSortDateValue] = useState<string>("deadline")
   /* Filter by title and desc */
   /* Filter by tags */
