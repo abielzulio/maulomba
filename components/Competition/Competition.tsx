@@ -132,10 +132,10 @@ const CompetitionNotFound = (props: FilterProps) => {
     searchValue: string | undefined,
     selectedTags: string[] | undefined
   ) => {
-    if (searchValue) {
+    if (searchValue && searchValue) {
       props.setSearchValue?.("")
     }
-    if (selectedTags.length > 0) {
+    if (selectedTags && selectedTags.length > 0) {
       props.setSelectedTags?.([])
     }
   }
