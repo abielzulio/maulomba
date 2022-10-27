@@ -17,6 +17,7 @@ export interface ButtonProps
   icon?: React.ReactNode | string
   title?: string
   kind?: "primary" | "secondary"
+  size?: "small" | "medium"
 }
 
 export interface FilterProps {
