@@ -77,3 +77,14 @@ export const ImageContainer = (props: ImageContainerProps) => {
     </div>
   )
 }
+
+export const PillContainer = (props: ContainerProps) => {
+  const { className = `` } = props
+  return (
+    <p
+      className={`absolute z-10 h-min w-min animate-pulse rounded-full py-[5px] px-[13px] backdrop-blur-md backdrop-filter group-hover:animate-none ${className} text-[12px] font-bold tracking-tight text-white`}
+    >
+      {props.children}
+    </p>
+  )
+}

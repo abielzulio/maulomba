@@ -1,41 +1,17 @@
 import React from "react"
-import { ContainerProps } from "types/component"
 
 interface TagLabelProps {
   tag: string[]
 }
 
-const PillContainer = (props: ContainerProps) => {
-  const { className = `` } = props
-  return (
-    <p
-      className={`absolute z-10 h-min w-min animate-pulse rounded-full py-[5px] px-[13px] backdrop-blur-md backdrop-filter group-hover:animate-none ${className} text-[12px] font-bold tracking-tight text-white`}
-    >
-      {props.children}
-    </p>
-  )
+interface LevelLabelProps {
+  level: string
 }
 
-export const FeaturedPill = () => {
-  return (
-    <PillContainer className="top-[10px] left-[10px] bg-blue-600">
-      Featured
-    </PillContainer>
-  )
-}
-
-export const DeadlinePill = () => {
-  return (
-    <PillContainer className="top-[10px] right-[10px] bg-red-600">
-      Deadline
-    </PillContainer>
-  )
-}
-
-export const LevelLabel = () => {
+export const LevelLabel = (props: LevelLabelProps) => {
   return (
     <p className="absolute bottom-[10px] left-[10px] z-10 h-fit w-fit rounded-md bg-black p-[5px] text-[10px] font-semibold text-white opacity-80 backdrop-blur-lg backdrop-filter transition">
-      Nasional
+      {props.level}
     </p>
   )
 }

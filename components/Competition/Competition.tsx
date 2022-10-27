@@ -8,7 +8,8 @@ import { useState } from "react"
 import Marquee from "react-fast-marquee"
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry"
 import { Competition } from "types/data"
-import { DeadlinePill, FeaturedPill, LevelLabel, TagLabel } from "./Label"
+import { LevelLabel, TagLabel } from "components/Label"
+import { FeaturedPill, DeadlinePill } from "components/Pill"
 
 const competition: Competition[] = [
   {
@@ -144,7 +145,7 @@ const CompetitionItem = ({ competition }: { competition: Competition }) =>
             <span className="absolute z-10 h-[100px] w-full bg-gradient-to-b from-gray-900/60 to-transparent" />
             {competition.featured && <FeaturedPill />}
             {competition.deadline && <DeadlinePill />}
-            {competition.level && <LevelLabel />}
+            {competition.level && <LevelLabel level={competition.level} />}
             {/* Button to like a competition item */}
 
             {/* Main competition image */}
@@ -175,7 +176,7 @@ const CompetitionItem = ({ competition }: { competition: Competition }) =>
             {competition.title && competition.title.length > 30 ? (
               <Marquee
                 pauseOnHover
-                gradientColor={[0, 0, 0]}
+                gradientColor={[13, 17, 22]}
                 gradientWidth={20}
                 className="text-md font-semibold tracking-tight hover:underline"
               >
@@ -190,7 +191,7 @@ const CompetitionItem = ({ competition }: { competition: Competition }) =>
             {competition.eo && competition.eo.length > 30 ? (
               <Marquee
                 pauseOnHover
-                gradientColor={[0, 0, 0]}
+                gradientColor={[13, 17, 22]}
                 gradientWidth={20}
                 className="text-sm opacity-50"
               >
@@ -263,7 +264,7 @@ const CompetitionSection = () => {
         >
           <div className="mx-auto flex flex-col items-center gap-[10px] opacity-80">
             <ArchiveBoxXMarkIcon className="h-[24px] w-[24px]" />
-            Kompetisi yang Anda cari tidak ada
+            Lomba yang Anda cari tidak ada
             <button
               onClick={() => handleClearFilter(searchValue, tagValue)}
               className="mt-[10px] text-sm underline opacity-50 transition hover:opacity-80"

@@ -5,29 +5,13 @@ import {
   MagnifyingGlassIcon,
 } from "@heroicons/react/24/outline"
 import { Chip, createStyles } from "@mantine/core"
+import { COMPETITION_FILTER_OPTIONS, DATE_FILTER_OPTIONS } from "data/options"
+import {
+  STRING_CATEGORY_TOGGLE_BUTTON,
+  STRING_SEARCH_FILTER_PLACEHOLDER,
+} from "data/string"
 import { motion } from "framer-motion"
-import { handleMobile, useWindowDimension } from "hooks/useWindowDimension"
 import { useState } from "react"
-
-const filteroptions = [
-  "Videography & Short Film",
-  "Technology & Engineering",
-  "UI/UX",
-  "Photography",
-  "Design",
-  "Music",
-  "Writing",
-  "Business",
-  "Social Impact",
-  "Science & Technology",
-  "Arts & Culture",
-  "Sports",
-  "Education",
-  "Health & Wellness",
-  "Food & Beverage",
-  "Fashion & Beauty",
-  "Others",
-]
 
 interface FilterProps {
   searchValue?: string
@@ -55,7 +39,7 @@ const TagFilterToggle = (props: TagFilterProps) => (
     ) : (
       <EyeIcon className="h-[18px] w-[18px] opacity-50 transition group-hover:opacity-100" />
     )}
-    Kategori
+    {STRING_CATEGORY_TOGGLE_BUTTON}
     {props.tagValue && props.tagValue.length > 1 && (
       <span className="rounded-full bg-white/10 px-[6px] text-[10px] font-semibold">
         {props.tagValue.length - 1}
@@ -74,9 +58,9 @@ const DateFilter = (props: FilterProps) => (
       defaultValue={props.sortDateValue}
     >
       <option value="deadline" selected>
-        Deadline terdekat
+        {DATE_FILTER_OPTIONS[0]}
       </option>
-      <option value="baru">Lomba terbaru</option>
+      <option value="baru">{DATE_FILTER_OPTIONS[1]}</option>
     </select>
   </div>
 )
@@ -87,7 +71,7 @@ const SearchFiler = (props: FilterProps) => (
     <input
       className="w-full bg-transparent transition placeholder:text-white placeholder:text-opacity-50 focus:outline-none focus:placeholder:text-opacity-100"
       type="text"
-      placeholder="Cari lomba..."
+      placeholder={STRING_SEARCH_FILTER_PLACEHOLDER}
       value={props.searchValue}
       onChange={(e) => props.setSearchValue?.(e.target.value)}
     />
@@ -95,6 +79,7 @@ const SearchFiler = (props: FilterProps) => (
 )
 
 const TagFilter = (props: TagFilterProps) => {
+  // Mantine chip styling
   const useStyles = createStyles((theme, _params, getRef) => ({
     iconWrapper: {
       ref: getRef("iconWrapper"),
@@ -128,6 +113,7 @@ const TagFilter = (props: TagFilterProps) => {
     checkIcon: {
       color: "white !important",
     },
+    // A fix to consistent Mantine chip style accross browsers
     root: {
       display: "contents",
     },
@@ -142,31 +128,36 @@ const TagFilter = (props: TagFilterProps) => {
       transition={{ delay: 0.25 }}
       style={{ display: props.showTag ? "block" : "none" }}
     >
-      <Chip.Group
-        value={props.tagValue}
-        onChange={props.setTagValue}
-        multiple
-        className="margin-x my-auto flex flex-nowrap gap-[3px] overflow-scroll bg-black pb-[15px]"
-      >
-        {filteroptions.map((option, id) => (
-          <Chip
-            className="font-medium"
-            styles={{}}
-            value={option}
-            classNames={classes}
-            key={id}
-          >
-            {option}
-          </Chip>
-        ))}
-      </Chip.Group>
+      <div className="margin-x relative my-auto bg-black">
+        {/* Left side gradient */}
+        <span className="absolute bottom-[10px] z-10 h-full w-[30px] bg-gradient-to-r from-[#0d1116] to-transparent" />
+        {/* Right side gradient */}
+        <span className="absolute right-[0px] bottom-[10px] z-10 h-full w-[30px] bg-gradient-to-l from-[#0d1116] to-transparent" />
+        <Chip.Group
+          value={props.tagValue}
+          onChange={props.setTagValue}
+          multiple
+          className="flex flex-nowrap gap-[3px] overflow-scroll px-[10px] pb-[15px]"
+        >
+          {COMPETITION_FILTER_OPTIONS.map((option, id) => (
+            <Chip
+              className="font-medium"
+              styles={{}}
+              value={option}
+              classNames={classes}
+              key={id}
+            >
+              {option}
+            </Chip>
+          ))}
+        </Chip.Group>
+      </div>
     </motion.div>
   )
 }
 
 const Filter = (props: FilterProps) => {
   const [showTag, setShowTag] = useState<boolean>(true)
-  const isMobile: boolean = handleMobile(useWindowDimension())
   return (
     <div className="sticky top-[0px] z-20 flex w-full flex-col">
       <span className="padding-x -mb-[5px] h-[30px] w-full bg-black" />
