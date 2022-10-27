@@ -16,8 +16,8 @@ import { useState } from "react"
 interface FilterProps {
   searchValue?: string
   setSearchValue?: (value: string) => void
-  tagValue?: string[]
-  setTagValue?: (value: string[]) => void
+  selectedTags?: string[]
+  setSelectedTags?: (value: string[]) => void
   sortDateValue?: string
   setSortDateValue?: (value: string) => void
 }
@@ -40,9 +40,9 @@ const TagFilterToggle = (props: TagFilterProps) => (
       <EyeIcon className="h-[18px] w-[18px] opacity-50 transition group-hover:opacity-100" />
     )}
     {STRING_CATEGORY_TOGGLE_BUTTON}
-    {props.tagValue && props.tagValue.length > 1 && (
+    {props.selectedTags && props.selectedTags.length > 0 && (
       <span className="rounded-full bg-white/10 px-[6px] text-[10px] font-semibold">
-        {props.tagValue.length - 1}
+        {props.selectedTags.length}
       </span>
     )}
   </button>
@@ -134,8 +134,8 @@ const TagFilter = (props: TagFilterProps) => {
         {/* Right side gradient */}
         <span className="absolute right-[0px] bottom-[10px] z-10 h-full w-[30px] bg-gradient-to-l from-[#0d1116] to-transparent" />
         <Chip.Group
-          value={props.tagValue}
-          onChange={props.setTagValue}
+          value={props.selectedTags}
+          onChange={props.setSelectedTags}
           multiple
           className="flex flex-nowrap gap-[3px] overflow-scroll px-[10px] pb-[15px]"
         >
@@ -178,14 +178,14 @@ const Filter = (props: FilterProps) => {
           <TagFilterToggle
             showTag={showTag}
             setShowTag={setShowTag}
-            tagValue={props.tagValue}
+            selectedTags={props.selectedTags}
           />
         </div>
       </div>
       <TagFilter
         showTag={showTag}
-        tagValue={props.tagValue}
-        setTagValue={props.setTagValue}
+        selectedTags={props.selectedTags}
+        setSelectedTags={props.setSelectedTags}
       />
       <span
         className={`padding-x h-[20px] w-full bg-gradient-to-b from-black to-transparent`}

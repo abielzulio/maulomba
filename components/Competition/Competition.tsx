@@ -210,7 +210,7 @@ const CompetitionItem = ({ competition }: { competition: Competition }) =>
 
 const CompetitionSection = () => {
   const [searchValue, setSearchValue] = useState<string>("")
-  const [tagValue, setTagValue] = useState<string[]>([""])
+  const [selectedTags, setSelectedTags] = useState<string[]>([""])
   const [sortDateValue, setSortDateValue] = useState<string>("deadline")
   /* Filter by title and desc */
   /* Filter by tags */
@@ -221,17 +221,17 @@ const CompetitionSection = () => {
       // || comp.desc.toLowerCase().includes(searchValue.toLowerCase())
     )
     .filter((competition) =>
-      tagValue.length > 1
-        ? competition.tags.find((tag) => tagValue.includes(tag))
+      selectedTags.length > 0
+        ? competition.tags.find((tag) => selectedTags.includes(tag))
         : true
     )
 
-  const handleClearFilter = (searchValue: string, tagValue: string[]) => {
+  const handleClearFilter = (searchValue: string, selectedTags: string[]) => {
     if (searchValue) {
       setSearchValue("")
     }
-    if (tagValue.length > 1) {
-      setTagValue([""])
+    if (selectedTags.length > 0) {
+      setSelectedTags([])
     }
   }
   return (
@@ -239,8 +239,8 @@ const CompetitionSection = () => {
       <Filter
         searchValue={searchValue}
         setSearchValue={setSearchValue}
-        tagValue={tagValue}
-        setTagValue={setTagValue}
+        selectedTags={selectedTags}
+        setSelectedTags={setSelectedTags}
         sortDateValue={sortDateValue}
         setSortDateValue={setSortDateValue}
       />
@@ -266,7 +266,7 @@ const CompetitionSection = () => {
             <ArchiveBoxXMarkIcon className="h-[24px] w-[24px]" />
             Lomba yang Anda cari tidak ada
             <button
-              onClick={() => handleClearFilter(searchValue, tagValue)}
+              onClick={() => handleClearFilter(searchValue, selectedTags)}
               className="mt-[10px] text-sm underline opacity-50 transition hover:opacity-80"
             >
               Hapus penyaringan
