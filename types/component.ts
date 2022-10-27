@@ -18,3 +18,12 @@ export interface ButtonProps
   title?: string
   kind?: "primary" | "secondary"
 }
+
+export interface FilterProps {
+  searchValue?: string
+  setSearchValue?: (value: string) => void
+  selectedTags?: string[]
+  setSelectedTags?: (value: string[]) => void
+  sortDateValue?: string
+  setSortDateValue?: (value: string) => void
+}

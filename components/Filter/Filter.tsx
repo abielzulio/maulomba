@@ -13,15 +13,7 @@ import {
 } from "data/string"
 import { motion } from "framer-motion"
 import { useState } from "react"
-
-interface FilterProps {
-  searchValue?: string
-  setSearchValue?: (value: string) => void
-  selectedTags?: string[]
-  setSelectedTags?: (value: string[]) => void
-  sortDateValue?: string
-  setSortDateValue?: (value: string) => void
-}
+import { FilterProps } from "types/component"
 
 interface TagFilterProps extends FilterProps {
   showTag?: boolean
