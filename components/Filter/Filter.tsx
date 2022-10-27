@@ -88,10 +88,10 @@ const TagFilter = (props: TagFilterProps) => {
     label: {
       "&[data-checked]": {
         "&, &:hover": {
-          borderColor: "#0090ff !important",
+          borderColor: "#0070F3 !important",
           opacity: 1,
           color: "white !important",
-          backgroundColor: "#0090ff !important",
+          backgroundColor: "#0070F3 !important",
           borderOpacity: 1,
         },
 
