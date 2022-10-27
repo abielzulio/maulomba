@@ -119,6 +119,18 @@ const TagFilter = (props: TagFilterProps) => {
     },
   }))
   const { classes } = useStyles()
+  // Array of unselected tags
+  const unselectedTags =
+    props.selectedTags &&
+    COMPETITION_FILTER_OPTIONS &&
+    COMPETITION_FILTER_OPTIONS.filter(
+      (tag) => props.selectedTags?.indexOf(tag) === -1
+    )
+  // New array with selected tags prioritized and the rest from the unselected tags
+  const sortedTags =
+    unselectedTags && COMPETITION_FILTER_OPTIONS && unselectedTags.length > 0
+      ? props.selectedTags?.concat(unselectedTags)
+      : COMPETITION_FILTER_OPTIONS
   return (
     <motion.div
       className="h-min w-full bg-black"
@@ -139,17 +151,18 @@ const TagFilter = (props: TagFilterProps) => {
           multiple
           className="flex flex-nowrap gap-[3px] overflow-scroll px-[10px] pb-[15px]"
         >
-          {COMPETITION_FILTER_OPTIONS.map((option, id) => (
-            <Chip
-              className="font-medium"
-              styles={{}}
-              value={option}
-              classNames={classes}
-              key={id}
-            >
-              {option}
-            </Chip>
-          ))}
+          {sortedTags &&
+            sortedTags.map((option, id) => (
+              <Chip
+                className="font-medium"
+                styles={{}}
+                value={option}
+                classNames={classes}
+                key={id}
+              >
+                {option}
+              </Chip>
+            ))}
         </Chip.Group>
       </div>
     </motion.div>
