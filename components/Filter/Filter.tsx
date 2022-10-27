@@ -143,7 +143,7 @@ const TagFilter = (props: TagFilterProps) => {
         >
           {props.selectedTags && props.selectedTags.length > 0 && (
             <button
-              className="mx-auto ml-[10px] flex h-full min-w-fit items-center gap-[5px] rounded-full border-[0.75px] border-white pt-[3px] pb-[4px] pl-[10px] pr-[12px] text-sm font-medium text-white opacity-50 transition hover:opacity-100"
+              className="mx-auto ml-[10px] flex h-full min-w-fit items-center gap-[5px] rounded-full border-[0.75px] border-white bg-white pt-[3px] pb-[4px] pl-[10px] pr-[12px] text-sm font-medium text-black opacity-50 transition hover:opacity-100"
               onClick={() => props.setSelectedTags?.([])}
             >
               <XMarkIcon className="h-4 w-4" /> Hapus semua
