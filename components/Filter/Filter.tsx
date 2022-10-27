@@ -3,6 +3,7 @@ import {
   EyeIcon,
   EyeSlashIcon,
   MagnifyingGlassIcon,
+  XCircleIcon,
 } from "@heroicons/react/24/outline"
 import { Chip, createStyles } from "@mantine/core"
 import { COMPETITION_FILTER_OPTIONS, DATE_FILTER_OPTIONS } from "data/options"
@@ -149,8 +150,16 @@ const TagFilter = (props: TagFilterProps) => {
           value={props.selectedTags}
           onChange={props.setSelectedTags}
           multiple
-          className="flex flex-nowrap gap-[3px] overflow-scroll px-[10px] pb-[15px]"
+          className={`flex flex-nowrap gap-[3px] overflow-scroll px-[10px] pb-[15px]`}
         >
+          {props.selectedTags && props.selectedTags.length > 0 && (
+            <button
+              className="my-auto flex h-full min-w-fit justify-center gap-[5px] bg-gradient-to-l from-[#0d1116] to-transparent pl-[10px] text-sm font-semibold text-white opacity-50 transition hover:opacity-100"
+              onClick={() => props.setSelectedTags?.([])}
+            >
+              <XCircleIcon className="h-6 w-6" />
+            </button>
+          )}
           {sortedTags &&
             sortedTags.map((option, id) => (
               <Chip
