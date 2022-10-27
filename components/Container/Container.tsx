@@ -48,7 +48,7 @@ export const HeroContainer = (props: ContainerProps) => {
 
 export const ContentContainer = (props: ContainerProps) => {
   return (
-    <Container className="mb-[60px] min-h-fit w-full" {...props}>
+    <Container className="min-h-fit w-full" {...props}>
       {props.children}
     </Container>
   )
