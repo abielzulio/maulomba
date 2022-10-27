@@ -20,7 +20,7 @@ export const TagLabel = (props: TagLabelProps) => {
   const isMoreTags = props.tag.length > 2
   const TagLabelItem = (props: { children: React.ReactNode }) => (
     <p
-      className="h-fit w-fit whitespace-nowrap rounded-md bg-white/10 p-[5px] text-[10px] font-semibold opacity-80"
+      className="h-fit w-fit whitespace-nowrap rounded-md bg-white/10 p-[5px] text-[12px] font-semibold opacity-80"
       {...props}
     >
       {props.children}

@@ -10,6 +10,11 @@ import Masonry, { ResponsiveMasonry } from "react-responsive-masonry"
 import { Competition } from "types/data"
 import { LevelLabel, TagLabel } from "components/Label"
 import { FeaturedPill, DeadlinePill } from "components/Pill"
+import { FilterProps } from "types/component"
+import {
+  STRING_CLEAR_FILTERED_COMPETITON_BUTTON,
+  STRING_FILTERED_COMPETITON_IS_NOT_FOUND,
+} from "data/string"
 
 const competition: Competition[] = [
   {
@@ -21,7 +26,7 @@ const competition: Competition[] = [
       "Technology & Engineering",
       "Technology & Engineering",
     ],
-    url: "https://www.google.com",
+    url: "/lomba",
     image: "/1.jpg",
     eo: "ASEAN",
     level: "Nasional",
@@ -40,7 +45,7 @@ const competition: Competition[] = [
       "Technology & Engineering",
       "Technology & Engineering",
     ],
-    url: "https://www.google.com",
+    url: "/lomba",
     image: "/2.jpg",
     eo: "ASEAN",
     level: "Nasional",
@@ -59,7 +64,7 @@ const competition: Competition[] = [
       "Technology & Engineering",
       "Technology & Engineering",
     ],
-    url: "https://www.google.com",
+    url: "/lomba",
     image: "/3.jpeg",
     eo: "ASEAN",
     level: "Nasional",
@@ -78,7 +83,7 @@ const competition: Competition[] = [
       "Technology & Engineering",
       "Technology & Engineering",
     ],
-    url: "https://www.google.com",
+    url: "/lomba",
     image: "/1.jpg",
     eo: "ASEAN",
     level: "Nasional",
@@ -97,7 +102,7 @@ const competition: Competition[] = [
       "Technology & Engineering",
       "Technology & Engineering",
     ],
-    url: "https://www.google.com",
+    url: "/lomba",
     image: "/1.jpg",
     eo: "ASEAN",
     level: "Nasional",
@@ -112,11 +117,11 @@ const competition: Competition[] = [
 const LikeViewSection = (props: { likes: number; views: number }) => (
   <div className="flex items-center justify-between gap-[10px] text-[12px] font-semibold tracking-tighter">
     <div className="flex items-center gap-[3px] opacity-50">
-      <EyeIcon className="h-[12px] w-[12px]" />
+      <EyeIcon className="h-3 w-3" />
       <span>{props.views}</span>
     </div>
     <div className="flex items-center gap-[3px] opacity-50">
-      <HeartIcon className="h-[12px] w-[12px]" />
+      <HeartIcon className="h-3 w-3" />
       <span>{props.likes}</span>
     </div>
   </div>
@@ -277,7 +282,7 @@ const CompetitionSection = () => {
           columnsCountBreakPoints={{ 350: 1, 750: 2, 900: 3, 1200: 4 }}
         >
           <Masonry columnsCount={4} gutter="20px">
-            {filteredCompetition.map((competition, id, arr) => (
+            {filteredCompetition.map((competition, id) => (
               <CompetitionItem key={id} competition={competition} />
             ))}
           </Masonry>
