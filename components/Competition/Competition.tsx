@@ -136,7 +136,7 @@ const CompetitionItem = ({ competition }: { competition: Competition }) =>
           onClick={() => alert(competition.id)}
           className="absolute bottom-[10px] right-[10px] z-10 h-fit w-fit rounded-md bg-black/100 p-[5px] text-[10px] font-semibold text-white backdrop-blur-lg backdrop-filter transition hover:text-red-500"
         >
-          <HeartIcon className="h-[14px] w-[14px]" />
+          <HeartIcon className="h-4 w-4" />
         </button>
         <NextLink passHref href={competition.url} className="relative">
           {/* Competition image compositioned */}

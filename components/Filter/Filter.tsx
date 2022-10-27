@@ -36,9 +36,9 @@ const TagFilterToggle = (props: TagFilterProps) => (
     } group relative ml-[10px] flex min-w-fit items-center gap-[10px] rounded-md border-[0.5px] border-white border-opacity-20 bg-white py-[10px] px-[15px] text-sm text-white text-opacity-80 transition hover:border-opacity-50 focus:border-opacity-50 focus:bg-opacity-50`}
   >
     {props.showTag ? (
-      <EyeSlashIcon className="h-[18px] w-[18px] opacity-50 transition group-hover:opacity-100" />
+      <EyeSlashIcon className="h-5 w-5 opacity-50 transition group-hover:opacity-100" />
     ) : (
-      <EyeIcon className="h-[18px] w-[18px] opacity-50 transition group-hover:opacity-100" />
+      <EyeIcon className="h-5 w-5 opacity-50 transition group-hover:opacity-100" />
     )}
     {STRING_CATEGORY_TOGGLE_BUTTON}
     {props.selectedTags && props.selectedTags.length > 0 && (
@@ -51,7 +51,7 @@ const TagFilterToggle = (props: TagFilterProps) => (
 
 const DateFilter = (props: FilterProps) => (
   <div className="group flex w-full items-center gap-[10px] rounded-md border-[0.5px] border-white border-opacity-20 bg-white/5 py-[10px] px-[15px] text-sm text-white text-opacity-80 transition hover:cursor-pointer hover:border-opacity-50 focus:border-opacity-100 focus:bg-opacity-50">
-    <CalendarIcon className="h-[18px] w-[18px] opacity-50 transition group-hover:opacity-100" />
+    <CalendarIcon className="h-5 w-5 opacity-50 transition group-hover:opacity-100" />
     <select
       className="w-full bg-transparent"
       value={props.sortDateValue}
@@ -68,7 +68,7 @@ const DateFilter = (props: FilterProps) => (
 
 const SearchFiler = (props: FilterProps) => (
   <div className="group flex w-full items-center gap-[10px] rounded-md border-[0.5px] border-white border-opacity-20 bg-white/0 py-[10px] pl-[15px] text-sm text-white transition hover:border-opacity-50 focus:border-[0.1px] focus:border-opacity-100">
-    <MagnifyingGlassIcon className="h-[18px] w-[18px] opacity-50 transition group-hover:opacity-100" />
+    <MagnifyingGlassIcon className="h-5 w-5 opacity-50 transition group-hover:opacity-100" />
     <input
       className="w-full bg-transparent transition placeholder:text-white placeholder:text-opacity-50 focus:outline-none focus:placeholder:text-opacity-100"
       type="text"
