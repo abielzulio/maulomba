@@ -174,7 +174,7 @@ const Filter = (props: FilterProps) => {
   const [showTag, setShowTag] = useState<boolean>(true)
   return (
     <div className="sticky top-[0px] z-20 flex w-full flex-col">
-      <span className="padding-x -mb-[5px] h-[30px] w-full bg-black" />
+      <span className="padding-x -mb-[10px] h-[30px] w-full bg-black" />
       <div
         className={`padding-x flex min-h-min flex-col gap-[10px] bg-black ${
           showTag ? `pb-[20px]` : `pb-[10px]`
