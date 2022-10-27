@@ -41,7 +41,7 @@ export const HeroContainer = (props: ContainerProps) => {
       className="padding-x mt-[20px] mb-[10px] h-fit w-full md:mt-[40px] md:mb-[20px]"
       {...props}
     >
-      <div className="flex flex-col gap-[20px]">{props.children}</div>
+      <div className="flex flex-row gap-[20px]">{props.children}</div>
     </Container>
   )
 }
@@ -54,9 +54,12 @@ export const ContentContainer = (props: ContainerProps) => {
   )
 }
 
-export const CTAContainer = (props: ContainerProps) => (
-  <div className="mt-[10px] mr-auto flex gap-[10px] md:gap-[20px]" {...props}>
-    {props.children}
+export const CTAContainer = ({ children, ...rest }: ContainerProps) => (
+  <div
+    className="ml-auto flex min-h-full flex-col gap-[10px] sm:flex-row md:gap-[20px]"
+    {...rest}
+  >
+    {children}
   </div>
 )
 

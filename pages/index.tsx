@@ -1,13 +1,11 @@
-import {
-  ArrowSmallDownIcon,
-  ArrowUpTrayIcon,
-} from "@heroicons/react/24/outline"
+import { ArrowUpTrayIcon, UserIcon } from "@heroicons/react/24/outline"
 import Button from "components/Button"
 import CompetitionSection from "components/Competition"
 import { CTAContainer, HeroContainer, Page } from "components/Container"
 import Hero from "components/Hero"
 import useScrollPosition from "hooks/useScrollPosition"
 import type { NextPage } from "next"
+import NextLink from "next/link"
 
 const Home: NextPage = () => {
   const scrollPosition = useScrollPosition()
@@ -22,14 +20,21 @@ const Home: NextPage = () => {
           ]}
         />
         <CTAContainer>
-          <Button
-            icon={<ArrowUpTrayIcon className="h-[18px] w-[18px]" />}
-            title="Unggah lomba"
-          />
-          <div className="flex min-w-fit items-center gap-[10px] rounded-full p-[10px] text-sm font-semibold text-blue-500 transition">
-            <ArrowSmallDownIcon className="h-[18px] w-[18px] animate-bounce" />
-            <span>Cari lomba</span>
-          </div>
+          <NextLink href="/kirim-lomba">
+            <Button
+              icon={<ArrowUpTrayIcon className="h-3 w-3" />}
+              title="Unggah lomba"
+              className="sticky top-[20px]"
+            />
+          </NextLink>
+          <NextLink href="/masuk">
+            <Button
+              icon={<UserIcon className="h-3 w-3" />}
+              title="Masuk"
+              kind="secondary"
+              className="sticky top-[20px]"
+            />
+          </NextLink>
         </CTAContainer>
       </HeroContainer>
       <CompetitionSection />
