@@ -3,7 +3,7 @@ import {
   EyeIcon,
   EyeSlashIcon,
   MagnifyingGlassIcon,
-  XCircleIcon,
+  XMarkIcon,
 } from "@heroicons/react/24/outline"
 import { Chip, createStyles } from "@mantine/core"
 import { COMPETITION_FILTER_OPTIONS, DATE_FILTER_OPTIONS } from "data/options"
@@ -96,7 +96,7 @@ const TagFilter = (props: TagFilterProps) => {
       color: "white",
       borderColor: "white !important",
       opacity: 0.5,
-      borderWidth: "0.25px !important",
+      borderWidth: "0.5px",
       borderOpacity: 0 + "!important",
       "&:hover": {
         borderOpacity: 0.5,
@@ -146,10 +146,10 @@ const TagFilter = (props: TagFilterProps) => {
         >
           {props.selectedTags && props.selectedTags.length > 0 && (
             <button
-              className="my-auto flex h-full min-w-fit justify-center gap-[5px] bg-gradient-to-l from-[#0d1116] to-transparent pl-[10px] text-sm font-semibold text-white opacity-50 transition hover:opacity-100"
+              className="mx-auto ml-[10px] flex h-full min-w-fit items-center gap-[5px] rounded-full border-[0.75px] border-white pt-[3px] pb-[4px] pl-[10px] pr-[12px] text-sm font-medium text-white opacity-50 transition hover:opacity-100"
               onClick={() => props.setSelectedTags?.([])}
             >
-              <XCircleIcon className="h-6 w-6" />
+              <XMarkIcon className="h-4 w-4" /> Hapus semua
             </button>
           )}
           {sortedTags &&
