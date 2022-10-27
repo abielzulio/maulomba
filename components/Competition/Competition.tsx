@@ -279,7 +279,7 @@ const CompetitionSection = () => {
       {filteredCompetition.length > 0 ? (
         <ResponsiveMasonry
           className="padding-x"
-          columnsCountBreakPoints={{ 350: 1, 750: 2, 900: 3, 1200: 4 }}
+          columnsCountBreakPoints={{ 350: 1, 640: 2, 900: 3, 1300: 4 }}
         >
           <Masonry columnsCount={4} gutter="20px">
             {filteredCompetition.map((competition, id) => (
