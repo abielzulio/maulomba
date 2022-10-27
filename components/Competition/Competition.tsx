@@ -122,6 +122,41 @@ const LikeViewSection = (props: { likes: number; views: number }) => (
   </div>
 )
 
+const CompetitionNotFound = (props: FilterProps) => {
+  const handleClearFilter = (
+    searchValue: string | undefined,
+    selectedTags: string[] | undefined
+  ) => {
+    if (searchValue) {
+      props.setSearchValue?.("")
+    }
+    if (selectedTags.length > 0) {
+      props.setSelectedTags?.([])
+    }
+  }
+  return (
+    <motion.section
+      animate={{ opacity: 1 }}
+      initial={{ opacity: 0 }}
+      exit={{ opacity: 0 }}
+      className="padding-x flex py-[30px] text-center"
+    >
+      <div className="mx-auto flex flex-col items-center gap-[10px] opacity-80">
+        <ArchiveBoxXMarkIcon className="h-[24px] w-[24px]" />
+        {STRING_FILTERED_COMPETITON_IS_NOT_FOUND}
+        <button
+          onClick={() =>
+            handleClearFilter(props.searchValue, props.selectedTags)
+          }
+          className="mt-[10px] text-sm underline opacity-50 transition hover:opacity-80"
+        >
+          {STRING_CLEAR_FILTERED_COMPETITON_BUTTON}
+        </button>
+      </div>
+    </motion.section>
+  )
+}
+
 const CompetitionItem = ({ competition }: { competition: Competition }) =>
   competition && (
     <motion.div
@@ -226,14 +261,6 @@ const CompetitionSection = () => {
         : true
     )
 
-  const handleClearFilter = (searchValue: string, selectedTags: string[]) => {
-    if (searchValue) {
-      setSearchValue("")
-    }
-    if (selectedTags.length > 0) {
-      setSelectedTags([])
-    }
-  }
   return (
     <ContentContainer>
       <Filter
@@ -256,23 +283,12 @@ const CompetitionSection = () => {
           </Masonry>
         </ResponsiveMasonry>
       ) : (
-        <motion.section
-          animate={{ opacity: 1 }}
-          initial={{ opacity: 0 }}
-          exit={{ opacity: 0 }}
-          className="padding-x flex py-[30px] text-center"
-        >
-          <div className="mx-auto flex flex-col items-center gap-[10px] opacity-80">
-            <ArchiveBoxXMarkIcon className="h-[24px] w-[24px]" />
-            Lomba yang Anda cari tidak ada
-            <button
-              onClick={() => handleClearFilter(searchValue, selectedTags)}
-              className="mt-[10px] text-sm underline opacity-50 transition hover:opacity-80"
-            >
-              Hapus penyaringan
-            </button>
-          </div>
-        </motion.section>
+        <CompetitionNotFound
+          searchValue={searchValue}
+          setSearchValue={setSearchValue}
+          selectedTags={selectedTags}
+          setSelectedTags={setSelectedTags}
+        />
       )}
     </ContentContainer>
   )
