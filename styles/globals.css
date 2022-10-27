@@ -7,7 +7,7 @@
 }
 
 .margin-x {
-  @apply mx-[15px] sm:mx-[20px] md:mx-[40px] lg:px-[60px];
+  @apply mx-[15px] sm:mx-[20px] md:mx-[40px] lg:mx-[60px];
 }
 
 :root {
