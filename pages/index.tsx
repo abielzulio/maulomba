@@ -11,13 +11,14 @@ const Home: NextPage = () => {
   const scrollPosition = useScrollPosition()
   return (
     <Page>
-      <HeroContainer style={{ filter: `blur(${scrollPosition / 25}px)` }}>
+      <HeroContainer>
         <Hero
-          title={["Cari kompetisi", "tanpa distraksi"]}
-          desc={[
+          hero_title={["Cari kompetisi", "tanpa distraksi"]}
+          hero_desc={[
             "Cari, simpan, dan ikuti berbagai jenis kompetisi",
             "dengan mudah dan nyaman",
           ]}
+          style={{ filter: `blur(${scrollPosition / 25}px)` }}
         />
         <CTAContainer>
           <NextLink href="/kirim-lomba">
