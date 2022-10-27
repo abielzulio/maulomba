@@ -24,7 +24,8 @@ const Home: NextPage = () => {
             <Button
               icon={<ArrowUpTrayIcon className="h-3 w-3" />}
               title="Unggah lomba"
-              className="sticky top-[20px]"
+              kind="primary"
+              className="ml-auto md:sticky md:top-[20px]"
             />
           </NextLink>
           <NextLink href="/masuk">
@@ -32,7 +33,7 @@ const Home: NextPage = () => {
               icon={<UserIcon className="h-3 w-3" />}
               title="Masuk"
               kind="secondary"
-              className="sticky top-[20px]"
+              className="ml-auto md:sticky md:top-[20px]"
             />
           </NextLink>
         </CTAContainer>

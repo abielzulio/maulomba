@@ -6,6 +6,9 @@ import {
 import { useState } from "react"
 import NextImage from "next/image"
 import { motion } from "framer-motion"
+import { useWindowDimension } from "hooks/useWindowDimension"
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline"
+import Button from "components/Button"
 
 const Container = (props: ContainerProps) => {
   const { className = `` } = props
@@ -54,14 +57,37 @@ export const ContentContainer = (props: ContainerProps) => {
   )
 }
 
-export const CTAContainer = ({ children, ...rest }: ContainerProps) => (
-  <div
-    className="ml-auto flex min-h-full flex-col gap-[10px] sm:flex-row md:gap-[20px]"
-    {...rest}
-  >
-    {children}
-  </div>
-)
+export const CTAContainer = (props: ContainerProps) => {
+  const { children, ...rest } = props
+  const isMobile = useWindowDimension() < 640
+  const [showCTA, setShowCTA] = useState<boolean>(false)
+  return !isMobile ? (
+    <div
+      className="ml-auto flex min-h-full flex-col gap-[10px] sm:flex-row md:gap-[20px]"
+      {...rest}
+    >
+      {children}
+    </div>
+  ) : (
+    <div className="ml-auto flex min-h-full flex-col gap-[20px]" {...rest}>
+      <>
+        <Button
+          icon={
+            showCTA ? (
+              <XMarkIcon className="h-3 w-3" />
+            ) : (
+              <Bars3Icon className="h-3 w-3" />
+            )
+          }
+          onClick={() => setShowCTA(!showCTA)}
+          className="ml-auto"
+          kind="neutral"
+        />
+        {showCTA ? children : null}
+      </>
+    </div>
+  )
+}
 
 export const ImageContainer = (props: ImageContainerProps) => {
   const [paddingTop, setPaddingTop] = useState(`0`)
