@@ -9,7 +9,7 @@ export interface ContainerProps extends React.HTMLAttributes<HTMLElement> {
 }
 
 export interface ImageContainerProps {
-  src: string
+  src: string | undefined
 }
 
 export interface ButtonProps

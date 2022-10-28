@@ -5,16 +5,23 @@ export interface Image {
 }
 
 export interface Competition {
-  id: number
+  id?: number
   title: string
-  desc: string
+  description: string
   tags: string[]
-  level: "Nasional" | "Internasional"
+  isFree?: boolean
+  level: "Nasional" | "Internasional" | undefined
   deadline: string
-  featured: boolean
+  featured?: boolean
   image: string
-  likes: number
-  views: number
+  likes?: number
+  views?: number
   eo: string
   url: string
+}
+
+export interface Image {
+  id: number
+  src: string | undefined
+  name: string
 }
