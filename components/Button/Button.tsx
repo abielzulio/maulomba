@@ -11,10 +11,12 @@ const Button = (props: ButtonProps) => {
   } = props
   return (
     <button
-      className={`${className} flex h-fit w-fit items-center rounded-lg border-[1.5px] border-opacity-20 text-sm transition hover:border-opacity-50 sm:w-fit ${
+      className={`${className} flex h-fit w-fit items-center rounded-lg border-[1.3px] border-opacity-20 text-sm transition hover:border-opacity-50 sm:w-fit ${
         size === "small"
-          ? `gap-[5px] py-[5px] px-[10px] font-medium`
-          : `gap-[10px] py-[10px] px-[20px] font-semibold`
+          ? `gap-[8px] px-[10px] font-medium ${title ? `py-[5px]` : `py-[7px]`}`
+          : `gap-[10px] px-[20px] font-semibold ${
+              title ? `py-[10px]` : `py-[13px]`
+            } `
       } ${
         kind === "primary" &&
         `border-white bg-blue-500 text-white hover:shadow-xl hover:shadow-blue-500/40`
