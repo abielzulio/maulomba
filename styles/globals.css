@@ -6,6 +6,10 @@
   @apply px-[15px] sm:px-[20px] md:px-[40px] lg:px-[60px];
 }
 
+.padding-y {
+  @apply py-[20px] lg:py-[30px];
+}
+
 .margin-x {
   @apply mx-[15px] sm:mx-[20px] md:mx-[40px] lg:mx-[60px];
 }
@@ -13,6 +17,7 @@
 :root {
   --scrollbar-width: 12px;
   --scrollbar-color: #2e2e2e;
+  @apply selection:bg-blue-500/50;
 }
 
 html,
