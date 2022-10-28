@@ -1,1 +1,1 @@
-export { default } from "./Competition"
+export * from "./CompetitionSection"

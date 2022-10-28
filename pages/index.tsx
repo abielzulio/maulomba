@@ -1,6 +1,6 @@
 import { ArrowUpTrayIcon, UserIcon } from "@heroicons/react/24/outline"
 import Button from "components/Button"
-import CompetitionSection from "components/Competition"
+import { CompetitionSection } from "components/Competition"
 import { CTAContainer, HeroContainer, Page } from "components/Container"
 import Hero from "components/Hero"
 import useScrollPosition from "hooks/useScrollPosition"

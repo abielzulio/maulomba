@@ -20,7 +20,8 @@ const competition: Competition[] = [
   {
     title:
       "PEC 2022, Padjajaran English Competition (Speech, Story Telling, Poetry, and Essay)",
-    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod.",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod.",
     tags: [
       "Videography & Short Film",
       "Technology & Engineering",
@@ -39,7 +40,8 @@ const competition: Competition[] = [
   {
     title:
       "PEC 2022, Padjajaran English Competition (Speech, Story Telling, Poetry, and Essay)",
-    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod.",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod.",
     tags: [
       "Videography & Short Film",
       "Technology & Engineering",
@@ -58,7 +60,8 @@ const competition: Competition[] = [
   {
     title:
       "PEC 2022, Padjajaran English Competition (Speech, Story Telling, Poetry, and Essay)",
-    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod.",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod.",
     tags: [
       "Videography & Short Film",
       "Technology & Engineering",
@@ -77,7 +80,8 @@ const competition: Competition[] = [
   {
     title:
       "PEC 2022, Padjajaran English Competition (Speech, Story Telling, Poetry, and Essay)",
-    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod.",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod.",
     tags: [
       "Videography & Short Film",
       "Technology & Engineering",
@@ -96,7 +100,8 @@ const competition: Competition[] = [
   {
     title:
       "PEC 2022, Padjajaran English Competition (Speech, Story Telling, Poetry, and Essay)",
-    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod.",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod.",
     tags: [
       "Videography & Short Film",
       "Technology & Engineering",
@@ -248,17 +253,17 @@ const CompetitionItem = ({ competition }: { competition: Competition }) =>
     </motion.div>
   )
 
-const CompetitionSection = () => {
+export const CompetitionSection = () => {
   const [searchValue, setSearchValue] = useState<string>("")
   const [selectedTags, setSelectedTags] = useState<string[]>([])
   const [sortDateValue, setSortDateValue] = useState<string>("deadline")
-  /* Filter by title and desc */
+  /* Filter by title and description */
   /* Filter by tags */
   const filteredCompetition = competition
     .filter(
       (competition) =>
         competition.title.toLowerCase().includes(searchValue.toLowerCase())
-      // || comp.desc.toLowerCase().includes(searchValue.toLowerCase())
+      // || comp.description.toLowerCase().includes(searchValue.toLowerCase())
     )
     .filter((competition) =>
       selectedTags.length > 0
@@ -298,5 +303,3 @@ const CompetitionSection = () => {
     </ContentContainer>
   )
 }
-
-export default CompetitionSection
