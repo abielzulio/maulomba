@@ -44,7 +44,9 @@ export const HeroContainer = (props: ContainerProps) => {
       className="padding-x mt-[20px] mb-[10px] h-fit w-full md:mt-[40px] md:mb-[20px]"
       {...props}
     >
-      <div className="flex flex-row gap-[20px]">{props.children}</div>
+      <div className="flex flex-row gap-[10px] md:gap-[20px]">
+        {props.children}
+      </div>
     </Container>
   )
 }
@@ -59,32 +61,12 @@ export const ContentContainer = (props: ContainerProps) => {
 
 export const CTAContainer = (props: ContainerProps) => {
   const { children, ...rest } = props
-  const isMobile = useWindowDimension() < 640
-  const [showCTA, setShowCTA] = useState<boolean>(false)
-  return !isMobile ? (
+  return (
     <div
-      className="ml-auto flex min-h-full flex-col gap-[10px] sm:flex-row md:gap-[20px]"
+      className="ml-auto flex min-h-full flex-row gap-[10px] md:gap-[20px]"
       {...rest}
     >
       {children}
-    </div>
-  ) : (
-    <div className="ml-auto flex min-h-full flex-col gap-[20px]" {...rest}>
-      <>
-        <Button
-          icon={
-            showCTA ? (
-              <XMarkIcon className="h-3 w-3" />
-            ) : (
-              <Bars3Icon className="h-3 w-3" />
-            )
-          }
-          onClick={() => setShowCTA(!showCTA)}
-          className="ml-auto"
-          kind="neutral"
-        />
-        {showCTA ? children : null}
-      </>
     </div>
   )
 }

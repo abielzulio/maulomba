@@ -6,9 +6,11 @@ import Hero from "components/Hero"
 import useScrollPosition from "hooks/useScrollPosition"
 import type { NextPage } from "next"
 import NextLink from "next/link"
+import { useWindowDimension } from "hooks/useWindowDimension"
 
 const Home: NextPage = () => {
   const scrollPosition = useScrollPosition()
+  const isMobile = useWindowDimension() < 640
   return (
     <Page>
       <HeroContainer>
@@ -24,17 +26,17 @@ const Home: NextPage = () => {
           <NextLink href="/kirim-lomba">
             <Button
               icon={<ArrowUpTrayIcon className="h-3 w-3" />}
-              title="Unggah lomba"
+              title={!isMobile ? "Unggah lomba" : ""}
               kind="primary"
-              className="ml-auto md:sticky md:top-[20px]"
+              className="sticky top-[20px]"
             />
           </NextLink>
           <NextLink href="/masuk">
             <Button
               icon={<UserIcon className="h-3 w-3" />}
-              title="Masuk"
+              title={!isMobile ? "Masuk" : ""}
               kind="secondary"
-              className="ml-auto md:sticky md:top-[20px]"
+              className="sticky top-[20px]"
             />
           </NextLink>
         </CTAContainer>
