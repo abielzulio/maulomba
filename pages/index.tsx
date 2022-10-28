@@ -25,7 +25,7 @@ const Home: NextPage = () => {
         <CTAContainer>
           <NextLink href="/kirim-lomba">
             <Button
-              icon={<ArrowUpTrayIcon className="h-3 w-3" />}
+              icon={<ArrowUpTrayIcon className="h-4 w-4" />}
               title={!isMobile ? "Unggah lomba" : ""}
               kind="primary"
               className="sticky top-[20px]"
@@ -33,8 +33,7 @@ const Home: NextPage = () => {
           </NextLink>
           <NextLink href="/masuk">
             <Button
-              icon={<UserIcon className="h-3 w-3" />}
-              title={!isMobile ? "Masuk" : ""}
+              icon={<UserIcon className="h-4 w-4" />}
               kind="secondary"
               className="sticky top-[20px]"
             />
