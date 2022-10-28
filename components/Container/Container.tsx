@@ -52,9 +52,10 @@ export const HeroContainer = (props: ContainerProps) => {
 }
 
 export const ContentContainer = (props: ContainerProps) => {
+  const { className = ``, children, ...rest } = props
   return (
-    <Container className="min-h-fit w-full" {...props}>
-      {props.children}
+    <Container className={`min-h-fit max-w-full ${className}`} {...rest}>
+      {children}
     </Container>
   )
 }
@@ -74,18 +75,20 @@ export const CTAContainer = (props: ContainerProps) => {
 export const ImageContainer = (props: ImageContainerProps) => {
   const [paddingTop, setPaddingTop] = useState(`0`)
   return (
-    <div className="relative" style={{ paddingTop }}>
-      <NextImage
-        src={props.src}
-        layout="fill"
-        objectFit="contain"
-        className="transition hover:scale-110"
-        onLoad={({ target }) => {
-          const { naturalWidth, naturalHeight } = target as HTMLImageElement
-          setPaddingTop(`calc(100% / (${naturalWidth} / ${naturalHeight})`)
-        }}
-      />
-    </div>
+    props.src && (
+      <div className="relative" style={{ paddingTop }}>
+        <NextImage
+          src={props.src}
+          layout="fill"
+          objectFit="contain"
+          className="transition hover:scale-110"
+          onLoad={({ target }) => {
+            const { naturalWidth, naturalHeight } = target as HTMLImageElement
+            setPaddingTop(`calc(100% / (${naturalWidth} / ${naturalHeight})`)
+          }}
+        />
+      </div>
+    )
   )
 }
 
