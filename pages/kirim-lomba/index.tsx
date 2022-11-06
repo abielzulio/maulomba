@@ -5,7 +5,7 @@ import NextLink from "next/link"
 
 const UploadCompetition: NextPage = () => (
   <Page>
-    <ContentContainer className="padding-x mx-auto w-full md:w-[1000px]">
+    <ContentContainer className="padding-x mx-auto w-full">
       <ContentContainer className="padding-y flex h-fit justify-between">
         <NextLink href="/">
           <a className="font-medium tracking-tight text-white opacity-50 transition hover:opacity-100">

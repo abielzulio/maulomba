@@ -1,16 +1,36 @@
-import { ContentContainer, ImageContainer } from "components/Container"
-import { useState, useCallback } from "react"
-import { useDropzone } from "react-dropzone"
 import {
   ArrowUpTrayIcon,
   CheckCircleIcon,
+  QrCodeIcon,
   XCircleIcon,
 } from "@heroicons/react/24/outline"
-import { motion } from "framer-motion"
-import { Competition, Image } from "types/data"
+import { Checkbox, MultiSelect, Radio, TextInput } from "@mantine/core"
+import { DatePicker, TimeInput } from "@mantine/dates"
 import { useForm } from "@mantine/form"
-import { Input, TextInput } from "@mantine/core"
+import { Editor, RichTextEditorProps } from "@mantine/rte"
+import { ToolbarControl } from "@mantine/rte/lib/components/Toolbar/controls"
+import Button from "components/Button"
+import { ContentContainer, ImageContainer } from "components/Container"
 import { CURRENT_YEAR } from "data/date/year"
+import {
+  COMPETITION_FILTER_OPTIONS,
+  COMPETITION_LEVEL_TYPE,
+  COMPETITION_REGISTRATION_TYPE,
+} from "data/options"
+import {
+  STRING_COMPETITION_UPLOAD_CHANGE_IMAGE_BUTTON,
+  STRING_COMPETITION_UPLOAD_IMAGE_DRAG_ALLOW,
+  STRING_COMPETITION_UPLOAD_IMAGE_DRAG_INIT,
+  STRING_COMPETITION_UPLOAD_IMAGE_DRAG_REJECT,
+  STRING_COMPETITION_UPLOAD_PAGE_TITLE,
+  STRING_COMPETITION_UPLOAD_STEP,
+} from "data/string"
+import { COLOR_BLUE_PRIMARY, COLOR_WHITE } from "data/style"
+import { motion } from "framer-motion"
+import dynamic from "next/dynamic"
+import { RefAttributes, useCallback, useEffect, useRef, useState } from "react"
+import { useDropzone } from "react-dropzone"
+import { Image } from "types/data"
 
 interface UploadStepProps {
   state: boolean
@@ -22,7 +42,7 @@ interface UploadStepProps {
 
 interface UploadInputContainerProps {
   title: string
-  children?: React.ReactNode
+  children: React.ReactNode
 }
 
 const UploadStep = (props: UploadStepProps) => {
@@ -32,14 +52,14 @@ const UploadStep = (props: UploadStepProps) => {
       <div className={`flex flex-col gap-[20px] ${className}`}>
         <p className={`transition ${state ? `opacity-100` : `opacity-30`}`}>
           <span
-            className={`mr-[15px] rounded-full ${
+            className={`mr-[15px] rounded-full transition ${
               state ? `bg-blue-500` : `bg-white`
-            } px-[5px] text-sm text-black`}
+            } px-[8px] py-[4px] text-sm text-black`}
           >
-            {number}
+            {number + 1}
           </span>
           <span
-            className={`font-semibold tracking-tight ${
+            className={`text-xl font-semibold tracking-tight transition ${
               state ? `text-blue-500` : `text-white`
             }`}
           >
@@ -56,27 +76,72 @@ const UploadInputContainer = (props: UploadInputContainerProps) => {
   const { title, children } = props
   return (
     <div className="flex flex-col gap-[10px]">
-      <p className="text-sm">{title}</p>
-      {children}
+      <p className="text-sm font-medium">{title}</p>
+      <div className={`flex ${children! > 1 ? `gap-[20px]` : `gap-[10px]`}`}>
+        {children}
+      </div>
     </div>
+  )
+}
+
+const RichTextInput = (props: RichTextEditorProps & RefAttributes<Editor>) => {
+  const editorRef = useRef<Editor>()
+  const RichTextEditor = dynamic(() => import("@mantine/rte"), {
+    ssr: false,
+    loading: () => null,
+  })
+
+  useEffect(() => {
+    editorRef.current && editorRef.current.focus()
+  }, [editorRef])
+
+  const controls: ToolbarControl[][] = [
+    ["bold", "italic", "underline", "strike"],
+    ["unorderedList", "orderedList", "sub", "sup"],
+    ["link", "blockquote", "code", "codeBlock"],
+  ]
+  return (
+    <RichTextEditor
+      id="rte"
+      key={1}
+      className="h-[500px] w-full"
+      controls={controls}
+      {...props}
+    />
   )
 }
 
 export const CompetitionUpload = () => {
   const [image, setImage] = useState<Image[]>([])
-  const [title, setTitle] = useState<string>()
-  const [eo, setEo] = useState<string>()
-  const [deadline, setDeadline] = useState<string>()
-  const [link, setLink] = useState<string>()
-  const [level, setLevel] = useState<"Nasional" | "Internasional" | undefined>()
-  const [isFree, setIsFree] = useState<boolean>(false)
+  const [deadlineTime, setDeadlineTime] = useState<Date | null>(null)
   const [tags, setTags] = useState<string[]>([])
-  const [description, setDescription] = useState<string>()
-  /*   const [form, setForm] = useState<Competition[]>([]) */
+  const [description, setDescription] = useState("")
 
   const form = useForm({
     initialValues: {
       title: "",
+      eo: "",
+      deadlineDate: null,
+      deadlineTime: null,
+      link: "",
+      level: "Nasional",
+      registration: "Gratis",
+      tags: [],
+      isPremium: true,
+      isCustom: true,
+    },
+
+    validate: {
+      title: (value) => (value ? null : "Nama kompetisi harus diisi"),
+      eo: (value) =>
+        value ? null : "Nama penyelenggara kompetisi harus diisi",
+      deadlineDate: (value) =>
+        value == null ? "Tanggal deadline harus diisi" : null,
+      deadlineTime: (value) =>
+        value == null ? "Jam deadline harus diisi" : null,
+      link: (value) => (value ? null : "Link kompetisi harus diisi"),
+      tags: (value) =>
+        value.length > 0 ? null : "Kategori harus diisi minimal satu",
     },
   })
 
@@ -111,13 +176,13 @@ export const CompetitionUpload = () => {
   return (
     <ContentContainer className="padding-y">
       <h2 className="text-[24px] font-semibold md:text-[36px]">
-        Unggah kompetisi
+        {STRING_COMPETITION_UPLOAD_PAGE_TITLE}
       </h2>
-      <ContentContainer className="padding-y grid grid-cols-1 gap-[30px] md:grid-cols-2">
+      <ContentContainer className="padding-y grid grid-cols-1 gap-[30px] xl:grid-cols-3">
         <UploadStep
           state={image && image.length > 0}
-          number={1}
-          title="Unggah poster lomba"
+          number={0}
+          title={STRING_COMPETITION_UPLOAD_STEP[0]}
           className="sticky top-[20px]"
         >
           {image && image.length > 0 ? (
@@ -128,12 +193,17 @@ export const CompetitionUpload = () => {
               transition={{ delay: 0.25 }}
               className="flex flex-col gap-[20px]"
             >
-              <ImageContainer src={image[0].src} />
+              {image[0].src && (
+                <ImageContainer
+                  className="border-[0.5px] border-white border-opacity-30"
+                  src={image[0].src}
+                />
+              )}
               <button
                 className="tracking-tight opacity-50 transition hover:underline hover:opacity-80"
                 onClick={() => setImage([])}
               >
-                Klik untuk ganti poster
+                {STRING_COMPETITION_UPLOAD_CHANGE_IMAGE_BUTTON}
               </button>
             </motion.div>
           ) : (
@@ -169,96 +239,233 @@ export const CompetitionUpload = () => {
                 <XCircleIcon className="h-5 w-5 opacity-50 transition group-hover:opacity-100" />
               )}
               <p className="text-md my-[20px] mx-auto text-center font-medium tracking-tight opacity-50 transition group-hover:opacity-100">
-                {!isDragActive &&
-                  `Tarik poster lomba ke sini atau klik untuk mengunggah`}
-                {isDragAccept && `Poster dapat diunggah`}
-                {isDragReject &&
-                  `Hanya mendukung file poster berjenis .png, .jpg, dan .jpeg`}
+                {!isDragActive && STRING_COMPETITION_UPLOAD_IMAGE_DRAG_INIT}
+                {isDragAccept && STRING_COMPETITION_UPLOAD_IMAGE_DRAG_ALLOW}
+                {isDragReject && STRING_COMPETITION_UPLOAD_IMAGE_DRAG_REJECT}
               </p>
             </motion.div>
           )}
         </UploadStep>
-        <div className="flex flex-col gap-[40px]">
-          <UploadStep
-            state={image && image.length > 0}
-            number={2}
-            title="Isi deskripsi lomba"
+        <UploadStep
+          state={image && image.length > 0 && form && form.isValid()}
+          number={1}
+          title={STRING_COMPETITION_UPLOAD_STEP[1]}
+        >
+          <form className="flex flex-col gap-[20px]">
+            <UploadInputContainer title="Nama kompetisi">
+              <TextInput
+                className="w-full text-white/80"
+                {...form.getInputProps("title")}
+                placeholder={`EPSILON ${CURRENT_YEAR}, COMPFEST ${CURRENT_YEAR}, dll`}
+              />
+            </UploadInputContainer>
+            <UploadInputContainer title="Penyelenggara kompetisi">
+              <TextInput
+                className="w-full text-white/80"
+                {...form.getInputProps("eo")}
+                placeholder={`Himpunan Teknik Fisika UGM, ASEAN, dll`}
+              />
+            </UploadInputContainer>
+            <UploadInputContainer title="Deadline kompetisi">
+              <>
+                <DatePicker
+                  className="w-full"
+                  minDate={new Date()}
+                  {...form.getInputProps("deadlineDate")}
+                  inputFormat="D MMMM YYYY"
+                  labelFormat="MMMM YYYY"
+                  placeholder="Tanggal deadline"
+                />
+                <TimeInput
+                  className="w-full"
+                  value={deadlineTime}
+                  onChange={setDeadlineTime}
+                  {...form.getInputProps("deadlineTime")}
+                  placeholder="Waktu deadline"
+                  clearable
+                />
+              </>
+            </UploadInputContainer>
+            <UploadInputContainer title="Link pendaftaran kompetisi">
+              <TextInput
+                className="w-full text-white/80"
+                {...form.getInputProps("link")}
+                placeholder={`ugm.id/epsilon-${CURRENT_YEAR}`}
+              />
+            </UploadInputContainer>
+            <UploadInputContainer title="Tingkat kompetisi">
+              <Radio.Group
+                className="font-white flex w-full gap-[30px]"
+                {...form.getInputProps("level")}
+              >
+                {COMPETITION_LEVEL_TYPE.map((option) => (
+                  <Radio
+                    size="xs"
+                    className="text-sm"
+                    classNames={{ body: "white" }}
+                    value={option}
+                    label={option}
+                    styles={() => ({
+                      label: {
+                        color: COLOR_WHITE,
+                      },
+                      radio: {
+                        "&:checked": {
+                          backgroundColor: `${COLOR_BLUE_PRIMARY} !important`,
+                        },
+                      },
+                    })}
+                  />
+                ))}
+              </Radio.Group>
+            </UploadInputContainer>
+            <UploadInputContainer title="Pendaftaran kompetisi">
+              <Radio.Group
+                className="font-white flex w-full gap-[30px]"
+                {...form.getInputProps("registration")}
+              >
+                {COMPETITION_REGISTRATION_TYPE.map((option) => (
+                  <Radio
+                    size="xs"
+                    className="text-sm"
+                    classNames={{ body: "white" }}
+                    value={option}
+                    label={option}
+                    styles={() => ({
+                      label: {
+                        color: COLOR_WHITE,
+                        fontSize: "0.875rem",
+                      },
+                      radio: {
+                        "&:checked": {
+                          backgroundColor: `${COLOR_BLUE_PRIMARY} !important`,
+                        },
+                      },
+                    })}
+                  />
+                ))}
+              </Radio.Group>
+            </UploadInputContainer>
+            <UploadInputContainer title="Kategori kompetisi">
+              <MultiSelect
+                className="w-full text-white/80"
+                searchable
+                clearable
+                nothingFound="Kategori kompetisi tidak ada"
+                {...form.getInputProps("tags")}
+                getCreateLabel={(query) => `+ Tambah ${query}`}
+                onCreate={(query) => {
+                  setTags((current) => [...current, query])
+                  return query
+                }}
+                data={COMPETITION_FILTER_OPTIONS}
+                placeholder="Pilih tiga kategori"
+                maxSelectedValues={3}
+              />
+            </UploadInputContainer>
+            <UploadInputContainer title="Deskripsi kompetisi">
+              <RichTextInput value={description} onChange={setDescription} />
+            </UploadInputContainer>
+          </form>
+        </UploadStep>
+        <UploadStep
+          state={image && image.length > 0 && form && form.isValid()}
+          number={2}
+          title={STRING_COMPETITION_UPLOAD_STEP[2]}
+          className="sticky top-[20px]"
+        >
+          <div className="flex justify-between gap-[20px]">
+            <Checkbox
+              label="Tayang kompetisi di paling atas hingga deadline"
+              radius="sm"
+              styles={() => ({
+                label: {
+                  color: COLOR_WHITE,
+                  paddingLeft: "0px",
+                },
+                labelWrapper: {
+                  marginLeft: "12px",
+                },
+                input: {
+                  "&:checked": {
+                    backgroundColor: `${COLOR_BLUE_PRIMARY} !important`,
+                  },
+                },
+              })}
+              {...form.getInputProps("isPremium", { type: "checkbox" })}
+            />
+            <p
+              className={`font-mono text-green-500 transition ${
+                form.values.isPremium ? `opacity-100` : `opacity-0`
+              }`}
+            >
+              +Rp30.000
+            </p>
+          </div>
+          <div className="flex justify-between gap-[20px]">
+            <Checkbox
+              label="Buat link share sendiri (maulom.ba/kompetisi-anda)"
+              radius="sm"
+              styles={() => ({
+                label: {
+                  color: COLOR_WHITE,
+                  paddingLeft: "0px",
+                },
+                labelWrapper: {
+                  marginLeft: "12px",
+                },
+                lave: {
+                  "&:checked": {
+                    backgroundColor: `${COLOR_BLUE_PRIMARY} !important`,
+                  },
+                },
+              })}
+              {...form.getInputProps("isCustom", { type: "checkbox" })}
+            />
+            <p
+              className={`font-mono text-green-500 transition ${
+                form.values.isCustom ? `opacity-100` : `opacity-0`
+              }`}
+            >
+              +Rp30.000
+            </p>
+          </div>
+          <Button
+            kind="primary"
+            type="submit"
+            size="medium"
+            width="full"
+            className={`my-[20px] ${
+              !form.isValid()
+                ? `cursor-not-allowed opacity-50 grayscale`
+                : `cursor-pointer opacity-100`
+            }`}
+            disabled={!form.isValid()}
+            icon={
+              form.values.isCustom || form.values.isPremium ? (
+                <QrCodeIcon className="h-4 w-4" />
+              ) : (
+                <ArrowUpTrayIcon className="h-4 w-4" />
+              )
+            }
+            onClick={() => form.validate()}
+            title={`${
+              form.values.isCustom || form.values.isPremium
+                ? `Bayar lalu unggah`
+                : `Unggah secara gratis`
+            }`}
+          />
+          <p
+            className={`text-center font-mono text-sm transition ${
+              form.values.isCustom || form.values.isPremium
+                ? `opacity-50`
+                : `opacity-0`
+            }`}
           >
-            <div className="flex flex-col gap-[20px]">
-              <UploadInputContainer title="Nama lomba">
-                <TextInput
-                  className="text-white/80"
-                  placeholder={`EPSILON ${CURRENT_YEAR}, COMPFEST ${CURRENT_YEAR}, dll`}
-                />
-              </UploadInputContainer>
-              <UploadInputContainer title="Penyelenggara lomba">
-                <TextInput
-                  className="text-white/80"
-                  placeholder={`EPSILON ${CURRENT_YEAR}, COMPFEST ${CURRENT_YEAR}, dll`}
-                />
-              </UploadInputContainer>
-              <UploadInputContainer title="Deadline lomba">
-                <TextInput
-                  className="text-white/80"
-                  placeholder={`EPSILON ${CURRENT_YEAR}, COMPFEST ${CURRENT_YEAR}, dll`}
-                />
-              </UploadInputContainer>
-              <UploadInputContainer title="Link pendaftaran lomba">
-                <TextInput
-                  className="text-white/80"
-                  placeholder={`EPSILON ${CURRENT_YEAR}, COMPFEST ${CURRENT_YEAR}, dll`}
-                />
-              </UploadInputContainer>
-              <UploadInputContainer title="Tingkat lomba">
-                <TextInput
-                  className="text-white/80"
-                  placeholder={`EPSILON ${CURRENT_YEAR}, COMPFEST ${CURRENT_YEAR}, dll`}
-                />
-              </UploadInputContainer>
-              <UploadInputContainer title="Pendaftaran lomba">
-                <TextInput
-                  className="text-white/80"
-                  placeholder={`EPSILON ${CURRENT_YEAR}, COMPFEST ${CURRENT_YEAR}, dll`}
-                />
-              </UploadInputContainer>
-              <UploadInputContainer title="Jenis lomba">
-                <TextInput
-                  className="text-white/80"
-                  placeholder={`EPSILON ${CURRENT_YEAR}, COMPFEST ${CURRENT_YEAR}, dll`}
-                />
-              </UploadInputContainer>
-              <UploadInputContainer title="Deskripsi lomba">
-                <TextInput
-                  className="text-white/80"
-                  placeholder={`EPSILON ${CURRENT_YEAR}, COMPFEST ${CURRENT_YEAR}, dll`}
-                />
-              </UploadInputContainer>
-              <UploadInputContainer title="Pendaftaran lomba">
-                <TextInput
-                  className="text-white/80"
-                  placeholder={`EPSILON ${CURRENT_YEAR}, COMPFEST ${CURRENT_YEAR}, dll`}
-                />
-              </UploadInputContainer>
-              <UploadInputContainer title="Jenis lomba">
-                <TextInput
-                  className="text-white/80"
-                  placeholder={`EPSILON ${CURRENT_YEAR}, COMPFEST ${CURRENT_YEAR}, dll`}
-                />
-              </UploadInputContainer>
-              <UploadInputContainer title="Deskripsi lomba">
-                <TextInput
-                  className="text-white/80"
-                  placeholder={`EPSILON ${CURRENT_YEAR}, COMPFEST ${CURRENT_YEAR}, dll`}
-                />
-              </UploadInputContainer>
-            </div>
-          </UploadStep>
-          <UploadStep
-            state={image && image.length > 0}
-            number={3}
-            title="Bayar"
-          ></UploadStep>
-        </div>
+            Pembayaran menggunakan QRIS dengan dukungan semua dompet digital dan
+            bank lokal
+          </p>
+        </UploadStep>
       </ContentContainer>
     </ContentContainer>
   )
