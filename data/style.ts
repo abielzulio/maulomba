@@ -1,0 +1,3 @@
+export const COLOR_BLUE_PRIMARY: string = "#0070F3"
+
+export const COLOR_WHITE: string = "#f0f6fc"

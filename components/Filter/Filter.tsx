@@ -11,6 +11,7 @@ import {
   STRING_CATEGORY_TOGGLE_BUTTON,
   STRING_SEARCH_FILTER_PLACEHOLDER,
 } from "data/string"
+import { COLOR_BLUE_PRIMARY, COLOR_WHITE } from "data/style"
 import { motion } from "framer-motion"
 import { useState } from "react"
 import { FilterProps } from "types/component"
@@ -77,10 +78,10 @@ const TagFilter = (props: TagFilterProps) => {
     label: {
       "&[data-checked]": {
         "&, &:hover": {
-          borderColor: "#0070F3 !important",
+          borderColor: `${COLOR_BLUE_PRIMARY} !important`,
           opacity: 1,
           color: "white !important",
-          backgroundColor: "#0070F3 !important",
+          backgroundColor: `${COLOR_BLUE_PRIMARY} !important`,
           borderOpacity: 1,
         },
 
@@ -90,8 +91,8 @@ const TagFilter = (props: TagFilterProps) => {
       },
       backgroundColor: "transparent !important",
       backgroundOpacity: "0.1 !important",
-      color: "white",
-      borderColor: "white !important",
+      color: COLOR_WHITE,
+      borderColor: `${COLOR_WHITE} !important`,
       opacity: 0.5,
       borderWidth: "0.5px",
       borderOpacity: 0 + "!important",
