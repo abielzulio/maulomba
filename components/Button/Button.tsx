@@ -7,11 +7,14 @@ const Button = (props: ButtonProps) => {
     kind,
     className = ``,
     size = "small",
+    width = "fit",
     ...rest
   } = props
   return (
     <button
-      className={`${className} flex h-fit w-fit items-center rounded-lg border-[1.3px] border-opacity-20 text-sm transition hover:border-opacity-50 sm:w-fit ${
+      className={`${className} flex h-fit items-center justify-center rounded-lg border-[1.3px] border-opacity-20 text-sm transition hover:border-opacity-50 ${
+        width === "fit" ? `w-fit` : `w-full`
+      } ${
         size === "small"
           ? `gap-[8px] px-[10px] font-medium ${title ? `py-[5px]` : `py-[7px]`}`
           : `gap-[10px] px-[20px] font-semibold ${
@@ -33,7 +36,7 @@ const Button = (props: ButtonProps) => {
       {...rest}
     >
       {icon}
-      {title && <span className="text-left">{title}</span>}
+      {title && <span className="text-center">{title}</span>}
     </button>
   )
 }
