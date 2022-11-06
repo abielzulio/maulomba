@@ -75,20 +75,18 @@ export const CTAContainer = (props: ContainerProps) => {
 export const ImageContainer = (props: ImageContainerProps) => {
   const [paddingTop, setPaddingTop] = useState(`0`)
   return (
-    props.src && (
-      <div className="relative" style={{ paddingTop }}>
-        <NextImage
-          src={props.src}
-          layout="fill"
-          objectFit="contain"
-          className="transition hover:scale-110"
-          onLoad={({ target }) => {
-            const { naturalWidth, naturalHeight } = target as HTMLImageElement
-            setPaddingTop(`calc(100% / (${naturalWidth} / ${naturalHeight})`)
-          }}
-        />
-      </div>
-    )
+    <div className="relative" style={{ paddingTop }} {...props}>
+      <NextImage
+        src={props?.src}
+        layout="fill"
+        objectFit="contain"
+        className="transition hover:scale-110"
+        onLoad={({ target }) => {
+          const { naturalWidth, naturalHeight } = target as HTMLImageElement
+          setPaddingTop(`calc(100% / (${naturalWidth} / ${naturalHeight})`)
+        }}
+      />
+    </div>
   )
 }
 
