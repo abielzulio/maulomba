@@ -14,6 +14,18 @@
   @apply mx-[15px] sm:mx-[20px] md:mx-[40px] lg:mx-[60px];
 }
 
+ul {
+  @apply list-disc;
+}
+
+ol {
+  @apply list-decimal;
+}
+
+li {
+  @apply ml-[30px];
+}
+
 :root {
   --scrollbar-width: 12px;
   --scrollbar-color: #2e2e2e;
@@ -25,6 +37,11 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   @apply bg-black;
+}
+
+/** Rich Text Editor */
+:where(.ProseMirror):focus-visible {
+  outline: transparent;
 }
 
 :where(*, *::before, *::after) {
