@@ -7,10 +7,9 @@ import {
 import { Checkbox, MultiSelect, Radio, TextInput } from "@mantine/core"
 import { DatePicker, TimeInput } from "@mantine/dates"
 import { useForm } from "@mantine/form"
-import { Editor, RichTextEditorProps } from "@mantine/rte"
-import { ToolbarControl } from "@mantine/rte/lib/components/Toolbar/controls"
 import Button from "components/Button"
 import { ContentContainer, ImageContainer } from "components/Container"
+import RichTextEditor from "components/RichTextEditor"
 import { CURRENT_YEAR } from "data/date/year"
 import {
   COMPETITION_FILTER_OPTIONS,
@@ -27,8 +26,7 @@ import {
 } from "data/string"
 import { COLOR_BLUE_PRIMARY, COLOR_WHITE } from "data/style"
 import { motion } from "framer-motion"
-import dynamic from "next/dynamic"
-import { RefAttributes, useCallback, useEffect, useRef, useState } from "react"
+import { useCallback, useState } from "react"
 import { useDropzone } from "react-dropzone"
 import { Image } from "types/data"
 
@@ -66,7 +64,7 @@ const UploadStep = (props: UploadStepProps) => {
             {title}
           </span>
         </p>
-        {children}
+        <div className="h-fit w-full overflow-scroll">{children}</div>
       </div>
     </div>
   )
@@ -81,33 +79,6 @@ const UploadInputContainer = (props: UploadInputContainerProps) => {
         {children}
       </div>
     </div>
-  )
-}
-
-const RichTextInput = (props: RichTextEditorProps & RefAttributes<Editor>) => {
-  const editorRef = useRef<Editor>()
-  const RichTextEditor = dynamic(() => import("@mantine/rte"), {
-    ssr: false,
-    loading: () => null,
-  })
-
-  useEffect(() => {
-    editorRef.current && editorRef.current.focus()
-  }, [editorRef])
-
-  const controls: ToolbarControl[][] = [
-    ["bold", "italic", "underline", "strike"],
-    ["unorderedList", "orderedList", "sub", "sup"],
-    ["link", "blockquote", "code", "codeBlock"],
-  ]
-  return (
-    <RichTextEditor
-      id="rte"
-      key={1}
-      className="h-[500px] w-full"
-      controls={controls}
-      {...props}
-    />
   )
 }
 
@@ -298,9 +269,10 @@ export const CompetitionUpload = () => {
                 className="font-white flex w-full gap-[30px]"
                 {...form.getInputProps("level")}
               >
-                {COMPETITION_LEVEL_TYPE.map((option) => (
+                {COMPETITION_LEVEL_TYPE.map((option, id) => (
                   <Radio
                     size="xs"
+                    key={id}
                     className="text-sm"
                     classNames={{ body: "white" }}
                     value={option}
@@ -324,9 +296,10 @@ export const CompetitionUpload = () => {
                 className="font-white flex w-full gap-[30px]"
                 {...form.getInputProps("registration")}
               >
-                {COMPETITION_REGISTRATION_TYPE.map((option) => (
+                {COMPETITION_REGISTRATION_TYPE.map((option, id) => (
                   <Radio
                     size="xs"
+                    key={id}
                     className="text-sm"
                     classNames={{ body: "white" }}
                     value={option}
@@ -364,7 +337,7 @@ export const CompetitionUpload = () => {
               />
             </UploadInputContainer>
             <UploadInputContainer title="Deskripsi kompetisi">
-              <RichTextInput value={description} onChange={setDescription} />
+              <RichTextEditor setContent={setDescription} />
             </UploadInputContainer>
           </form>
         </UploadStep>
@@ -374,61 +347,63 @@ export const CompetitionUpload = () => {
           title={STRING_COMPETITION_UPLOAD_STEP[2]}
           className="sticky top-[20px]"
         >
-          <div className="flex justify-between gap-[20px]">
-            <Checkbox
-              label="Tayang kompetisi di paling atas hingga deadline"
-              radius="sm"
-              styles={() => ({
-                label: {
-                  color: COLOR_WHITE,
-                  paddingLeft: "0px",
-                },
-                labelWrapper: {
-                  marginLeft: "12px",
-                },
-                input: {
-                  "&:checked": {
-                    backgroundColor: `${COLOR_BLUE_PRIMARY} !important`,
+          <div className="flex flex-col gap-[20px]">
+            <div className="flex justify-between gap-[20px]">
+              <Checkbox
+                label="Tayang kompetisi di paling atas hingga deadline"
+                radius="sm"
+                styles={() => ({
+                  label: {
+                    color: COLOR_WHITE,
+                    paddingLeft: "0px",
                   },
-                },
-              })}
-              {...form.getInputProps("isPremium", { type: "checkbox" })}
-            />
-            <p
-              className={`font-mono text-green-500 transition ${
-                form.values.isPremium ? `opacity-100` : `opacity-0`
-              }`}
-            >
-              +Rp30.000
-            </p>
-          </div>
-          <div className="flex justify-between gap-[20px]">
-            <Checkbox
-              label="Buat link share sendiri (maulom.ba/kompetisi-anda)"
-              radius="sm"
-              styles={() => ({
-                label: {
-                  color: COLOR_WHITE,
-                  paddingLeft: "0px",
-                },
-                labelWrapper: {
-                  marginLeft: "12px",
-                },
-                lave: {
-                  "&:checked": {
-                    backgroundColor: `${COLOR_BLUE_PRIMARY} !important`,
+                  labelWrapper: {
+                    marginLeft: "12px",
                   },
-                },
-              })}
-              {...form.getInputProps("isCustom", { type: "checkbox" })}
-            />
-            <p
-              className={`font-mono text-green-500 transition ${
-                form.values.isCustom ? `opacity-100` : `opacity-0`
-              }`}
-            >
-              +Rp30.000
-            </p>
+                  input: {
+                    "&:checked": {
+                      backgroundColor: `${COLOR_BLUE_PRIMARY} !important`,
+                    },
+                  },
+                })}
+                {...form.getInputProps("isPremium", { type: "checkbox" })}
+              />
+              <p
+                className={`font-mono text-green-500 transition ${
+                  form.values.isPremium ? `opacity-100` : `opacity-0`
+                }`}
+              >
+                +Rp30.000
+              </p>
+            </div>
+            <div className="flex justify-between gap-[20px]">
+              <Checkbox
+                label="Buat link share sendiri (maulom.ba/kompetisi-anda)"
+                radius="sm"
+                styles={() => ({
+                  label: {
+                    color: COLOR_WHITE,
+                    paddingLeft: "0px",
+                  },
+                  labelWrapper: {
+                    marginLeft: "12px",
+                  },
+                  lave: {
+                    "&:checked": {
+                      backgroundColor: `${COLOR_BLUE_PRIMARY} !important`,
+                    },
+                  },
+                })}
+                {...form.getInputProps("isCustom", { type: "checkbox" })}
+              />
+              <p
+                className={`font-mono text-green-500 transition ${
+                  form.values.isCustom ? `opacity-100` : `opacity-0`
+                }`}
+              >
+                +Rp30.000
+              </p>
+            </div>
           </div>
           <Button
             kind="primary"
