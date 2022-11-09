@@ -11,8 +11,8 @@ import StarterKit from "@tiptap/starter-kit"
 import { ButtonHTMLAttributes } from "react"
 
 interface RichTextEditorProps {
-  fontSize: string
-  initialValue: string
+  fontSize?: string
+  initialValue?: string
   setContent: (value: string) => void
 }
 
@@ -129,6 +129,8 @@ export default ({
     onUpdate: ({ editor }) => {
       setContent(editor.getHTML())
     },
+
+    content: initialValue ? initialValue : "<p>Type something here</p>",
   })
 
   return (
