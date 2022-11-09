@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+/** Tailwind **/
 .padding-x {
   @apply px-[15px] sm:px-[20px] md:px-[40px] lg:px-[60px];
 }
