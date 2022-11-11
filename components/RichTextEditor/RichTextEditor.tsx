@@ -131,6 +131,17 @@ export default ({
     },
 
     content: initialValue ? initialValue : "<p>Type something here</p>",
+    onCreate: ({ editor }) => {
+      editor.setEditable(false)
+    },
+
+    onFocus: ({ editor }) => {
+      editor.setEditable(true)
+    },
+
+    onBlur: ({ editor }) => {
+      editor.setEditable(false)
+    },
   })
 
   return (
