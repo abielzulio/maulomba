@@ -62,6 +62,8 @@ const MenuBar = ({ editor }: MenuBarProps) => {
     return null
   }
 
+  editor.setEditable(true)
+
   return (
     <div className="m-[8px] flex gap-[8px] border-b-[1px] border-opacity-20 bg-[#ffffff] pb-[10px] text-black">
       <MenuBarGroup>
@@ -135,8 +137,12 @@ export default ({
       setContent(editor.getHTML())
     },
 
-    onCreate: ({ editor }) => {
+    onBeforeCreate: ({ editor }) => {
       editor.setEditable(false)
+    },
+
+    onCreate: ({ editor }) => {
+      editor.setEditable(true)
     },
 
     onFocus: ({ editor }) => {
@@ -150,12 +156,13 @@ export default ({
 
   return (
     <div className="relative h-fit w-full rounded-md border-[1px] border-white bg-[#ffffff]">
-      <MenuBar editor={editor} />
       <EditorContent
         style={{ fontSize: `${fontSize}px` }}
         editor={editor}
         className="px-[16px] pb-[16px] text-black hover:cursor-text"
-      />
+      >
+        <MenuBar editor={editor} />
+      </EditorContent>
     </div>
   )
 }
