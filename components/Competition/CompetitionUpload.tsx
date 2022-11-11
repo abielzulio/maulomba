@@ -266,7 +266,7 @@ export const CompetitionUpload = () => {
             </UploadInputContainer>
             <UploadInputContainer title="Tingkat kompetisi">
               <Radio.Group
-                className="font-white flex w-full gap-[30px]"
+                className="font-white ml-[4px] flex w-full gap-[30px]"
                 {...form.getInputProps("level")}
               >
                 {COMPETITION_LEVEL_TYPE.map((option, id) => (
@@ -293,7 +293,7 @@ export const CompetitionUpload = () => {
             </UploadInputContainer>
             <UploadInputContainer title="Pendaftaran kompetisi">
               <Radio.Group
-                className="font-white flex w-full gap-[30px]"
+                className="font-white ml-[4px] flex w-full gap-[30px]"
                 {...form.getInputProps("registration")}
               >
                 {COMPETITION_REGISTRATION_TYPE.map((option, id) => (
