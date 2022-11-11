@@ -6,8 +6,19 @@ import {
 } from "@radix-ui/react-icons"
 import { Editor } from "@tiptap/core"
 import { EditorContent, useEditor } from "@tiptap/react"
-import StarterKit from "@tiptap/starter-kit"
+import Bold from "@tiptap/extension-bold"
+import Document from "@tiptap/extension-document"
+import Paragraph from "@tiptap/extension-paragraph"
+import Text from "@tiptap/extension-text"
+import Strike from "@tiptap/extension-strike"
+import Italic from "@tiptap/extension-italic"
+import OrderedList from "@tiptap/extension-ordered-list"
+import ListItem from "@tiptap/extension-list-item"
 import Placeholder from "@tiptap/extension-placeholder"
+import BulletList from "@tiptap/extension-bullet-list"
+import Typography from "@tiptap/extension-typography"
+import History from "@tiptap/extension-history"
+import Underline from "@tiptap/extension-underline"
 
 interface RichTextEditorProps {
   fontSize?: string
@@ -126,7 +137,18 @@ export default ({
 }: RichTextEditorProps) => {
   const editor = useEditor({
     extensions: [
-      StarterKit,
+      Document,
+      Paragraph,
+      Text,
+      Bold,
+      Strike,
+      Italic,
+      OrderedList,
+      BulletList,
+      ListItem,
+      Typography,
+      Underline,
+      History,
       Placeholder.configure({
         placeholder,
         showOnlyWhenEditable: false,
