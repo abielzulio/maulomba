@@ -9,10 +9,11 @@ import { Editor } from "@tiptap/core"
 import { useEditor, EditorContent } from "@tiptap/react"
 import StarterKit from "@tiptap/starter-kit"
 import { ButtonHTMLAttributes } from "react"
+import Placeholder from "@tiptap/extension-placeholder"
 
 interface RichTextEditorProps {
   fontSize?: string
-  initialValue?: string
+  placeholder?: string
   setContent: (value: string) => void
 }
 
@@ -120,17 +121,22 @@ const MenuBar = ({ editor }: MenuBarProps) => {
 
 export default ({
   setContent,
-  initialValue,
   fontSize = "14",
+  placeholder,
 }: RichTextEditorProps) => {
   const editor = useEditor({
-    extensions: [StarterKit],
+    extensions: [
+      StarterKit,
+      Placeholder.configure({
+        placeholder,
+        showOnlyWhenEditable: false,
+      }),
+    ],
 
     onUpdate: ({ editor }) => {
       setContent(editor.getHTML())
     },
 
-    content: initialValue ? initialValue : "<p>Type something here</p>",
     onCreate: ({ editor }) => {
       editor.setEditable(false)
     },
@@ -150,7 +156,6 @@ export default ({
       <EditorContent
         style={{ fontSize: `${fontSize}px` }}
         editor={editor}
-        placeholder={initialValue ? "" : "Type something here..."}
         className="px-[16px] pb-[16px] text-black"
       />
     </div>

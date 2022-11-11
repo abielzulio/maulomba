@@ -337,7 +337,10 @@ export const CompetitionUpload = () => {
               />
             </UploadInputContainer>
             <UploadInputContainer title="Deskripsi kompetisi">
-              <RichTextEditor setContent={setDescription} />
+              <RichTextEditor
+                setContent={setDescription}
+                placeholder="Kompetisi ini merupakan ... "
+              />
             </UploadInputContainer>
           </form>
         </UploadStep>
