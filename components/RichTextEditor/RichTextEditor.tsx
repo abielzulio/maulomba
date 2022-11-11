@@ -5,20 +5,20 @@ import {
   StrikethroughIcon,
 } from "@radix-ui/react-icons"
 import { Editor } from "@tiptap/core"
-import { EditorContent, useEditor } from "@tiptap/react"
 import Bold from "@tiptap/extension-bold"
-import Document from "@tiptap/extension-document"
-import Paragraph from "@tiptap/extension-paragraph"
-import Text from "@tiptap/extension-text"
-import Strike from "@tiptap/extension-strike"
-import Italic from "@tiptap/extension-italic"
-import OrderedList from "@tiptap/extension-ordered-list"
-import ListItem from "@tiptap/extension-list-item"
-import Placeholder from "@tiptap/extension-placeholder"
 import BulletList from "@tiptap/extension-bullet-list"
-import Typography from "@tiptap/extension-typography"
+import Document from "@tiptap/extension-document"
 import History from "@tiptap/extension-history"
+import Italic from "@tiptap/extension-italic"
+import ListItem from "@tiptap/extension-list-item"
+import OrderedList from "@tiptap/extension-ordered-list"
+import Paragraph from "@tiptap/extension-paragraph"
+import Placeholder from "@tiptap/extension-placeholder"
+import Strike from "@tiptap/extension-strike"
+import Text from "@tiptap/extension-text"
+import Typography from "@tiptap/extension-typography"
 import Underline from "@tiptap/extension-underline"
+import { EditorContent, useEditor } from "@tiptap/react"
 
 interface RichTextEditorProps {
   fontSize?: string
@@ -26,7 +26,7 @@ interface RichTextEditorProps {
   setContent: (value: string) => void
 }
 
-interface MenuBarProps {
+interface MenuBarProps extends React.HTMLAttributes<HTMLDivElement> {
   editor: Editor | null
 }
 
@@ -68,7 +68,7 @@ const MenuBarButton = ({
   </button>
 )
 
-const MenuBar = ({ editor }: MenuBarProps) => {
+const MenuBar = ({ editor, className }: MenuBarProps) => {
   if (!editor) {
     return null
   }
@@ -76,7 +76,11 @@ const MenuBar = ({ editor }: MenuBarProps) => {
   editor.setEditable(true)
 
   return (
-    <div className="m-[8px] flex gap-[8px] border-b-[1px] border-opacity-20 bg-[#ffffff] pb-[10px] text-black">
+    <div
+      className={`my-[8px] flex gap-[8px] border-b-[1px] border-opacity-20 bg-[#ffffff] pb-[10px] text-black ${
+        className ?? ""
+      }`}
+    >
       <MenuBarGroup>
         <MenuBarButton
           onClick={() => editor.chain().focus().toggleBold().run()}
