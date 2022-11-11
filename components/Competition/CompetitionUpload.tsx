@@ -100,6 +100,7 @@ export const CompetitionUpload = () => {
       tags: [],
       isPremium: true,
       isCustom: true,
+      description: description,
     },
 
     validate: {

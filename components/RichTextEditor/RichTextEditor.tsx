@@ -1,4 +1,3 @@
-import { ContainerProps } from "@mantine/core"
 import {
   FontBoldIcon,
   FontItalicIcon,
@@ -6,9 +5,8 @@ import {
   StrikethroughIcon,
 } from "@radix-ui/react-icons"
 import { Editor } from "@tiptap/core"
-import { useEditor, EditorContent } from "@tiptap/react"
+import { EditorContent, useEditor } from "@tiptap/react"
 import StarterKit from "@tiptap/starter-kit"
-import { ButtonHTMLAttributes } from "react"
 import Placeholder from "@tiptap/extension-placeholder"
 
 interface RichTextEditorProps {
@@ -30,7 +28,7 @@ interface MenuBarButtonProps
     React.ButtonHTMLAttributes<HTMLButtonElement>,
     HTMLButtonElement
   > {
-  isActive: boolean
+  isActive?: boolean
 }
 
 const MenuBarGroup = ({ children }: MenuBarGroupProps) => (
@@ -156,7 +154,7 @@ export default ({
       <EditorContent
         style={{ fontSize: `${fontSize}px` }}
         editor={editor}
-        className="px-[16px] pb-[16px] text-black"
+        className="px-[16px] pb-[16px] text-black hover:cursor-text"
       />
     </div>
   )
