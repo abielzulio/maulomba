@@ -135,46 +135,49 @@ export default ({
   fontSize = "14",
   placeholder,
 }: RichTextEditorProps) => {
-  const editor = useEditor({
-    extensions: [
-      Document,
-      Paragraph,
-      Text,
-      Bold,
-      Strike,
-      Italic,
-      OrderedList,
-      BulletList,
-      ListItem,
-      Typography,
-      Underline,
-      History,
-      Placeholder.configure({
-        placeholder,
-        showOnlyWhenEditable: false,
-      }),
-    ],
+  const editor = useEditor(
+    {
+      extensions: [
+        Document,
+        Paragraph,
+        Text,
+        Bold,
+        Strike,
+        Italic,
+        OrderedList,
+        BulletList,
+        ListItem,
+        Typography,
+        Underline,
+        History,
+        Placeholder.configure({
+          placeholder,
+          showOnlyWhenEditable: false,
+        }),
+      ],
 
-    onUpdate: ({ editor }) => {
-      setContent(editor.getHTML())
-    },
+      onUpdate: ({ editor }) => {
+        setContent(editor.getHTML())
+      },
 
-    onBeforeCreate: ({ editor }) => {
-      editor.setEditable(false)
-    },
+      onBeforeCreate: ({ editor }) => {
+        editor.setEditable(false)
+      },
 
-    onCreate: ({ editor }) => {
-      editor.setEditable(true)
-    },
+      onCreate: ({ editor }) => {
+        editor.setEditable(true)
+      },
 
-    onFocus: ({ editor }) => {
-      editor.setEditable(true)
-    },
+      onFocus: ({ editor }) => {
+        editor.setEditable(true)
+      },
 
-    onBlur: ({ editor }) => {
-      editor.setEditable(false)
+      onBlur: ({ editor }) => {
+        editor.setEditable(false)
+      },
     },
-  })
+    [setContent, placeholder]
+  )
 
   return (
     <div className="relative h-fit w-full rounded-md border-[1px] border-white bg-[#ffffff]">
