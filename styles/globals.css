@@ -15,15 +15,15 @@
   @apply mx-[15px] sm:mx-[20px] md:mx-[40px] lg:mx-[60px];
 }
 
-ul {
+:where(ul) {
   @apply list-disc;
 }
 
-ol {
+:where(ol) {
   @apply list-decimal;
 }
 
-li {
+:where(li) {
   @apply ml-[30px];
 }
 
