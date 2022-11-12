@@ -27,7 +27,7 @@
   @apply ml-[30px];
 }
 
-:where(a) {
+:where(a.link) {
   @apply text-blue-500 underline decoration-blue-500 !important;
 }
 

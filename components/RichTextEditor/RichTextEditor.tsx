@@ -68,7 +68,7 @@ const MenuBarButton = ({
     className={`${
       isActive
         ? "bg-black text-white hover:bg-opacity-70"
-        : "bg-black bg-opacity-0 text-black hover:bg-opacity-10"
+        : "bg-black bg-opacity-0 text-black hover:bg-opacity-[0.15]"
     } rounded-md p-[1px] transition`}
   >
     {children}
@@ -106,7 +106,7 @@ const MenuBar = ({ editor, className = "" }: MenuBarProps) => {
 
   return (
     <div
-      className={`my-[8px] flex w-full gap-[8px] border-b-[1px] border-opacity-20 bg-[#ffffff] pr-[16px] pb-[10px] text-black ${className}`}
+      className={`my-[8px] flex w-fit gap-[8px] border-b-[1px] border-opacity-20 bg-[#ffffff] pr-[16px] pb-[10px] text-black ${className}`}
     >
       <MenuBarGroup>
         <MenuBarButton
@@ -169,7 +169,7 @@ const MenuBar = ({ editor, className = "" }: MenuBarProps) => {
           <Link2Icon height={18} width={18} />
         </MenuBarButton>
       </MenuBarGroup>
-      <MenuBarGroup className="ml-auto">
+      <MenuBarGroup>
         <div className="flex gap-[4px] text-sm opacity-50">
           <span>{editor.storage.characterCount.characters()} huruf</span>
           <span>{editor.storage.characterCount.words()} kata</span>
@@ -200,7 +200,11 @@ export default ({
         Underline,
         History,
         CharacterCount,
-        Link,
+        Link.configure({
+          HTMLAttributes: {
+            class: "link",
+          },
+        }),
         Placeholder.configure({
           placeholder,
           showOnlyWhenEditable: false,
