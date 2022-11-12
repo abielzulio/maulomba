@@ -103,7 +103,7 @@ const MenuBar = ({ editor, className = "" }: MenuBarProps) => {
 
   return (
     <div
-      className={`my-[8px] flex gap-[8px] border-b-[1px] border-opacity-20 bg-[#ffffff] pb-[10px] text-black ${className}`}
+      className={`my-[8px] flex w-full gap-[8px] border-b-[1px] border-opacity-20 bg-[#ffffff] pb-[10px] text-black ${className}`}
     >
       <MenuBarGroup>
         <MenuBarButton
@@ -210,14 +210,14 @@ export default ({
 
   return (
     <div
-      className="relative h-fit w-full rounded-md border-[1px] border-white bg-[#ffffff]"
+      className="relative h-fit min-h-[300px] w-full rounded-md border-[1px] border-white bg-[#ffffff]"
       onMouseEnter={() => editor?.setEditable(true)}
       onMouseLeave={() => editor?.setEditable(false)}
     >
       <EditorContent
         style={{ fontSize: `${fontSize}px` }}
         editor={editor}
-        className="px-[16px] pb-[16px] pt-[50px] text-black hover:cursor-text"
+        className="px-[12px] pb-[16px] pt-[50px] text-black hover:cursor-text"
         spellCheck={false}
       >
         <MenuBar editor={editor} className="absolute top-0" />
