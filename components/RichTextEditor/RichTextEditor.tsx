@@ -101,39 +101,35 @@ const MenuBar = ({ editor, className = "" }: MenuBarProps) => {
     editor.chain().focus().extendMarkRange("link").setLink({ href: url }).run()
   }, [editor])
 
-  if (!editor) {
-    return null
-  }
-
   return (
     <div
       className={`my-[8px] flex w-fit gap-[8px] border-b-[1px] border-opacity-20 bg-[#ffffff] pr-[16px] pb-[10px] text-black ${className}`}
     >
       <MenuBarGroup>
         <MenuBarButton
-          onClick={() => editor.chain().focus().toggleBold().run()}
-          disabled={!editor.can().chain().focus().toggleBold().run()}
+          onClick={() => editor.chain().toggleBold().run()}
+          disabled={!editor.can().chain().toggleBold().run()}
           isActive={editor.isActive("bold")}
         >
           <FontBoldIcon width={20} height={18} />
         </MenuBarButton>
         <MenuBarButton
-          onClick={() => editor.chain().focus().toggleItalic().run()}
-          disabled={!editor.chain().focus().toggleItalic().run()}
+          onClick={() => editor.chain().toggleItalic().run()}
+          disabled={!editor.chain().toggleItalic().run()}
           isActive={editor.isActive("italic")}
         >
           <FontItalicIcon width={20} height={18} />
         </MenuBarButton>
         <MenuBarButton
-          onClick={() => editor.chain().focus().toggleUnderline().run()}
-          disabled={!editor.chain().focus().toggleUnderline().run()}
+          onClick={() => editor.chain().toggleUnderline().run()}
+          disabled={!editor.chain().toggleUnderline().run()}
           isActive={editor.isActive("underline")}
         >
           <UnderlineIcon width={20} height={16} />
         </MenuBarButton>
         <MenuBarButton
-          onClick={() => editor.chain().focus().toggleStrike().run()}
-          disabled={!editor.chain().focus().toggleStrike().run()}
+          onClick={() => editor.chain().toggleStrike().run()}
+          disabled={!editor.chain().toggleStrike().run()}
           isActive={editor.isActive("strike")}
         >
           <StrikethroughIcon width={20} height={18} />
@@ -141,13 +137,13 @@ const MenuBar = ({ editor, className = "" }: MenuBarProps) => {
       </MenuBarGroup>
       <MenuBarGroup>
         <MenuBarButton
-          onClick={() => editor.chain().focus().toggleBulletList().run()}
+          onClick={() => editor.chain().toggleBulletList().run()}
           isActive={editor.isActive("bulletList")}
         >
           <ListBulletIcon width={24} height={18} />
         </MenuBarButton>
         <MenuBarButton
-          onClick={() => editor.chain().focus().toggleOrderedList().run()}
+          onClick={() => editor.chain().toggleOrderedList().run()}
           isActive={editor.isActive("orderedList")}
         >
           <svg
@@ -229,7 +225,7 @@ export default ({
     if (editor && hovered) {
       editor.setEditable(hovered)
     }
-  }, [hovered, editor])
+  }, [hovered])
 
   return (
     <>
