@@ -103,63 +103,79 @@ const MenuBar = ({ editor, className = "" }: MenuBarProps) => {
 
   return (
     <div
-      className={`my-[8px] flex w-fit gap-[8px] border-b-[1px] border-opacity-20 bg-[#ffffff] pr-[16px] pb-[10px] text-black ${className}`}
+      className={`my-[8px] flex w-full gap-[8px] border-b-[1px] border-opacity-20 bg-[#ffffff] px-[8px] pb-[10px] text-black ${className}`}
     >
       <MenuBarGroup>
-        <MenuBarButton
-          onClick={(event) => {
-            event.preventDefault(), editor.chain().focus().toggleBold().run()
-          }}
+        <button
+          type="button"
+          onClick={() => editor.chain().focus().toggleBold().run()}
           disabled={!editor.can().chain().focus().toggleBold().run()}
-          isActive={editor.isActive("bold")}
+          className={`${
+            editor.isActive("bold")
+              ? "bg-black/90 text-white hover:bg-opacity-70"
+              : "bg-black bg-opacity-0 text-black hover:bg-opacity-[0.13]"
+          } rounded-md p-[1px] transition`}
         >
           <FontBoldIcon width={20} height={18} />
-        </MenuBarButton>
-        <MenuBarButton
-          onClick={(event) => {
-            event.preventDefault(), editor.chain().focus().toggleItalic().run()
-          }}
-          disabled={!editor.chain().focus().toggleItalic().run()}
-          isActive={editor.isActive("italic")}
+        </button>
+        <button
+          type="button"
+          onClick={() => editor.chain().focus().toggleItalic().run()}
+          disabled={!editor.can().chain().focus().toggleItalic().run()}
+          className={`${
+            editor.isActive("italic")
+              ? "bg-black/90 text-white hover:bg-opacity-70"
+              : "bg-black bg-opacity-0 text-black hover:bg-opacity-[0.13]"
+          } rounded-md p-[1px] transition`}
         >
           <FontItalicIcon width={20} height={18} />
-        </MenuBarButton>
-        <MenuBarButton
-          onClick={(event) => {
-            event.preventDefault(),
-              editor.chain().focus().toggleUnderline().run()
-          }}
-          disabled={!editor.chain().focus().toggleUnderline().run()}
-          isActive={editor.isActive("underline")}
+        </button>
+        <button
+          type="button"
+          onClick={() => editor.chain().focus().toggleUnderline().run()}
+          disabled={!editor.can().chain().focus().toggleUnderline().run()}
+          className={`${
+            editor.isActive("underline")
+              ? "bg-black/90 text-white hover:bg-opacity-70"
+              : "bg-black bg-opacity-0 text-black hover:bg-opacity-[0.13]"
+          } rounded-md p-[1px] transition`}
         >
-          <UnderlineIcon width={20} height={16} />
-        </MenuBarButton>
-        <MenuBarButton
-          onClick={(event) => {
-            event.preventDefault(), editor.chain().focus().toggleStrike().run()
-          }}
-          disabled={!editor.chain().focus().toggleStrike().run()}
-          isActive={editor.isActive("strike")}
+          <UnderlineIcon width={20} height={18} />
+        </button>
+        <button
+          type="button"
+          onClick={() => editor.chain().focus().toggleStrike().run()}
+          className={`${
+            editor.isActive("link")
+              ? "bg-black/90 text-white hover:bg-opacity-70"
+              : "bg-black bg-opacity-0 text-black hover:bg-opacity-[0.13]"
+          } rounded-md p-[1px] transition`}
         >
           <StrikethroughIcon width={20} height={18} />
-        </MenuBarButton>
+        </button>
       </MenuBarGroup>
       <MenuBarGroup>
-        <MenuBarButton
-          onClick={(event) => {
-            event.preventDefault(),
-              editor.chain().focus().toggleBulletList().run()
-          }}
-          isActive={editor.isActive("bulletList")}
+        <button
+          type="button"
+          onClick={() => editor.chain().focus().toggleBulletList().run()}
+          disabled={!editor.can().chain().focus().toggleBulletList().run()}
+          className={`${
+            editor.isActive("bulletList")
+              ? "bg-black/90 text-white hover:bg-opacity-70"
+              : "bg-black bg-opacity-0 text-black hover:bg-opacity-[0.13]"
+          } rounded-md p-[1px] transition`}
         >
-          <ListBulletIcon width={24} height={18} />
-        </MenuBarButton>
-        <MenuBarButton
-          onClick={(event) => {
-            event.preventDefault(),
-              editor.chain().focus().toggleOrderedList().run()
-          }}
-          isActive={editor.isActive("orderedList")}
+          <ListBulletIcon width={20} height={18} />
+        </button>
+        <button
+          type="button"
+          onClick={() => editor.chain().focus().toggleOrderedList().run()}
+          disabled={!editor.can().chain().focus().toggleOrderedList().run()}
+          className={`${
+            editor.isActive("orderedList")
+              ? "bg-black/90 text-white hover:bg-opacity-70"
+              : "bg-black bg-opacity-0 text-black hover:bg-opacity-[0.13]"
+          } rounded-md p-[1px] transition`}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -174,17 +190,21 @@ const MenuBar = ({ editor, className = "" }: MenuBarProps) => {
             />
             <path d="M1.713 11.865v-.474H2c.217 0 .363-.137.363-.317 0-.185-.158-.31-.361-.31-.223 0-.367.152-.373.31h-.59c.016-.467.373-.787.986-.787.588-.002.954.291.957.703a.595.595 0 0 1-.492.594v.033a.615.615 0 0 1 .569.631c.003.533-.502.8-1.051.8-.656 0-1-.37-1.008-.794h.582c.008.178.186.306.422.309.254 0 .424-.145.422-.35-.002-.195-.155-.348-.414-.348h-.3zm-.004-4.699h-.604v-.035c0-.408.295-.844.958-.844.583 0 .96.326.96.756 0 .389-.257.617-.476.848l-.537.572v.03h1.054V9H1.143v-.395l.957-.99c.138-.142.293-.304.293-.508 0-.18-.147-.32-.342-.32a.33.33 0 0 0-.342.338v.041zM2.564 5h-.635V2.924h-.031l-.598.42v-.567l.629-.443h.635V5z" />
           </svg>
-        </MenuBarButton>
+        </button>
       </MenuBarGroup>
       <MenuBarGroup>
-        <MenuBarButton
-          onClick={(event) => {
-            event.preventDefault(), setLink
-          }}
-          isActive={editor.isActive("link")}
+        <button
+          type="button"
+          onClick={setLink}
+          disabled={!editor.can().chain().focus().toggleBulletList().run()}
+          className={`${
+            editor.isActive("link")
+              ? "bg-black/90 text-white hover:bg-opacity-70"
+              : "bg-black bg-opacity-0 text-black hover:bg-opacity-[0.13]"
+          } rounded-md p-[1px] transition`}
         >
           <Link2Icon width={20} height={16} />
-        </MenuBarButton>
+        </button>
       </MenuBarGroup>
       <MenuBarGroup>
         <div className="flex gap-[4px] text-sm opacity-50">
@@ -230,11 +250,17 @@ export default ({
         }),
       ],
 
+      editorProps: {
+        attributes: {
+          class: "focus-visible:outline-none",
+        },
+      },
+
       onCreate: ({ editor }) => {
         editor.setEditable(false)
       },
 
-      onBlur: ({ editor }) => {
+      onUpdate: ({ editor }) => {
         setContent(editor.getHTML())
       },
     },
@@ -242,27 +268,23 @@ export default ({
   )
 
   useEffect(() => {
-    if (editor && hovered) {
+    if (editor) {
       editor.setEditable(hovered)
     }
   }, [hovered])
 
   return (
-    <>
-      <p>{hovered.toString()}</p>
-      <div
-        className="relative h-fit w-full rounded-md border-[1px] border-white bg-[#ffffff]"
-        ref={ref}
-      >
-        <EditorContent
-          style={{ fontSize: `${fontSize}px` }}
-          editor={editor}
-          className="px-[12px] pb-[16px] pt-[50px] text-black hover:cursor-text"
-          spellCheck={false}
-        >
-          <MenuBar editor={editor} className="absolute top-0" />
-        </EditorContent>
-      </div>
-    </>
+    <div
+      className="relative h-fit w-full rounded-md border-[1px] border-white bg-[#ffffff]"
+      ref={ref}
+    >
+      <MenuBar editor={editor} />
+      <EditorContent
+        style={{ fontSize: `${fontSize}px` }}
+        editor={editor}
+        className="px-[12px] pb-[16px] text-black hover:cursor-text"
+        spellCheck={false}
+      ></EditorContent>
+    </div>
   )
 }
