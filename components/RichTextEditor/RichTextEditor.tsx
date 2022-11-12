@@ -73,8 +73,6 @@ const MenuBar = ({ editor, className }: MenuBarProps) => {
     return null
   }
 
-  editor.setEditable(true)
-
   return (
     <div
       className={`my-[8px] flex gap-[8px] border-b-[1px] border-opacity-20 bg-[#ffffff] pb-[10px] text-black ${
@@ -164,19 +162,7 @@ export default ({
         setContent(editor.getHTML())
       },
 
-      onBeforeCreate: ({ editor }) => {
-        editor.setEditable(false)
-      },
-
       onCreate: ({ editor }) => {
-        editor.setEditable(true)
-      },
-
-      onFocus: ({ editor }) => {
-        editor.setEditable(true)
-      },
-
-      onBlur: ({ editor }) => {
         editor.setEditable(false)
       },
     },
@@ -184,7 +170,11 @@ export default ({
   )
 
   return (
-    <div className="relative h-fit w-full rounded-md border-[1px] border-white bg-[#ffffff]">
+    <div
+      className="relative h-fit w-full rounded-md border-[1px] border-white bg-[#ffffff]"
+      onMouseEnter={() => editor?.setEditable(true)}
+      onMouseLeave={() => editor?.setEditable(false)}
+    >
       <EditorContent
         style={{ fontSize: `${fontSize}px` }}
         editor={editor}
