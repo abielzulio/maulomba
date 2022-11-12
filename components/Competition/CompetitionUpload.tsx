@@ -337,6 +337,7 @@ export const CompetitionUpload = () => {
                 maxSelectedValues={3}
               />
             </UploadInputContainer>
+            <p>{description}</p>
             <UploadInputContainer title="Deskripsi kompetisi">
               <RichTextEditor
                 setContent={setDescription}

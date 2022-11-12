@@ -214,16 +214,17 @@ export default ({
         }),
       ],
 
-      onUpdate: ({ editor }) => {
-        setContent(editor.getHTML())
-      },
-
       onCreate: ({ editor }) => {
-        editor.setEditable(hovered)
+        editor.setEditable(true)
       },
     },
     [setContent, placeholder]
   )
+
+  useEffect(() => {
+    editor?.on("update", ({ editor }) => setContent(editor.getHTML()))
+    editor?.setEditable(hovered)
+  }, [editor, setContent, hovered])
 
   /*   useEffect(() => {
     if (editor && hovered) {
