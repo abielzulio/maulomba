@@ -23,7 +23,8 @@ import Underline from "@tiptap/extension-underline"
 import CharacterCount from "@tiptap/extension-character-count"
 import Link from "@tiptap/extension-link"
 import { EditorContent, useEditor } from "@tiptap/react"
-import { useCallback } from "react"
+import { useCallback, useEffect } from "react"
+import { useHover } from "@mantine/hooks"
 
 interface RichTextEditorProps extends React.HTMLAttributes<HTMLDivElement> {
   fontSize?: string
@@ -222,20 +223,30 @@ export default ({
     [setContent, placeholder]
   )
 
+  const { hovered, ref } = useHover()
+
+  useEffect(() => {
+    if (editor && hovered) {
+      editor.setEditable(hovered)
+    }
+  }, [hovered, editor])
+
   return (
-    <div
-      className="relative h-fit min-h-[300px] w-full rounded-md border-[1px] border-white bg-[#ffffff]"
-      onMouseOver={() => editor?.setEditable(true)}
-      onMouseOut={() => editor?.setEditable(false)}
-    >
-      <EditorContent
-        style={{ fontSize: `${fontSize}px` }}
-        editor={editor}
-        className="px-[12px] pb-[16px] pt-[50px] text-black hover:cursor-text"
-        spellCheck={false}
+    <>
+      <p>{hovered.toString()}</p>
+      <div
+        className="relative h-fit w-full rounded-md border-[1px] border-white bg-[#ffffff]"
+        ref={ref}
       >
-        <MenuBar editor={editor} className="absolute top-0" />
-      </EditorContent>
-    </div>
+        <EditorContent
+          style={{ fontSize: `${fontSize}px` }}
+          editor={editor}
+          className="px-[12px] pb-[16px] pt-[50px] text-black hover:cursor-text"
+          spellCheck={false}
+        >
+          <MenuBar editor={editor} className="absolute top-0" />
+        </EditorContent>
+      </div>
+    </>
   )
 }
