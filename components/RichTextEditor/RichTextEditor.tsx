@@ -3,6 +3,7 @@ import {
   FontItalicIcon,
   ListBulletIcon,
   StrikethroughIcon,
+  UnderlineIcon,
 } from "@radix-ui/react-icons"
 import { Editor } from "@tiptap/core"
 import Bold from "@tiptap/extension-bold"
@@ -93,6 +94,13 @@ const MenuBar = ({ editor, className }: MenuBarProps) => {
           isActive={editor.isActive("italic")}
         >
           <FontItalicIcon width={20} height={20} />
+        </MenuBarButton>
+        <MenuBarButton
+          onClick={() => editor.chain().focus().toggleUnderline().run()}
+          disabled={!editor.chain().focus().toggleUnderline().run()}
+          isActive={editor.isActive("underline")}
+        >
+          <UnderlineIcon width={20} height={20} />
         </MenuBarButton>
         <MenuBarButton
           onClick={() => editor.chain().focus().toggleStrike().run()}
