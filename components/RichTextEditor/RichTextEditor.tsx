@@ -185,6 +185,8 @@ export default ({
   fontSize = "14",
   placeholder,
 }: RichTextEditorProps) => {
+  const { hovered, ref } = useHover()
+
   const editor = useEditor(
     {
       extensions: [
@@ -217,19 +219,17 @@ export default ({
       },
 
       onCreate: ({ editor }) => {
-        editor.setEditable(false)
+        editor.setEditable(hovered)
       },
     },
     [setContent, placeholder]
   )
 
-  const { hovered, ref } = useHover()
-
-  useEffect(() => {
+  /*   useEffect(() => {
     if (editor && hovered) {
       editor.setEditable(hovered)
     }
-  }, [hovered, editor])
+  }, [hovered, editor]) */
 
   return (
     <>
