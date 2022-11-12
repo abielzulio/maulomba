@@ -20,6 +20,7 @@ import Strike from "@tiptap/extension-strike"
 import Text from "@tiptap/extension-text"
 import Typography from "@tiptap/extension-typography"
 import Underline from "@tiptap/extension-underline"
+import CharacterCount from "@tiptap/extension-character-count"
 import Link from "@tiptap/extension-link"
 import { EditorContent, useEditor } from "@tiptap/react"
 import { useCallback } from "react"
@@ -34,7 +35,7 @@ interface MenuBarProps extends React.HTMLAttributes<HTMLDivElement> {
   editor: Editor | null
 }
 
-interface MenuBarGroupProps {
+interface MenuBarGroupProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode
 }
 
@@ -46,8 +47,10 @@ interface MenuBarButtonProps
   isActive?: boolean
 }
 
-const MenuBarGroup = ({ children }: MenuBarGroupProps) => (
-  <div className="flex gap-[4px] border-r-[1px] border-opacity-50 pr-[8px]">
+const MenuBarGroup = ({ children, className = "" }: MenuBarGroupProps) => (
+  <div
+    className={`flex gap-[4px] border-r-[1px] border-opacity-50 pr-[8px] ${className}`}
+  >
     {children}
   </div>
 )
@@ -103,7 +106,7 @@ const MenuBar = ({ editor, className = "" }: MenuBarProps) => {
 
   return (
     <div
-      className={`my-[8px] flex w-full gap-[8px] border-b-[1px] border-opacity-20 bg-[#ffffff] pb-[10px] text-black ${className}`}
+      className={`my-[8px] flex w-full gap-[8px] border-b-[1px] border-opacity-20 bg-[#ffffff] pr-[16px] pb-[10px] text-black ${className}`}
     >
       <MenuBarGroup>
         <MenuBarButton
@@ -166,6 +169,12 @@ const MenuBar = ({ editor, className = "" }: MenuBarProps) => {
           <Link2Icon height={18} width={18} />
         </MenuBarButton>
       </MenuBarGroup>
+      <MenuBarGroup className="ml-auto">
+        <div className="flex gap-[4px] text-sm opacity-50">
+          <span>{editor.storage.characterCount.characters()} huruf</span>
+          <span>{editor.storage.characterCount.words()} kata</span>
+        </div>
+      </MenuBarGroup>
     </div>
   )
 }
@@ -190,6 +199,7 @@ export default ({
         Typography,
         Underline,
         History,
+        CharacterCount,
         Link,
         Placeholder.configure({
           placeholder,
