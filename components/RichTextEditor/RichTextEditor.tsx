@@ -215,22 +215,21 @@ export default ({
       ],
 
       onCreate: ({ editor }) => {
-        editor.setEditable(true)
+        editor.setEditable(false)
+      },
+
+      onBlur: ({ editor }) => {
+        setContent(editor.getHTML())
       },
     },
-    [setContent, placeholder]
+    [setContent]
   )
 
   useEffect(() => {
-    editor?.on("update", ({ editor }) => setContent(editor.getHTML()))
-    editor?.setEditable(hovered)
-  }, [editor, setContent, hovered])
-
-  /*   useEffect(() => {
     if (editor && hovered) {
       editor.setEditable(hovered)
     }
-  }, [hovered, editor]) */
+  }, [hovered, editor])
 
   return (
     <>
