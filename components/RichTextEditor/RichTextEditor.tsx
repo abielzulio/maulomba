@@ -218,6 +218,7 @@ export default ({
         style={{ fontSize: `${fontSize}px` }}
         editor={editor}
         className="px-[16px] pb-[16px] pt-[50px] text-black hover:cursor-text"
+        spellCheck={false}
       >
         <MenuBar editor={editor} className="absolute top-0" />
       </EditorContent>
