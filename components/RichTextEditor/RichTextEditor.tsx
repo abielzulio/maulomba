@@ -225,8 +225,8 @@ export default ({
   return (
     <div
       className="relative h-fit min-h-[300px] w-full rounded-md border-[1px] border-white bg-[#ffffff]"
-      onMouseEnter={() => editor?.setEditable(true)}
-      onMouseLeave={() => editor?.setEditable(false)}
+      onMouseOver={() => editor?.setEditable(true)}
+      onMouseOut={() => editor?.setEditable(false)}
     >
       <EditorContent
         style={{ fontSize: `${fontSize}px` }}
