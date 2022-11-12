@@ -21,7 +21,7 @@ import Typography from "@tiptap/extension-typography"
 import Underline from "@tiptap/extension-underline"
 import { EditorContent, useEditor } from "@tiptap/react"
 
-interface RichTextEditorProps {
+interface RichTextEditorProps extends React.HTMLAttributes<HTMLDivElement> {
   fontSize?: string
   placeholder?: string
   setContent: (value: string) => void
@@ -69,16 +69,14 @@ const MenuBarButton = ({
   </button>
 )
 
-const MenuBar = ({ editor, className }: MenuBarProps) => {
+const MenuBar = ({ editor, className = "" }: MenuBarProps) => {
   if (!editor) {
     return null
   }
 
   return (
     <div
-      className={`my-[8px] flex gap-[8px] border-b-[1px] border-opacity-20 bg-[#ffffff] pb-[10px] text-black ${
-        className ?? ""
-      }`}
+      className={`my-[8px] flex gap-[8px] border-b-[1px] border-opacity-20 bg-[#ffffff] pb-[10px] text-black ${className}`}
     >
       <MenuBarGroup>
         <MenuBarButton
@@ -186,9 +184,9 @@ export default ({
       <EditorContent
         style={{ fontSize: `${fontSize}px` }}
         editor={editor}
-        className="px-[16px] pb-[16px] text-black hover:cursor-text"
+        className="px-[16px] pb-[16px] pt-[50px] text-black hover:cursor-text"
       >
-        <MenuBar editor={editor} />
+        <MenuBar editor={editor} className="absolute top-0" />
       </EditorContent>
     </div>
   )

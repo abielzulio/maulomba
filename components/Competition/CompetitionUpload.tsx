@@ -44,7 +44,7 @@ interface UploadInputContainerProps {
 }
 
 const UploadStep = (props: UploadStepProps) => {
-  const { state, number, title, children, className } = props
+  const { state, number, title, children, className = "" } = props
   return (
     <div className="h-full w-full">
       <div className={`flex flex-col gap-[20px] ${className}`}>
