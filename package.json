@@ -22,6 +22,7 @@
     "@tiptap/extension-document": "^2.0.0-beta.202",
     "@tiptap/extension-history": "^2.0.0-beta.202",
     "@tiptap/extension-italic": "^2.0.0-beta.202",
+    "@tiptap/extension-link": "^2.0.0-beta.202",
     "@tiptap/extension-list-item": "^2.0.0-beta.202",
     "@tiptap/extension-ordered-list": "^2.0.0-beta.202",
     "@tiptap/extension-paragraph": "^2.0.0-beta.202",

@@ -4,6 +4,7 @@ import {
   ListBulletIcon,
   StrikethroughIcon,
   UnderlineIcon,
+  Link2Icon,
 } from "@radix-ui/react-icons"
 import { Editor } from "@tiptap/core"
 import Bold from "@tiptap/extension-bold"
@@ -19,7 +20,9 @@ import Strike from "@tiptap/extension-strike"
 import Text from "@tiptap/extension-text"
 import Typography from "@tiptap/extension-typography"
 import Underline from "@tiptap/extension-underline"
+import Link from "@tiptap/extension-link"
 import { EditorContent, useEditor } from "@tiptap/react"
+import { useCallback } from "react"
 
 interface RichTextEditorProps extends React.HTMLAttributes<HTMLDivElement> {
   fontSize?: string
@@ -70,6 +73,30 @@ const MenuBarButton = ({
 )
 
 const MenuBar = ({ editor, className = "" }: MenuBarProps) => {
+  if (!editor) {
+    return null
+  }
+
+  const setLink = useCallback(() => {
+    const previousUrl = editor.getAttributes("link").href
+    const url = window.prompt("URL", previousUrl)
+
+    // cancelled
+    if (url === null) {
+      return
+    }
+
+    // empty
+    if (url === "") {
+      editor.chain().focus().extendMarkRange("link").unsetLink().run()
+
+      return
+    }
+
+    // update link
+    editor.chain().focus().extendMarkRange("link").setLink({ href: url }).run()
+  }, [editor])
+
   if (!editor) {
     return null
   }
@@ -134,6 +161,11 @@ const MenuBar = ({ editor, className = "" }: MenuBarProps) => {
           </svg>
         </MenuBarButton>
       </MenuBarGroup>
+      <MenuBarGroup>
+        <MenuBarButton onClick={setLink} isActive={editor.isActive("link")}>
+          <Link2Icon height={18} width={18} />
+        </MenuBarButton>
+      </MenuBarGroup>
     </div>
   )
 }
@@ -158,6 +190,7 @@ export default ({
         Typography,
         Underline,
         History,
+        Link,
         Placeholder.configure({
           placeholder,
           showOnlyWhenEditable: false,

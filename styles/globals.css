@@ -27,6 +27,10 @@ li {
   @apply ml-[30px];
 }
 
+:where(a) {
+  @apply text-blue-500 underline decoration-blue-500 !important;
+}
+
 :root {
   --scrollbar-width: 12px;
   --scrollbar-color: #2e2e2e;
