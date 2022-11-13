@@ -72,7 +72,7 @@ export const CTAContainer = (props: ContainerProps) => {
 export const ImageContainer = (props: ImageContainerProps) => {
   const [paddingTop, setPaddingTop] = useState(`0`)
   return (
-    <div className="relative" style={{ paddingTop }} {...props}>
+    <div className="relative" style={{ paddingTop }}>
       <NextImage
         src={props?.src}
         layout="fill"
