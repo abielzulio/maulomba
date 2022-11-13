@@ -70,7 +70,7 @@ export const CTAContainer = (props: ContainerProps) => {
 }
 
 export const ImageContainer = (props: ImageContainerProps) => {
-  const { src, className = "", animateOnHover } = props
+  const { src, className = "", animateOnHover = false } = props
   const [paddingTop, setPaddingTop] = useState(`0`)
   return (
     <div className={`relative ${className}`} style={{ paddingTop }}>
