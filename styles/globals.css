@@ -15,15 +15,15 @@
   @apply mx-[15px] sm:mx-[20px] md:mx-[40px] lg:mx-[60px];
 }
 
-:where(ul) {
+ul {
   @apply list-disc;
 }
 
-:where(ol) {
+ol {
   @apply list-decimal;
 }
 
-:where(li) {
+li {
   @apply ml-[30px];
 }
 
@@ -45,9 +45,9 @@ body {
 }
 
 /** Rich Text Editor */
-:where(.ProseMirror):focus-visible {
+/* :where(.ProseMirror):focus-visible {
   outline: transparent;
-}
+} */
 
 :where(.ProseMirror p.is-editor-empty):first-child::before {
   color: #adb5bd;

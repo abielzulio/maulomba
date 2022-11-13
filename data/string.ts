@@ -14,9 +14,9 @@ export const STRING_CLEAR_FILTERED_COMPETITON_BUTTON: string = "Hapus pencarian"
 export const STRING_COMPETITION_UPLOAD_PAGE_TITLE: string = "Unggah kompetisi"
 
 export const STRING_COMPETITION_UPLOAD_STEP: string[] = [
-  "Unggah poster kompetisi",
   "Isi deskripsi kompetisi",
-  "Konfirmasi pengunggahan",
+  "Unggah poster kompetisi",
+  "Opsi pengunggahan",
 ]
 
 export const STRING_COMPETITION_UPLOAD_CHANGE_IMAGE_BUTTON: string =

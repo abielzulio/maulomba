@@ -26,7 +26,7 @@ import {
 } from "data/string"
 import { COLOR_BLUE_PRIMARY, COLOR_WHITE } from "data/style"
 import { motion } from "framer-motion"
-import { useCallback, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { useDropzone } from "react-dropzone"
 import { Image } from "types/data"
 
@@ -40,6 +40,7 @@ interface UploadStepProps {
 
 interface UploadInputContainerProps {
   title: string
+  description?: string
   children: React.ReactNode
 }
 
@@ -71,10 +72,13 @@ const UploadStep = (props: UploadStepProps) => {
 }
 
 const UploadInputContainer = (props: UploadInputContainerProps) => {
-  const { title, children } = props
+  const { title, children, description } = props
   return (
     <div className="flex flex-col gap-[10px]">
-      <p className="text-sm font-medium">{title}</p>
+      <div className="flex flex-col gap-[5px]">
+        <p className="text-sm font-medium">{title}</p>
+        <p className="text-[12px] font-medium opacity-50">{description}</p>
+      </div>
       <div className={`flex ${children! > 1 ? `gap-[20px]` : `gap-[10px]`}`}>
         {children}
       </div>
@@ -84,16 +88,17 @@ const UploadInputContainer = (props: UploadInputContainerProps) => {
 
 export const CompetitionUpload = () => {
   const [image, setImage] = useState<Image[]>([])
-  const [deadlineTime, setDeadlineTime] = useState<Date | null>(null)
-  const [tags, setTags] = useState<string[]>([])
-  const [description, setDescription] = useState("")
+  const [description, setDescription] = useState<string>("")
+  const [isDescriptionValid, setIsDescriptionValid] = useState<boolean>(true)
+  const [isImageValid, setIsImageValid] = useState<boolean>(true)
 
   const form = useForm({
     initialValues: {
       title: "",
       eo: "",
-      deadlineDate: null,
-      deadlineTime: null,
+      img: "",
+      deadlineDate: new Date(),
+      deadlineTime: new Date(),
       link: "",
       level: "Nasional",
       registration: "Gratis",
@@ -145,6 +150,25 @@ export const CompetitionUpload = () => {
     onDropAccepted,
   })
 
+  useEffect(() => {
+    if (description.length > 10) {
+      setIsDescriptionValid(true)
+      form.setFieldValue("description", description)
+    }
+    if (image && image.length > 0) {
+      setIsImageValid(true)
+      form.setFieldValue("img", image[0].src)
+    }
+  }, [description, image])
+
+  const handleFormValidation = () => {
+    description.length > 10
+      ? setIsDescriptionValid(true)
+      : setIsDescriptionValid(false)
+    image.length > 0 ? setIsImageValid(true) : setIsImageValid(false)
+    form.validate()
+  }
+
   return (
     <ContentContainer className="padding-y">
       <h2 className="text-[24px] font-semibold md:text-[36px]">
@@ -152,76 +176,9 @@ export const CompetitionUpload = () => {
       </h2>
       <ContentContainer className="padding-y grid grid-cols-1 gap-[30px] xl:grid-cols-3">
         <UploadStep
-          state={image && image.length > 0}
+          state={form && form.isValid()}
           number={0}
           title={STRING_COMPETITION_UPLOAD_STEP[0]}
-          className="sticky top-[20px]"
-        >
-          {image && image.length > 0 ? (
-            <motion.div
-              animate={{ opacity: 1 }}
-              initial={{ opacity: 0 }}
-              exit={{ opacity: 0 }}
-              transition={{ delay: 0.25 }}
-              className="flex flex-col gap-[20px]"
-            >
-              {image[0].src && (
-                <ImageContainer
-                  className="border-[0.5px] border-white border-opacity-30"
-                  src={image[0].src}
-                />
-              )}
-              <button
-                className="tracking-tight opacity-50 transition hover:underline hover:opacity-80"
-                onClick={() => setImage([])}
-              >
-                {STRING_COMPETITION_UPLOAD_CHANGE_IMAGE_BUTTON}
-              </button>
-            </motion.div>
-          ) : (
-            <motion.div
-              animate={{ opacity: 1 }}
-              initial={{ opacity: 0 }}
-              exit={{ opacity: 0 }}
-              transition={{ delay: 0.25 }}
-              {...getRootProps({ className: "dropzone" })}
-              className={`group mx-auto flex min-h-[500px] w-full flex-col items-center justify-center rounded-md border-[2px] border-opacity-20 p-[25px] text-white transition hover:cursor-pointer hover:border-opacity-50 hover:bg-gray-800 ${
-                isDragAccept
-                  ? "border-green-400 border-opacity-100 bg-green-900 bg-opacity-20 !text-green-400 text-opacity-100"
-                  : "border-dashed"
-              } ${
-                isDragReject
-                  ? "cursor-no-drop border-solid border-red-400 border-opacity-100 !bg-red-900 !bg-opacity-20 !text-red-400"
-                  : "border-dashed border-white border-opacity-20"
-              }`}
-            >
-              <input
-                {...getInputProps()}
-                className={`h-full w-full ${
-                  isDragReject ? "!cursor-not-allowed" : ""
-                }`}
-              />
-              {!isDragActive && (
-                <ArrowUpTrayIcon className="h-5 w-5 opacity-50 transition group-hover:opacity-100" />
-              )}
-              {isDragAccept && (
-                <CheckCircleIcon className="h-5 w-5 opacity-50 transition group-hover:opacity-100" />
-              )}
-              {isDragReject && (
-                <XCircleIcon className="h-5 w-5 opacity-50 transition group-hover:opacity-100" />
-              )}
-              <p className="text-md my-[20px] mx-auto text-center font-medium tracking-tight opacity-50 transition group-hover:opacity-100">
-                {!isDragActive && STRING_COMPETITION_UPLOAD_IMAGE_DRAG_INIT}
-                {isDragAccept && STRING_COMPETITION_UPLOAD_IMAGE_DRAG_ALLOW}
-                {isDragReject && STRING_COMPETITION_UPLOAD_IMAGE_DRAG_REJECT}
-              </p>
-            </motion.div>
-          )}
-        </UploadStep>
-        <UploadStep
-          state={image && image.length > 0 && form && form.isValid()}
-          number={1}
-          title={STRING_COMPETITION_UPLOAD_STEP[1]}
         >
           <form className="flex flex-col gap-[20px]">
             <UploadInputContainer title="Nama kompetisi">
@@ -250,8 +207,6 @@ export const CompetitionUpload = () => {
                 />
                 <TimeInput
                   className="w-full"
-                  value={deadlineTime}
-                  onChange={setDeadlineTime}
                   {...form.getInputProps("deadlineTime")}
                   placeholder="Waktu deadline"
                   clearable
@@ -267,7 +222,7 @@ export const CompetitionUpload = () => {
             </UploadInputContainer>
             <UploadInputContainer title="Tingkat kompetisi">
               <Radio.Group
-                className="font-white ml-[4px] flex w-full gap-[30px]"
+                className="font-white ml-[4px] -mt-[10px] flex w-full gap-[30px]"
                 {...form.getInputProps("level")}
               >
                 {COMPETITION_LEVEL_TYPE.map((option, id) => (
@@ -294,7 +249,7 @@ export const CompetitionUpload = () => {
             </UploadInputContainer>
             <UploadInputContainer title="Pendaftaran kompetisi">
               <Radio.Group
-                className="font-white ml-[4px] flex w-full gap-[30px]"
+                className="font-white ml-[4px] -mt-[10px] flex w-full gap-[30px]"
                 {...form.getInputProps("registration")}
               >
                 {COMPETITION_REGISTRATION_TYPE.map((option, id) => (
@@ -320,18 +275,16 @@ export const CompetitionUpload = () => {
                 ))}
               </Radio.Group>
             </UploadInputContainer>
-            <UploadInputContainer title="Kategori kompetisi">
+            <UploadInputContainer
+              title="Kategori kompetisi"
+              description="Pilih kategori maksimal 3"
+            >
               <MultiSelect
                 className="w-full text-white/80"
                 searchable
                 clearable
                 nothingFound="Kategori kompetisi tidak ada"
                 {...form.getInputProps("tags")}
-                getCreateLabel={(query) => `+ Tambah ${query}`}
-                onCreate={(query) => {
-                  setTags((current) => [...current, query])
-                  return query
-                }}
                 data={COMPETITION_FILTER_OPTIONS}
                 placeholder="Pilih tiga kategori"
                 maxSelectedValues={3}
@@ -339,11 +292,90 @@ export const CompetitionUpload = () => {
             </UploadInputContainer>
             <UploadInputContainer title="Deskripsi kompetisi">
               <RichTextEditor
+                isValid={isDescriptionValid}
                 setContent={setDescription}
                 placeholder="Kompetisi ini merupakan ... "
               />
             </UploadInputContainer>
           </form>
+        </UploadStep>
+        <UploadStep
+          state={image && image.length > 0 && form && form.isValid()}
+          number={1}
+          title={STRING_COMPETITION_UPLOAD_STEP[1]}
+          className="sticky top-[20px]"
+        >
+          {image && image.length > 0 ? (
+            <motion.div
+              animate={{ opacity: 1 }}
+              initial={{ opacity: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ delay: 0.25 }}
+              className="flex flex-col gap-[20px]"
+            >
+              {image[0].src && (
+                <ImageContainer
+                  className="border-[0.5px] border-white border-opacity-30"
+                  src={image[0].src}
+                />
+              )}
+              <button
+                className="tracking-tight opacity-50 transition hover:underline hover:opacity-80"
+                onClick={() => setImage([])}
+              >
+                {STRING_COMPETITION_UPLOAD_CHANGE_IMAGE_BUTTON}
+              </button>
+            </motion.div>
+          ) : (
+            <div className="flex flex-col gap-[5px]">
+              <motion.div
+                animate={{ opacity: 1 }}
+                initial={{ opacity: 0 }}
+                exit={{ opacity: 0 }}
+                transition={{ delay: 0.25 }}
+                {...getRootProps({ className: "dropzone" })}
+                className={`group mx-auto flex min-h-[500px] w-full flex-col items-center justify-center rounded-md border-[2px] border-opacity-20 p-[25px] text-white transition hover:cursor-pointer hover:border-opacity-50 hover:bg-gray-800 ${
+                  isDragAccept
+                    ? "border-green-400 border-opacity-100 bg-green-900 bg-opacity-20 !text-green-400 text-opacity-100"
+                    : "border-dashed"
+                } ${
+                  isDragReject
+                    ? "cursor-no-drop border-solid border-red-400 border-opacity-100 !bg-red-900 !bg-opacity-20 !text-red-400"
+                    : `border-dashed ${
+                        isImageValid
+                          ? "border-white border-opacity-20"
+                          : "border-red-500 border-opacity-100"
+                      }`
+                }`}
+              >
+                <input
+                  {...getInputProps()}
+                  className={`h-full w-full ${
+                    isDragReject ? "!cursor-not-allowed" : ""
+                  }`}
+                />
+                {!isDragActive && (
+                  <ArrowUpTrayIcon className="h-5 w-5 opacity-50 transition group-hover:opacity-100" />
+                )}
+                {isDragAccept && (
+                  <CheckCircleIcon className="h-5 w-5 opacity-50 transition group-hover:opacity-100" />
+                )}
+                {isDragReject && (
+                  <XCircleIcon className="h-5 w-5 opacity-50 transition group-hover:opacity-100" />
+                )}
+                <p className="text-md my-[20px] mx-auto text-center font-medium tracking-tight opacity-50 transition group-hover:opacity-100">
+                  {!isDragActive && STRING_COMPETITION_UPLOAD_IMAGE_DRAG_INIT}
+                  {isDragAccept && STRING_COMPETITION_UPLOAD_IMAGE_DRAG_ALLOW}
+                  {isDragReject && STRING_COMPETITION_UPLOAD_IMAGE_DRAG_REJECT}
+                </p>
+              </motion.div>
+              {!isImageValid && (
+                <p className="text-[11px] font-medium text-[#fa5252]">
+                  Poster lomba harus diunggah
+                </p>
+              )}
+            </div>
+          )}
         </UploadStep>
         <UploadStep
           state={image && image.length > 0 && form && form.isValid()}
@@ -415,11 +447,11 @@ export const CompetitionUpload = () => {
             size="medium"
             width="full"
             className={`my-[20px] ${
-              !form.isValid()
-                ? `cursor-not-allowed opacity-50 grayscale`
-                : `cursor-pointer opacity-100`
+              form.isValid() && isDescriptionValid && isImageValid
+                ? `cursor-pointer opacity-100`
+                : `cursor-not-allowed opacity-50 grayscale`
             }`}
-            disabled={!form.isValid()}
+            /*             disabled={!form.isValid()} */
             icon={
               form.values.isCustom || form.values.isPremium ? (
                 <QrCodeIcon className="h-4 w-4" />
@@ -427,7 +459,7 @@ export const CompetitionUpload = () => {
                 <ArrowUpTrayIcon className="h-4 w-4" />
               )
             }
-            onClick={() => form.validate()}
+            onClick={handleFormValidation}
             title={`${
               form.values.isCustom || form.values.isPremium
                 ? `Bayar lalu unggah`

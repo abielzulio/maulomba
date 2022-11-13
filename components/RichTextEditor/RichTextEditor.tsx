@@ -29,6 +29,7 @@ import { useHover } from "@mantine/hooks"
 interface RichTextEditorProps extends React.HTMLAttributes<HTMLDivElement> {
   fontSize?: string
   placeholder?: string
+  isValid?: boolean
   setContent: (value: string) => void
 }
 
@@ -220,6 +221,7 @@ export default ({
   setContent,
   fontSize = "14",
   placeholder,
+  isValid,
 }: RichTextEditorProps) => {
   const { hovered, ref } = useHover()
 
@@ -274,17 +276,26 @@ export default ({
   }, [hovered])
 
   return (
-    <div
-      className="relative h-fit w-full rounded-md border-[1px] border-white bg-[#ffffff]"
-      ref={ref}
-    >
-      <MenuBar editor={editor} />
-      <EditorContent
-        style={{ fontSize: `${fontSize}px` }}
-        editor={editor}
-        className="px-[12px] pb-[16px] text-black hover:cursor-text"
-        spellCheck={false}
-      ></EditorContent>
+    <div className="flex w-full flex-col gap-[5px]">
+      <div
+        className={`relative h-fit w-full rounded-md border-[2px] border-white bg-[#ffffff] ${
+          isValid ? `border-white` : `border-red-500`
+        }`}
+        ref={ref}
+      >
+        <MenuBar editor={editor} />
+        <EditorContent
+          style={{ fontSize: `${fontSize}px` }}
+          editor={editor}
+          className="px-[12px] pb-[16px] text-black hover:cursor-text"
+          spellCheck={false}
+        />
+      </div>
+      {!isValid && (
+        <p className="text-[11px] font-medium text-[#fa5252]">
+          Deskripsi harus diisi
+        </p>
+      )}
     </div>
   )
 }
