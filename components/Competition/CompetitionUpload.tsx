@@ -155,9 +155,9 @@ export const CompetitionUpload = () => {
       setIsDescriptionValid(true)
       form.setFieldValue("description", description)
     }
-    if (image && image.length > 0) {
+    if (image[0].src) {
       setIsImageValid(true)
-      form.setFieldValue("img", image[0].src)
+      form.setFieldValue("img", image[0].src!)
     }
   }, [description, image])
 
