@@ -195,7 +195,7 @@ const CompetitionItem = ({ competition }: { competition: Competition }) =>
 
             {/* Main competition image */}
             {competition.image && (
-              <ImageContainer isScalable src={competition.image} />
+              <ImageContainer animateOnHover src={competition.image} />
             )}
           </a>
         </NextLink>

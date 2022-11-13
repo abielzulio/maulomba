@@ -77,7 +77,9 @@ export const ImageContainer = (props: ImageContainerProps) => {
         src={props?.src}
         layout="fill"
         objectFit="contain"
-        className={props.isScalable ? `transition hover:scale-110` : undefined}
+        className={
+          props.animateOnHover ? `transition hover:scale-110` : undefined
+        }
         onLoad={({ target }) => {
           const { naturalWidth, naturalHeight } = target as HTMLImageElement
           setPaddingTop(`calc(100% / (${naturalWidth} / ${naturalHeight})`)
