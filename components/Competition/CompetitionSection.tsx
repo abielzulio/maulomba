@@ -194,7 +194,9 @@ const CompetitionItem = ({ competition }: { competition: Competition }) =>
             {/* Button to like a competition item */}
 
             {/* Main competition image */}
-            {competition.image && <ImageContainer src={competition.image} />}
+            {competition.image && (
+              <ImageContainer isScalable src={competition.image} />
+            )}
           </a>
         </NextLink>
       </div>
