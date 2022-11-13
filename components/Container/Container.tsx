@@ -1,14 +1,11 @@
+import { motion } from "framer-motion"
+import NextImage from "next/image"
+import { useState } from "react"
 import {
   ContainerProps,
   ImageContainerProps,
   MotionContainerProps,
 } from "types/component"
-import { useState } from "react"
-import NextImage from "next/image"
-import { motion } from "framer-motion"
-import { useWindowDimension } from "hooks/useWindowDimension"
-import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline"
-import Button from "components/Button"
 
 const Container = (props: ContainerProps) => {
   const { className = `` } = props
