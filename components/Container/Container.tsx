@@ -70,16 +70,15 @@ export const CTAContainer = (props: ContainerProps) => {
 }
 
 export const ImageContainer = (props: ImageContainerProps) => {
+  const { src, className = "", animateOnHover } = props
   const [paddingTop, setPaddingTop] = useState(`0`)
   return (
-    <div className="relative" style={{ paddingTop }}>
+    <div className={`relative ${className}`} style={{ paddingTop }}>
       <NextImage
-        src={props?.src}
+        src={src}
         layout="fill"
         objectFit="contain"
-        className={
-          props.animateOnHover ? `transition hover:scale-110` : undefined
-        }
+        className={animateOnHover ? `transition hover:scale-110` : undefined}
         onLoad={({ target }) => {
           const { naturalWidth, naturalHeight } = target as HTMLImageElement
           setPaddingTop(`calc(100% / (${naturalWidth} / ${naturalHeight})`)
