@@ -318,7 +318,7 @@ export const CompetitionUpload = () => {
                 />
                 {form.values.title && (
                   <p className="text-sm font-medium text-blue-500">
-                    maulomba.com/{form.values.slug}
+                    maulomba.com/lomba/{form.values.slug}
                   </p>
                 )}
               </div>
@@ -390,7 +390,7 @@ export const CompetitionUpload = () => {
                 ))}
               </Radio.Group>
             </UploadInputContainer>
-            <UploadInputContainer title="Pendaftaran kompetisi">
+            <UploadInputContainer title="Biaya pendaftaran kompetisi">
               <Radio.Group
                 className="font-white ml-[4px] -mt-[10px] flex w-full gap-[30px]"
                 {...form.getInputProps("registration")}
