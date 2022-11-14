@@ -233,6 +233,23 @@ export const CompetitionUpload = () => {
     image.length > 0 ? setIsImageValid(true) : setIsImageValid(false)
   }
 
+  const handleURLValidation = () => {
+    if (
+      form.values.link &&
+      (!form.values.link.includes("http://") ||
+        !form.values.link.includes("https://"))
+    ) {
+      form.setFieldValue("link", "https://" + form.values.link)
+    }
+    if (
+      form.values.contact &&
+      (!form.values.contact.includes("http://") ||
+        !form.values.contact.includes("https://"))
+    ) {
+      form.setFieldValue("contact", "https://" + form.values.contact)
+    }
+  }
+
   const handleChangeImage = () => {
     setImage([])
     setIsImageValid(true)
@@ -240,6 +257,7 @@ export const CompetitionUpload = () => {
 
   const handleFormValidation = () => {
     form.validate()
+    handleURLValidation()
     handleDescriptionValidation()
     handleImageValidation()
   }
