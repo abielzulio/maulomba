@@ -105,6 +105,7 @@ export const CompetitionUpload = () => {
       title: "",
       eo: "",
       img: "",
+      slug: "",
       deadlineDate: date_now,
       deadlineTime: date_now,
       link: "",
@@ -175,6 +176,20 @@ export const CompetitionUpload = () => {
     maxFiles: 1,
     onDropAccepted,
   })
+
+  useEffect(() => {
+    if (form.values.title) {
+      form.setFieldValue(
+        "slug",
+        form.values.title
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "")
+          .replace(/\W+/g, "-")
+          .replace(/[-]+$/, "")
+          .toLocaleLowerCase()
+      )
+    }
+  }, [form.values.title])
 
   useEffect(() => {
     if (description.length > 10) {
@@ -268,11 +283,18 @@ export const CompetitionUpload = () => {
         >
           <form className="flex flex-col gap-[20px]">
             <UploadInputContainer title="Nama kompetisi">
-              <TextInput
-                className="w-full text-white/80"
-                {...form.getInputProps("title")}
-                placeholder={`EPSILON ${CURRENT_YEAR}, COMPFEST ${CURRENT_YEAR}, dll`}
-              />
+              <div className="flex w-full flex-col gap-[10px]">
+                <TextInput
+                  className="w-full text-white/80"
+                  {...form.getInputProps("title")}
+                  placeholder={`EPSILON ${CURRENT_YEAR}, COMPFEST ${CURRENT_YEAR}, dll`}
+                />
+                {form.values.title && (
+                  <p className="text-sm font-medium text-blue-500">
+                    maulomba.com/{form.values.slug}
+                  </p>
+                )}
+              </div>
             </UploadInputContainer>
             <UploadInputContainer title="Penyelenggara kompetisi">
               <TextInput
