@@ -26,9 +26,12 @@ import {
 } from "data/string"
 import { COLOR_BLUE_PRIMARY, COLOR_WHITE } from "data/style"
 import { motion } from "framer-motion"
+import { supabase, SUPABASE_BUCKET_BASE_URL } from "lib/supabase"
 import { useCallback, useEffect, useState } from "react"
 import { useDropzone } from "react-dropzone"
 import { Image } from "types/data"
+import { uuid } from "uuidv4"
+import { decode } from "base64-arraybuffer"
 
 interface UploadStepProps {
   state: boolean
@@ -128,7 +131,15 @@ export const CompetitionUpload = () => {
       reader.onload = () => {
         setImage((prev) => [
           ...prev,
-          { id: index, src: reader.result!.toString(), name: file.name },
+          {
+            id: index,
+            src: reader.result?.toString(),
+            name: file.name,
+            type:
+              file.name.toLowerCase().match(/\.(jpe?g|png)$/i)?.[0] ??
+              file.type.replace("image/", "."),
+            mime: file.type,
+          },
         ])
       }
       reader.readAsDataURL(file)
@@ -144,7 +155,9 @@ export const CompetitionUpload = () => {
     isDragActive,
   } = useDropzone({
     accept: {
-      "image/*": [".jpg", ".jpeg", ".png"],
+      "image/jpg": [".jpg"],
+      "image/jpeg": [".jpeg"],
+      "image/png": [".png"],
     },
     maxFiles: 1,
     onDropAccepted,
@@ -161,12 +174,42 @@ export const CompetitionUpload = () => {
     }
   }, [description, image])
 
-  const handleFormValidation = () => {
+  const handleFormValidation = async () => {
     description.length > 10
       ? setIsDescriptionValid(true)
       : setIsDescriptionValid(false)
     image.length > 0 ? setIsImageValid(true) : setIsImageValid(false)
     form.validate()
+    if (form.isValid() && description.length > 10 && image.length > 0) {
+      const random_uuid = uuid()
+      const image_file_name = `${random_uuid}${image[0].type}`
+      const img_url = `${SUPABASE_BUCKET_BASE_URL}/competition-img/${image_file_name}`
+      await supabase.storage
+        .from("competition-img")
+        .upload(
+          image_file_name,
+          decode(image[0].src!.replace(`data:${image[0].mime};base64,`, "")),
+          {
+            contentType: image[0].mime,
+          }
+        )
+      const { data, error } = await supabase
+        .from("competitions")
+        .insert({
+          uuid: random_uuid,
+          title: form.values.title,
+          eo: form.values.eo,
+          img: img_url,
+          link: form.values.link,
+          level: form.values.level,
+          registration: form.values.registration,
+          tags: form.values.tags,
+          is_premium: form.values.isPremium,
+          description: form.values.description,
+        })
+        .select()
+      console.table(data)
+    }
   }
 
   return (
