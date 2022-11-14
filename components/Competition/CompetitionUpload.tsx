@@ -490,7 +490,7 @@ export const CompetitionUpload = () => {
                 +Rp30.000
               </p>
             </div>
-            <div className="flex justify-between gap-[20px]">
+            {/*             <div className="flex justify-between gap-[20px]">
               <Checkbox
                 label="Buat link share sendiri (maulom.ba/kompetisi-anda)"
                 radius="sm"
@@ -517,7 +517,7 @@ export const CompetitionUpload = () => {
               >
                 +Rp30.000
               </p>
-            </div>
+            </div> */}
           </div>
           <Button
             kind="primary"
@@ -531,7 +531,7 @@ export const CompetitionUpload = () => {
             }`}
             /*             disabled={!form.isValid()} */
             icon={
-              form.values.isCustom || form.values.isPremium ? (
+              form.values.isPremium ? (
                 <QrCodeIcon className="h-4 w-4" />
               ) : (
                 <ArrowUpTrayIcon className="h-4 w-4" />
@@ -539,16 +539,14 @@ export const CompetitionUpload = () => {
             }
             onClick={handleFormSubmit}
             title={`${
-              form.values.isCustom || form.values.isPremium
+              form.values.isPremium
                 ? `Bayar lalu unggah`
                 : `Unggah secara gratis`
             }`}
           />
           <p
             className={`text-center font-mono text-sm transition ${
-              form.values.isCustom || form.values.isPremium
-                ? `opacity-50`
-                : `opacity-0`
+              form.values.isPremium ? `opacity-50` : `opacity-0`
             }`}
           >
             Pembayaran menggunakan QRIS dengan dukungan semua dompet digital dan
