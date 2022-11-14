@@ -113,6 +113,7 @@ export const CompetitionUpload = () => {
       deadlineDate: date_now,
       deadlineTime: date_now,
       link: "",
+      contact: "",
       level: "Nasional",
       registration: "Gratis",
       tags: [],
@@ -129,7 +130,9 @@ export const CompetitionUpload = () => {
         value == null ? "Tanggal deadline harus diisi" : null,
       deadlineTime: (value) =>
         value == null ? "Jam deadline harus diisi" : null,
-      link: (value) => (value ? null : "Link kompetisi harus diisi"),
+      link: (value) =>
+        value ? null : "Link pendaftaran kompetisi harus diisi",
+      contact: (value) => (value ? null : "Link kontak kompetisi harus diisi"),
       tags: (value) =>
         value.length > 0 ? null : "Kategori harus diisi minimal satu",
     },
@@ -261,6 +264,7 @@ export const CompetitionUpload = () => {
           eo: form.values.eo,
           img: img_url,
           link: form.values.link,
+          contact: form.values.contact,
           level: form.values.level,
           deadline_date: form.values.deadlineDate,
           deadline_time: deadline_time,
@@ -331,6 +335,13 @@ export const CompetitionUpload = () => {
                 className="w-full text-white/80"
                 {...form.getInputProps("link")}
                 placeholder={`ugm.id/epsilon-${CURRENT_YEAR}`}
+              />
+            </UploadInputContainer>
+            <UploadInputContainer title="Link kontak kompetisi">
+              <TextInput
+                className="w-full text-white/80"
+                {...form.getInputProps("contact")}
+                placeholder={`wa.me/62812345678`}
               />
             </UploadInputContainer>
             <UploadInputContainer title="Tingkat kompetisi">
