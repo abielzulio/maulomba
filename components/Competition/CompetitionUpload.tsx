@@ -98,13 +98,15 @@ export const CompetitionUpload = () => {
   const [isStepOneValid, setIsStepOneValid] = useState<boolean>(false)
   const [isStepTwoValid, setIsStepTwoValid] = useState<boolean>(false)
 
+  const date_now = new Date()
+
   const form = useForm({
     initialValues: {
       title: "",
       eo: "",
       img: "",
-      deadlineDate: new Date(),
-      deadlineTime: new Date(),
+      deadlineDate: date_now,
+      deadlineTime: date_now,
       link: "",
       level: "Nasional",
       registration: "Gratis",
@@ -226,6 +228,7 @@ export const CompetitionUpload = () => {
       const random_uuid = uuid()
       const image_file_name = `${random_uuid}${image[0].type}`
       const img_url = `${SUPABASE_BUCKET_BASE_URL}/competition-img/${image_file_name}`
+      const deadline_time = `${form.values.deadlineTime.getHours()}:${form.values.deadlineTime.getMinutes()}:${form.values.deadlineTime.getSeconds()}`
       await supabase.storage
         .from("competition-img")
         .upload(image_file_name, decode(image[0].data), {
@@ -240,6 +243,8 @@ export const CompetitionUpload = () => {
           img: img_url,
           link: form.values.link,
           level: form.values.level,
+          deadline_date: form.values.deadlineDate,
+          deadline_time: deadline_time,
           registration: form.values.registration,
           tags: form.values.tags,
           is_premium: form.values.isPremium,
@@ -287,6 +292,7 @@ export const CompetitionUpload = () => {
                   placeholder="Tanggal deadline"
                 />
                 <TimeInput
+                  withSeconds
                   className="w-full"
                   {...form.getInputProps("deadlineTime")}
                   placeholder="Waktu deadline"
