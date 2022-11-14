@@ -94,6 +94,8 @@ export const CompetitionUpload = () => {
   const [description, setDescription] = useState<string>("")
   const [isDescriptionValid, setIsDescriptionValid] = useState<boolean>(true)
   const [isImageValid, setIsImageValid] = useState<boolean>(true)
+  const [isStepOneValid, setIsStepOneValid] = useState<boolean>(false)
+  const [isStepTwoValid, setIsStepTwoValid] = useState<boolean>(false)
 
   const form = useForm({
     initialValues: {
@@ -168,19 +170,43 @@ export const CompetitionUpload = () => {
       setIsDescriptionValid(true)
       form.setFieldValue("description", description)
     }
-    if (image && image.length > 0) {
-      image[0].src && setIsImageValid(true)
-      image[0].src && form.setFieldValue("img", image[0].src!)
-    }
-  }, [description, image])
+  }, [description])
 
-  const handleFormValidation = async () => {
+  useEffect(() => {
+    image.length > 0 ? setIsImageValid(true) : setIsImageValid(false)
+  }, [image])
+
+  useEffect(() => {
+    form.isValid() && description.length > 10
+      ? setIsStepOneValid(true)
+      : setIsStepOneValid(false)
+  }, [form, description])
+
+  useEffect(() => {
+    isStepOneValid && image.length > 0
+      ? setIsStepTwoValid(true)
+      : setIsStepTwoValid(false)
+  }, [isStepOneValid, image])
+
+  const handleDescriptionValidation = () => {
     description.length > 10
       ? setIsDescriptionValid(true)
       : setIsDescriptionValid(false)
+  }
+
+  const handleImageValidation = () => {
     image.length > 0 ? setIsImageValid(true) : setIsImageValid(false)
+  }
+
+  const handleFormValidation = () => {
     form.validate()
-    if (form.isValid() && description.length > 10 && image.length > 0) {
+    handleDescriptionValidation()
+    handleImageValidation()
+  }
+
+  const handleFormSubmit = async () => {
+    handleFormValidation()
+    if (isStepTwoValid) {
       const random_uuid = uuid()
       const image_file_name = `${random_uuid}${image[0].type}`
       const img_url = `${SUPABASE_BUCKET_BASE_URL}/competition-img/${image_file_name}`
@@ -219,7 +245,7 @@ export const CompetitionUpload = () => {
       </h2>
       <ContentContainer className="padding-y grid grid-cols-1 gap-[30px] xl:grid-cols-3">
         <UploadStep
-          state={form && form.isValid()}
+          state={isStepOneValid}
           number={0}
           title={STRING_COMPETITION_UPLOAD_STEP[0]}
         >
@@ -343,7 +369,7 @@ export const CompetitionUpload = () => {
           </form>
         </UploadStep>
         <UploadStep
-          state={image && image.length > 0 && form && form.isValid()}
+          state={isStepTwoValid}
           number={1}
           title={STRING_COMPETITION_UPLOAD_STEP[1]}
           className="sticky top-[20px]"
@@ -421,7 +447,7 @@ export const CompetitionUpload = () => {
           )}
         </UploadStep>
         <UploadStep
-          state={image && image.length > 0 && form && form.isValid()}
+          state={isStepTwoValid}
           number={2}
           title={STRING_COMPETITION_UPLOAD_STEP[2]}
           className="sticky top-[20px]"
@@ -490,7 +516,7 @@ export const CompetitionUpload = () => {
             size="medium"
             width="full"
             className={`my-[20px] ${
-              form.isValid() && isDescriptionValid && isImageValid
+              isStepTwoValid
                 ? `cursor-pointer opacity-100`
                 : `cursor-not-allowed opacity-50 grayscale`
             }`}
@@ -502,7 +528,7 @@ export const CompetitionUpload = () => {
                 <ArrowUpTrayIcon className="h-4 w-4" />
               )
             }
-            onClick={handleFormValidation}
+            onClick={handleFormSubmit}
             title={`${
               form.values.isCustom || form.values.isPremium
                 ? `Bayar lalu unggah`
