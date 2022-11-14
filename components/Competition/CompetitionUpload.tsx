@@ -261,6 +261,7 @@ export const CompetitionUpload = () => {
         .insert({
           uuid: random_uuid,
           title: form.values.title,
+          slug: form.values.slug,
           eo: form.values.eo,
           img: img_url,
           link: form.values.link,
