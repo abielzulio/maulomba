@@ -30,7 +30,7 @@ import { supabase, SUPABASE_BUCKET_BASE_URL } from "lib/supabase"
 import { useCallback, useEffect, useState } from "react"
 import { useDropzone } from "react-dropzone"
 import { CompressResult, Image } from "types/data"
-import { uuid } from "uuidv4"
+import { v4 as uuid } from "uuid"
 import { decode } from "base64-arraybuffer"
 import Compress from "compress.js"
 
