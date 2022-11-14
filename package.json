@@ -35,6 +35,7 @@
     "@tiptap/extension-underline": "^2.0.0-beta.202",
     "@tiptap/react": "^2.0.0-beta.202",
     "base64-arraybuffer": "^1.0.2",
+    "compress.js": "^1.2.2",
     "framer-motion": "^7.6.1",
     "next": "12.3.1",
     "react": "18.2.0",
@@ -45,6 +46,7 @@
     "uuidv4": "^6.2.13"
   },
   "devDependencies": {
+    "@types/compress.js": "^1.1.1",
     "@types/node": "18.11.0",
     "@types/react": "18.0.21",
     "@types/react-dom": "18.0.6",

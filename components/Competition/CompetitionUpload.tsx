@@ -29,9 +29,10 @@ import { motion } from "framer-motion"
 import { supabase, SUPABASE_BUCKET_BASE_URL } from "lib/supabase"
 import { useCallback, useEffect, useState } from "react"
 import { useDropzone } from "react-dropzone"
-import { Image } from "types/data"
+import { CompressResult, Image } from "types/data"
 import { uuid } from "uuidv4"
 import { decode } from "base64-arraybuffer"
+import Compress from "compress.js"
 
 interface UploadStepProps {
   state: boolean
@@ -128,25 +129,30 @@ export const CompetitionUpload = () => {
   })
 
   const onDropAccepted = useCallback((acceptedFiles: File[]) => {
-    acceptedFiles.map((file: File, index: number) => {
-      const reader: FileReader = new FileReader()
-      reader.onload = () => {
-        setImage((prev) => [
-          ...prev,
-          {
-            id: index,
-            src: reader.result?.toString(),
-            name: file.name,
-            type:
-              file.name.toLowerCase().match(/\.(jpe?g|png)$/i)?.[0] ??
-              file.type.replace("image/", "."),
-            mime: file.type,
-          },
-        ])
-      }
-      reader.readAsDataURL(file)
-      return file
-    })
+    const compress = new Compress()
+    compress
+      .compress(acceptedFiles, {
+        maxWidth: 1240,
+        maxHeight: 1240,
+        resize: true,
+      })
+      .then((data) => {
+        data.map((file: CompressResult, index: number) => {
+          setImage((prev) => [
+            ...prev,
+            {
+              id: index,
+              data: file.data,
+              src: file.prefix + file.data,
+              name: file.alt,
+              type:
+                file.alt.toLowerCase().match(/\.(jpe?g|png)$/i)?.[0] ??
+                file.ext.replace("image/", "."),
+              mime: file.ext,
+            },
+          ])
+        })
+      })
   }, [])
 
   const {
@@ -219,13 +225,9 @@ export const CompetitionUpload = () => {
       const img_url = `${SUPABASE_BUCKET_BASE_URL}/competition-img/${image_file_name}`
       await supabase.storage
         .from("competition-img")
-        .upload(
-          image_file_name,
-          decode(image[0].src!.replace(`data:${image[0].mime};base64,`, "")),
-          {
-            contentType: image[0].mime,
-          }
-        )
+        .upload(image_file_name, decode(image[0].data), {
+          contentType: image[0].mime,
+        })
       const { data, error } = await supabase
         .from("competitions")
         .insert({

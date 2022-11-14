@@ -1,7 +1,10 @@
 export interface Image {
   id: number
-  src: string | undefined
+  data: string
+  src: string
   name: string
+  type: string
+  mime: string
 }
 
 export interface Competition {
@@ -20,8 +23,19 @@ export interface Competition {
   url: string
 }
 
-export interface Image {
-  id: number
-  src: string | undefined
-  name: string
+export interface CompressResult {
+  data: string
+  prefix: string
+  elapsedTimeInSeconds: number
+  alt: string
+  initialSizeInMb: number
+  endSizeInMb: number
+  ext: string
+  quality: number
+  endWidthInPx: number
+  endHeightInPx: number
+  initialWidthInPx: number
+  initialHeightInPx: number
+  sizeReducedInPercent: number
+  iterations: number
 }
