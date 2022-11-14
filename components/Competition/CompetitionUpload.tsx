@@ -173,7 +173,9 @@ export const CompetitionUpload = () => {
   }, [description])
 
   useEffect(() => {
-    image.length > 0 ? setIsImageValid(true) : setIsImageValid(false)
+    if (image.length > 0) {
+      setIsImageValid(true)
+    }
   }, [image])
 
   useEffect(() => {
@@ -196,6 +198,11 @@ export const CompetitionUpload = () => {
 
   const handleImageValidation = () => {
     image.length > 0 ? setIsImageValid(true) : setIsImageValid(false)
+  }
+
+  const handleChangeImage = () => {
+    setImage([])
+    setIsImageValid(true)
   }
 
   const handleFormValidation = () => {
@@ -390,7 +397,7 @@ export const CompetitionUpload = () => {
               )}
               <button
                 className="tracking-tight opacity-50 transition hover:underline hover:opacity-80"
-                onClick={() => setImage([])}
+                onClick={handleChangeImage}
               >
                 {STRING_COMPETITION_UPLOAD_CHANGE_IMAGE_BUTTON}
               </button>
