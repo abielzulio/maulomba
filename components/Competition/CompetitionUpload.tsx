@@ -43,7 +43,7 @@ interface UploadStepProps {
 }
 
 interface UploadInputContainerProps {
-  title: string
+  title?: string
   description?: string
   children: React.ReactNode
 }
@@ -79,10 +79,14 @@ const UploadInputContainer = (props: UploadInputContainerProps) => {
   const { title, children, description } = props
   return (
     <div className="flex flex-col gap-[10px]">
-      <div className="flex flex-col gap-[5px]">
-        <p className="text-sm font-medium">{title}</p>
-        <p className="text-[12px] font-medium opacity-50">{description}</p>
-      </div>
+      {title && (
+        <div className="flex flex-col gap-[5px]">
+          <p className="text-sm font-medium">{title}</p>
+          {description && (
+            <p className="text-[12px] font-medium opacity-50">{description}</p>
+          )}
+        </div>
+      )}
       <div className={`flex ${children! > 1 ? `gap-[20px]` : `gap-[10px]`}`}>
         {children}
       </div>
