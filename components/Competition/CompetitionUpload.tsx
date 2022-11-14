@@ -317,7 +317,7 @@ export const CompetitionUpload = () => {
                   placeholder={`EPSILON ${CURRENT_YEAR}, COMPFEST ${CURRENT_YEAR}, dll`}
                 />
                 {form.values.title && (
-                  <p className="text-sm font-medium text-blue-500">
+                  <p className="rounded-md border-[1px] border-blue-500 bg-blue-500/10 px-[8px] pt-[6px] pb-[10px] text-sm font-medium text-blue-500">
                     maulomba.com/lomba/{form.values.slug}
                   </p>
                 )}
