@@ -153,6 +153,9 @@ export const CompetitionUpload = () => {
           ])
         })
       })
+      .catch((err) => {
+        alert(err)
+      })
   }, [])
 
   const {
