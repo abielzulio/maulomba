@@ -99,7 +99,7 @@ const CompetitionPage: NextPage = () => {
         {competition.description && (
           <ContentContainer className="relative flex h-full flex-col gap-[20px]">
             <div
-              className="flex flex-col gap-[10px] rounded-md bg-gray-300/5 p-[20px]"
+              className="flex h-full flex-col gap-[10px] rounded-md bg-gray-300/5 p-[20px]"
               key={Math.random()}
               dangerouslySetInnerHTML={{
                 __html: sanitize(competition.description, sanitizeOptions),
