@@ -97,7 +97,7 @@ const CompetitionPage: NextPage = () => {
           </ContentContainer>
         </ContentContainer>
         {competition.description && (
-          <ContentContainer className="flex flex-col gap-[20px]">
+          <ContentContainer className="relative flex h-full flex-col gap-[20px]">
             <div
               className="flex flex-col gap-[10px] rounded-md bg-gray-300/5 p-[20px]"
               key={Math.random()}
@@ -108,7 +108,7 @@ const CompetitionPage: NextPage = () => {
           </ContentContainer>
         )}
         {competition.img && (
-          <ContentContainer className="h-full">
+          <ContentContainer className="relative h-full">
             <ContentContainer className="sticky top-[40px] flex flex-col gap-[20px]">
               <ImageContainer
                 animateOnHover
