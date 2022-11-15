@@ -51,7 +51,7 @@ export const HeroContainer = (props: ContainerProps) => {
 export const ContentContainer = (props: ContainerProps) => {
   const { className = ``, children, ...rest } = props
   return (
-    <Container className={`min-h-fit max-w-full ${className}`} {...rest}>
+    <Container className={`max-w-full ${className}`} {...rest}>
       {children}
     </Container>
   )
