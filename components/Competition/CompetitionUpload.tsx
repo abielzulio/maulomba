@@ -432,7 +432,10 @@ export const CompetitionUpload = () => {
                 placeholder={`ugm.id/epsilon-${CURRENT_YEAR}`}
               />
             </UploadInputContainer>
-            <UploadInputContainer title="Link kontak kompetisi">
+            <UploadInputContainer
+              title="Link narahubung"
+              description="Link kontak panitia (Instagram/WhatsApp/Telegram)"
+            >
               <TextInput
                 className="w-full text-white/80"
                 {...form.getInputProps("contact")}
