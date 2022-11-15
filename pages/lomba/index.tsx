@@ -30,6 +30,13 @@ const CompetitionPage: NextPage = () => {
       a: ["link"],
     },
   }
+
+  const deadline = `${new Date(competition.deadline_date).getDate()} ${new Date(
+    competition.deadline_date
+  ).toLocaleDateString("in-ID", {
+    year: "numeric",
+    month: "long",
+  })}, ${competition.deadline_time}`
   return (
     <Page>
       <ContentContainer className="padding-x padding-y flex h-fit justify-between">
@@ -76,7 +83,12 @@ const CompetitionPage: NextPage = () => {
                 </NextLink>
               )}
             </div>
-
+            {deadline && (
+              <div className="flex justify-between text-sm">
+                <p className="opacity-50">Deadline</p>
+                <p className="font-semibold">{deadline}</p>
+              </div>
+            )}
             {competition.registration && (
               <div className="flex justify-between text-sm">
                 <p className="opacity-50">Pendaftaran</p>
