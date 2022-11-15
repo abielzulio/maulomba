@@ -22,8 +22,8 @@ const Hero = (props: HeroProps) => {
         )}
       </h1>
       {hero_desc && (
-        <p className="text-[14px] font-normal text-gray-50 text-opacity-80 md:text-[18px]">
-          {hero_desc[0]} <br /> {hero_desc[1]}
+        <p className="text-[16px] font-normal text-gray-50 text-opacity-80 md:text-[18px]">
+          {hero_desc[0]} <br className="hidden md:block" /> {hero_desc[1]}
         </p>
       )}
     </div>

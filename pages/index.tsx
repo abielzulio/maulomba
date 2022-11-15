@@ -25,18 +25,20 @@ const Home: NextPage = () => {
           <NextLink href="/kirim-lomba">
             <Button
               icon={<ArrowUpTrayIcon className="h-4 w-4" />}
-              title={!isMobile ? "Unggah lomba" : ""}
+              title={"Unggah lomba"}
               kind="primary"
-              className="sticky top-[20px]"
+              size={"medium"}
+              width="full"
+              className="sticky top-[20px] mr-auto"
             />
           </NextLink>
-          <NextLink href="/masuk">
+          {/*           <NextLink href="/masuk">
             <Button
               icon={<UserIcon className="h-4 w-4" />}
               kind="secondary"
               className="sticky top-[20px]"
             />
-          </NextLink>
+          </NextLink> */}
         </CTAContainer>
       </HeroContainer>
       <CompetitionSection />
