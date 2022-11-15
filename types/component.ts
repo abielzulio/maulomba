@@ -9,9 +9,10 @@ export interface ContainerProps extends React.HTMLAttributes<HTMLElement> {
   children: React.ReactNode
 }
 
-export interface ImageContainerProps
-  extends React.HTMLAttributes<HTMLDivElement> {
+export interface ImageContainerProps {
   src: string
+  className?: string
+  animateOnHover?: boolean
 }
 
 export interface ButtonProps
