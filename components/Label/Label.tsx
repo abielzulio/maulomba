@@ -2,6 +2,7 @@ import React from "react"
 
 interface TagLabelProps {
   tag: string[]
+  showAll?: boolean
 }
 
 interface LevelLabelProps {
@@ -28,10 +29,14 @@ export const TagLabel = (props: TagLabelProps) => {
   )
   return (
     <div className="flex flex-row flex-wrap gap-[5px]">
-      {props.tag.slice(0, 2).map((tag, id) => (
-        <TagLabelItem key={id}>{tag}</TagLabelItem>
-      ))}
-      {isMoreTags && <TagLabelItem>{`+${props.tag.length - 2}`}</TagLabelItem>}
+      {props.tag
+        .slice(0, props.showAll ? props.tag.length : 2)
+        .map((tag, id) => (
+          <TagLabelItem key={id}>{tag}</TagLabelItem>
+        ))}
+      {!props.showAll && isMoreTags && (
+        <TagLabelItem>{`+${props.tag.length - 2}`}</TagLabelItem>
+      )}
     </div>
   )
 }
