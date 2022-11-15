@@ -278,7 +278,7 @@ export default ({
   return (
     <div className="flex w-full flex-col gap-[5px]">
       <div
-        className={`relative h-fit w-full rounded-md border-[2px] border-white bg-[#ffffff] ${
+        className={`relative min-h-[300px] w-full rounded-md border-[2px] border-white bg-[#ffffff] ${
           isValid ? `border-white` : `border-red-500`
         }`}
         ref={ref}
