@@ -212,16 +212,14 @@ export const CompetitionUpload = () => {
   }, [image])
 
   useEffect(() => {
-    form.isValid() && description.length > 10
-      ? setIsStepOneValid(true)
-      : setIsStepOneValid(false)
-  }, [form, description])
+    image.length > 0 ? setIsStepOneValid(true) : setIsStepOneValid(false)
+  }, [image])
 
   useEffect(() => {
-    isStepOneValid && image.length > 0
+    isStepOneValid && form.isValid() && description.length > 10
       ? setIsStepTwoValid(true)
       : setIsStepTwoValid(false)
-  }, [isStepOneValid, image])
+  }, [isStepOneValid, form, description])
 
   const handleDescriptionValidation = () => {
     description.length > 10
@@ -293,7 +291,7 @@ export const CompetitionUpload = () => {
           description: form.values.description,
         })
         .select()
-      console.table(data)
+      // add loader when: submitting -> added to supabase -> next.js generate page ondemand isr -> check if new page accesible -> then redirect to new page
     }
   }
 
@@ -307,6 +305,84 @@ export const CompetitionUpload = () => {
           state={isStepOneValid}
           number={0}
           title={STRING_COMPETITION_UPLOAD_STEP[0]}
+          className="sticky top-[20px]"
+        >
+          {image && image.length > 0 ? (
+            <motion.div
+              animate={{ opacity: 1 }}
+              initial={{ opacity: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ delay: 0.25 }}
+              className="flex flex-col gap-[20px]"
+            >
+              {image[0].src && (
+                <ImageContainer
+                  className="border-[0.5px] border-white border-opacity-30"
+                  src={image[0].src}
+                />
+              )}
+              <button
+                className="tracking-tight opacity-50 transition hover:underline hover:opacity-80"
+                onClick={handleChangeImage}
+              >
+                {STRING_COMPETITION_UPLOAD_CHANGE_IMAGE_BUTTON}
+              </button>
+            </motion.div>
+          ) : (
+            <div className="flex flex-col gap-[5px]">
+              <motion.div
+                animate={{ opacity: 1 }}
+                initial={{ opacity: 0 }}
+                exit={{ opacity: 0 }}
+                transition={{ delay: 0.25 }}
+                {...getRootProps({ className: "dropzone" })}
+                className={`group mx-auto flex min-h-[500px] w-full flex-col items-center justify-center rounded-md border-[2px] border-opacity-20 p-[25px] text-white transition hover:cursor-pointer hover:border-opacity-50 hover:bg-gray-800 ${
+                  isDragAccept
+                    ? "border-green-400 border-opacity-100 bg-green-900 bg-opacity-20 !text-green-400 text-opacity-100"
+                    : "border-dashed"
+                } ${
+                  isDragReject
+                    ? "cursor-no-drop border-solid border-red-400 border-opacity-100 !bg-red-900 !bg-opacity-20 !text-red-400"
+                    : `border-dashed ${
+                        isImageValid
+                          ? "border-white border-opacity-20"
+                          : "border-red-500 border-opacity-100"
+                      }`
+                }`}
+              >
+                <input
+                  {...getInputProps()}
+                  className={`h-full w-full ${
+                    isDragReject ? "!cursor-not-allowed" : ""
+                  }`}
+                />
+                {!isDragActive && (
+                  <ArrowUpTrayIcon className="h-5 w-5 opacity-50 transition group-hover:opacity-100" />
+                )}
+                {isDragAccept && (
+                  <CheckCircleIcon className="h-5 w-5 opacity-50 transition group-hover:opacity-100" />
+                )}
+                {isDragReject && (
+                  <XCircleIcon className="h-5 w-5 opacity-50 transition group-hover:opacity-100" />
+                )}
+                <p className="text-md my-[20px] mx-auto text-center font-medium tracking-tight opacity-50 transition group-hover:opacity-100">
+                  {!isDragActive && STRING_COMPETITION_UPLOAD_IMAGE_DRAG_INIT}
+                  {isDragAccept && STRING_COMPETITION_UPLOAD_IMAGE_DRAG_ALLOW}
+                  {isDragReject && STRING_COMPETITION_UPLOAD_IMAGE_DRAG_REJECT}
+                </p>
+              </motion.div>
+              {!isImageValid && (
+                <p className="text-[11px] font-medium text-[#fa5252]">
+                  Poster lomba harus diunggah
+                </p>
+              )}
+            </div>
+          )}
+        </UploadStep>
+        <UploadStep
+          state={isStepTwoValid}
+          number={1}
+          title={STRING_COMPETITION_UPLOAD_STEP[1]}
         >
           <form className="flex flex-col gap-[20px]">
             <UploadInputContainer title="Nama kompetisi">
@@ -317,7 +393,7 @@ export const CompetitionUpload = () => {
                   placeholder={`EPSILON ${CURRENT_YEAR}, COMPFEST ${CURRENT_YEAR}, dll`}
                 />
                 {form.values.title && (
-                  <p className="rounded-md border-[1px] border-blue-500 bg-blue-500/10 px-[8px] pt-[6px] pb-[10px] text-sm font-medium text-blue-500">
+                  <p className="rounded-md border-[1px] border-blue-500 bg-blue-500/10 px-[8px] pt-[6px] pb-[8px] text-sm font-medium text-blue-500">
                     maulomba.com/lomba/{form.values.slug}
                   </p>
                 )}
@@ -441,84 +517,6 @@ export const CompetitionUpload = () => {
               />
             </UploadInputContainer>
           </form>
-        </UploadStep>
-        <UploadStep
-          state={isStepTwoValid}
-          number={1}
-          title={STRING_COMPETITION_UPLOAD_STEP[1]}
-          className="sticky top-[20px]"
-        >
-          {image && image.length > 0 ? (
-            <motion.div
-              animate={{ opacity: 1 }}
-              initial={{ opacity: 0 }}
-              exit={{ opacity: 0 }}
-              transition={{ delay: 0.25 }}
-              className="flex flex-col gap-[20px]"
-            >
-              {image[0].src && (
-                <ImageContainer
-                  className="border-[0.5px] border-white border-opacity-30"
-                  src={image[0].src}
-                />
-              )}
-              <button
-                className="tracking-tight opacity-50 transition hover:underline hover:opacity-80"
-                onClick={handleChangeImage}
-              >
-                {STRING_COMPETITION_UPLOAD_CHANGE_IMAGE_BUTTON}
-              </button>
-            </motion.div>
-          ) : (
-            <div className="flex flex-col gap-[5px]">
-              <motion.div
-                animate={{ opacity: 1 }}
-                initial={{ opacity: 0 }}
-                exit={{ opacity: 0 }}
-                transition={{ delay: 0.25 }}
-                {...getRootProps({ className: "dropzone" })}
-                className={`group mx-auto flex min-h-[500px] w-full flex-col items-center justify-center rounded-md border-[2px] border-opacity-20 p-[25px] text-white transition hover:cursor-pointer hover:border-opacity-50 hover:bg-gray-800 ${
-                  isDragAccept
-                    ? "border-green-400 border-opacity-100 bg-green-900 bg-opacity-20 !text-green-400 text-opacity-100"
-                    : "border-dashed"
-                } ${
-                  isDragReject
-                    ? "cursor-no-drop border-solid border-red-400 border-opacity-100 !bg-red-900 !bg-opacity-20 !text-red-400"
-                    : `border-dashed ${
-                        isImageValid
-                          ? "border-white border-opacity-20"
-                          : "border-red-500 border-opacity-100"
-                      }`
-                }`}
-              >
-                <input
-                  {...getInputProps()}
-                  className={`h-full w-full ${
-                    isDragReject ? "!cursor-not-allowed" : ""
-                  }`}
-                />
-                {!isDragActive && (
-                  <ArrowUpTrayIcon className="h-5 w-5 opacity-50 transition group-hover:opacity-100" />
-                )}
-                {isDragAccept && (
-                  <CheckCircleIcon className="h-5 w-5 opacity-50 transition group-hover:opacity-100" />
-                )}
-                {isDragReject && (
-                  <XCircleIcon className="h-5 w-5 opacity-50 transition group-hover:opacity-100" />
-                )}
-                <p className="text-md my-[20px] mx-auto text-center font-medium tracking-tight opacity-50 transition group-hover:opacity-100">
-                  {!isDragActive && STRING_COMPETITION_UPLOAD_IMAGE_DRAG_INIT}
-                  {isDragAccept && STRING_COMPETITION_UPLOAD_IMAGE_DRAG_ALLOW}
-                  {isDragReject && STRING_COMPETITION_UPLOAD_IMAGE_DRAG_REJECT}
-                </p>
-              </motion.div>
-              {!isImageValid && (
-                <p className="text-[11px] font-medium text-[#fa5252]">
-                  Poster lomba harus diunggah
-                </p>
-              )}
-            </div>
-          )}
         </UploadStep>
         <UploadStep
           state={isStepTwoValid}
