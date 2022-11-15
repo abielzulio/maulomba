@@ -50,9 +50,7 @@ const CompetitionPage: NextPage = () => {
         <ContentContainer className="h-full">
           <ContentContainer className="sticky top-[40px] flex flex-col gap-[20px]">
             {competition.title && (
-              <h2 className="text-[18px] font-semibold md:text-[24px]">
-                {competition.title}
-              </h2>
+              <h2 className="text-[24px] font-semibold">{competition.title}</h2>
             )}
             {competition.eo && (
               <p className="text-base font-medium opacity-75">
