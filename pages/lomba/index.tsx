@@ -8,6 +8,7 @@ import { TagLabel } from "components/Label"
 import type { NextPage } from "next"
 import NextLink from "next/link"
 import sanitize from "sanitize-html"
+import parse from "html-react-parser"
 
 const CompetitionPage: NextPage = () => {
   const competition = {
@@ -98,13 +99,9 @@ const CompetitionPage: NextPage = () => {
         </ContentContainer>
         {competition.description && (
           <ContentContainer className="relative flex h-full flex-col gap-[20px]">
-            <div
-              className="flex h-full flex-col gap-[10px] rounded-md bg-gray-300/5 p-[20px]"
-              key={Math.random()}
-              dangerouslySetInnerHTML={{
-                __html: sanitize(competition.description, sanitizeOptions),
-              }}
-            />
+            <div className="flex h-full flex-col gap-[10px] rounded-md bg-gray-300/5 p-[20px]">
+              {parse(sanitize(competition.description, sanitizeOptions))}
+            </div>
           </ContentContainer>
         )}
         {competition.img && (

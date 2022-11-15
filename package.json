@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "prod": "next build && next start"
   },
   "dependencies": {
     "@emotion/react": "^11.10.4",
@@ -37,6 +38,7 @@
     "base64-arraybuffer": "^1.0.2",
     "compress.js": "^1.2.2",
     "framer-motion": "^7.6.1",
+    "html-react-parser": "^3.0.4",
     "next": "12.3.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
