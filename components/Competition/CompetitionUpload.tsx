@@ -116,6 +116,7 @@ const UploadInputContainer = (props: UploadInputContainerProps) => {
 
 export const CompetitionUpload = () => {
   const [image, setImage] = useState<Image[]>([])
+  const [isTittleTooLong, setIsTittleTooLong] = useState<boolean>(false)
   const [description, setDescription] = useState<string>("")
   const [isDescriptionValid, setIsDescriptionValid] = useState<boolean>(true)
   const [isImageValid, setIsImageValid] = useState<boolean>(true)
@@ -123,6 +124,7 @@ export const CompetitionUpload = () => {
   const [isStepTwoValid, setIsStepTwoValid] = useState<boolean>(false)
 
   const date_now = new Date()
+  const NUMBER_COMPETITION_TITLE_MAX_LENGTH: number = 85
 
   const form = useForm({
     initialValues: {
@@ -143,7 +145,17 @@ export const CompetitionUpload = () => {
     },
 
     validate: {
-      title: (value) => (value ? null : "Nama kompetisi harus diisi"),
+      title: (value) => {
+        if (value) {
+          if (value.length >= NUMBER_COMPETITION_TITLE_MAX_LENGTH) {
+            return "Judul kompetisi maksimal 85 karakter"
+          } else {
+            return null
+          }
+        } else {
+          return "Judul kompetisi harus diisi"
+        }
+      },
       eo: (value) =>
         value ? null : "Nama penyelenggara kompetisi harus diisi",
       deadlineDate: (value) =>
@@ -206,6 +218,11 @@ export const CompetitionUpload = () => {
 
   useEffect(() => {
     if (form.values.title) {
+      if (form.values.title.length >= NUMBER_COMPETITION_TITLE_MAX_LENGTH) {
+        setIsTittleTooLong(true)
+      } else {
+        setIsTittleTooLong(false)
+      }
       form.setFieldValue(
         "slug",
         form.values.title
@@ -405,15 +422,29 @@ export const CompetitionUpload = () => {
           title={STRING_COMPETITION_UPLOAD_STEP[1]}
         >
           <form className="flex flex-col gap-[20px]">
-            <UploadInputContainer title="Nama kompetisi">
+            <UploadInputContainer
+              title="Nama kompetisi"
+              wordCount={{
+                count: form.values.title?.length,
+                max: NUMBER_COMPETITION_TITLE_MAX_LENGTH,
+                state: isTittleTooLong,
+              }}
+            >
               <div className="flex w-full flex-col gap-[10px]">
                 <TextInput
+                  maxLength={NUMBER_COMPETITION_TITLE_MAX_LENGTH}
                   className="w-full text-white/80"
                   {...form.getInputProps("title")}
                   placeholder={`EPSILON ${CURRENT_YEAR}, COMPFEST ${CURRENT_YEAR}, dll`}
                 />
                 {form.values.title && (
-                  <p className="rounded-md border-[1px] border-blue-500 bg-blue-500/10 px-[8px] pt-[6px] pb-[8px] text-sm font-medium text-blue-500">
+                  <p
+                    className={`rounded-md border-[1px] ${
+                      isTittleTooLong
+                        ? `border-red-500 bg-red-500/10 text-red-500`
+                        : `border-blue-500 bg-blue-500/10 text-blue-500`
+                    } px-[8px] pt-[6px] pb-[8px] text-sm font-medium`}
+                  >
                     maulomba.com/lomba/{form.values.slug}
                   </p>
                 )}
