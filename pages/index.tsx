@@ -26,6 +26,7 @@ const Home: NextPage = () => {
             <Button
               icon={<ArrowUpTrayIcon className="h-4 w-4" />}
               title={"Unggah lomba"}
+              label="Gratis!"
               kind="primary"
               size={"medium"}
               width="full"

@@ -8,6 +8,7 @@ const Button = (props: ButtonProps) => {
     className = ``,
     size = "small",
     width = "fit",
+    label,
     ...rest
   } = props
   return (
@@ -37,6 +38,11 @@ const Button = (props: ButtonProps) => {
     >
       {icon}
       {title && <span className="text-center">{title}</span>}
+      {label && (
+        <span className="rounded-full border-[0.5px] border-white/30 bg-black/20 px-[8px] font-mono text-[10px] tracking-tight text-opacity-50">
+          {label}
+        </span>
+      )}
     </button>
   )
 }

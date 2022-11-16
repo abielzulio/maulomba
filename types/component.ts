@@ -22,6 +22,7 @@ export interface ButtonProps
   kind?: "primary" | "secondary" | "neutral"
   size?: "small" | "medium"
   width?: "full" | "fit"
+  label?: string
 }
 
 export interface FilterProps {
