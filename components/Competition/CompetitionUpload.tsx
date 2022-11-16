@@ -441,7 +441,7 @@ export const CompetitionUpload = () => {
                 state: isTittleTooLong,
               }}
             >
-              <div className="flex w-full flex-col gap-[10px]">
+              <div className="flex w-full flex-col gap-[15px]">
                 <TextInput
                   maxLength={NUMBER_COMPETITION_TITLE_MAX_LENGTH}
                   className="w-full text-white/80"
