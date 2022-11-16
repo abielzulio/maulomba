@@ -117,7 +117,7 @@ export const CompetitionUpload = () => {
       level: "Nasional",
       registration: "Gratis",
       tags: [],
-      isPremium: true,
+      isFeatured: true,
       isCustom: true,
       description: description,
     },
@@ -287,7 +287,7 @@ export const CompetitionUpload = () => {
           deadline_time: deadline_time,
           registration: form.values.registration,
           tags: form.values.tags,
-          is_premium: form.values.isPremium,
+          is_featured: form.values.isFeatured,
           description: form.values.description,
         })
         .select()
@@ -530,7 +530,14 @@ export const CompetitionUpload = () => {
           <div className="flex flex-col gap-[20px]">
             <div className="flex justify-between gap-[20px]">
               <Checkbox
-                label="Tayang kompetisi di paling atas hingga deadline"
+                label={
+                  <span>
+                    Tayang kompetisi di paling atas hingga deadline{" "}
+                    <span className="text-blue-500">
+                      (3x lebih banyak dilihat)
+                    </span>
+                  </span>
+                }
                 radius="sm"
                 styles={() => ({
                   label: {
@@ -546,11 +553,11 @@ export const CompetitionUpload = () => {
                     },
                   },
                 })}
-                {...form.getInputProps("isPremium", { type: "checkbox" })}
+                {...form.getInputProps("isFeatured", { type: "checkbox" })}
               />
               <p
                 className={`font-mono text-green-500 transition ${
-                  form.values.isPremium ? `opacity-100` : `opacity-0`
+                  form.values.isFeatured ? `opacity-100` : `opacity-0`
                 }`}
               >
                 +Rp30.000
@@ -597,7 +604,7 @@ export const CompetitionUpload = () => {
             }`}
             /*             disabled={!form.isValid()} */
             icon={
-              form.values.isPremium ? (
+              form.values.isFeatured ? (
                 <QrCodeIcon className="h-4 w-4" />
               ) : (
                 <ArrowUpTrayIcon className="h-4 w-4" />
@@ -605,14 +612,14 @@ export const CompetitionUpload = () => {
             }
             onClick={handleFormSubmit}
             title={`${
-              form.values.isPremium
+              form.values.isFeatured
                 ? `Bayar lalu unggah`
                 : `Unggah secara gratis`
             }`}
           />
           <p
             className={`text-center font-mono text-sm transition ${
-              form.values.isPremium ? `opacity-50` : `opacity-0`
+              form.values.isFeatured ? `opacity-50` : `opacity-0`
             }`}
           >
             Pembayaran menggunakan QRIS dengan dukungan semua dompet digital dan
