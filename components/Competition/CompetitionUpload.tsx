@@ -560,7 +560,7 @@ export const CompetitionUpload = () => {
                   form.values.isFeatured ? `opacity-100` : `opacity-0`
                 }`}
               >
-                +Rp30.000
+                +Rp50.000
               </p>
             </div>
             {/*             <div className="flex justify-between gap-[20px]">
