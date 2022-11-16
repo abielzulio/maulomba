@@ -42,7 +42,7 @@ const CompetitionPage: NextPage = () => {
 
   const today = new Date()
 
-  const [deadlineWithDateAndTime, isDeadlineToday] = getFullDeadlineDateTime(
+  const [deadlineWithDateAndTime] = getFullDeadlineDateTime(
     competition.deadline_date,
     competition.deadline_time
   )
