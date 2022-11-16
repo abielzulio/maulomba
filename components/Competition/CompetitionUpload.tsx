@@ -124,7 +124,8 @@ export const CompetitionUpload = () => {
   const [isStepOneValid, setIsStepOneValid] = useState<boolean>(false)
   const [isStepTwoValid, setIsStepTwoValid] = useState<boolean>(false)
 
-  const date_now = new Date()
+  const date_now: Date = new Date()
+
   const NUMBER_COMPETITION_TITLE_MAX_LENGTH: number = 85
   const NUMBER_COMPETITION_EO_MAX_LENGTH: number = 50
 
