@@ -14,7 +14,6 @@ import { Competition } from "types/data"
 import { getFullDeadlineDateTime } from "utils"
 
 const CompetitionPage: NextPage = () => {
-  const competition = {
   const competition: Competition = {
     uuid: "c1129863-59cc-47c6-861c-b72539306c24",
     id: 15,
