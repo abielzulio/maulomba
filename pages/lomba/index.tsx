@@ -5,10 +5,14 @@ import {
 import Button from "components/Button"
 import { ContentContainer, ImageContainer, Page } from "components/Container"
 import { TagLabel } from "components/Label"
+import parse from "html-react-parser"
 import type { NextPage } from "next"
 import NextLink from "next/link"
+import { useState } from "react"
 import sanitize from "sanitize-html"
 import parse from "html-react-parser"
+import { Competition } from "types/data"
+import { getFullDeadlineDateTime } from "utils"
 
 const CompetitionPage: NextPage = () => {
   const competition = {
@@ -31,12 +35,17 @@ const CompetitionPage: NextPage = () => {
     },
   }
 
-  const deadline = `${new Date(competition.deadline_date).getDate()} ${new Date(
-    competition.deadline_date
-  ).toLocaleDateString("in-ID", {
-    year: "numeric",
-    month: "long",
-  })}, ${competition.deadline_time}`
+  const today = new Date()
+
+  const [deadlineWithDateAndTime, isDeadlineToday] = getFullDeadlineDateTime(
+    competition.deadline_date,
+    competition.deadline_time
+  )
+
+  const description =
+    competition.description &&
+    parse(sanitize(competition.description, sanitizeOptions))
+
   return (
     <Page>
       <ContentContainer className="padding-x padding-y flex h-fit justify-between">
@@ -47,8 +56,27 @@ const CompetitionPage: NextPage = () => {
         </NextLink>
       </ContentContainer>
       <ContentContainer className="padding-x padding-y mx-auto grid w-full grid-cols-1 gap-[30px] xl:grid-cols-3">
-        <ContentContainer className="h-full">
-          <ContentContainer className="sticky top-[40px] flex flex-col gap-[20px]">
+        {competition.img && (
+          <ContentContainer className="relative order-2 h-full xl:order-1">
+            <ContentContainer className="sticky top-[40px] flex flex-col gap-[20px]">
+              <ImageContainer
+                animateOnHover
+                className="h-full w-full"
+                src={competition.img}
+              />
+            </ContentContainer>
+          </ContentContainer>
+        )}
+
+        {description && (
+          <ContentContainer className="relative order-3 flex h-full flex-col gap-[20px] xl:order-2">
+            <div className="flex h-full flex-col gap-[10px] rounded-md bg-gray-300/5 p-[20px]">
+              {description}
+            </div>
+          </ContentContainer>
+        )}
+        <ContentContainer className="order-1 h-full xl:order-3">
+          <ContentContainer className="sticky top-[40px] flex flex-col gap-[20px] ">
             {competition.title && (
               <h2 className="text-[24px] font-semibold">{competition.title}</h2>
             )}
@@ -81,10 +109,10 @@ const CompetitionPage: NextPage = () => {
                 </NextLink>
               )}
             </div>
-            {deadline && (
+            {deadlineWithDateAndTime && (
               <div className="flex justify-between text-sm">
                 <p className="opacity-50">Deadline</p>
-                <p className="font-semibold">{deadline}</p>
+                <p className="font-semibold">{deadlineWithDateAndTime}</p>
               </div>
             )}
             {competition.registration && (
@@ -107,24 +135,6 @@ const CompetitionPage: NextPage = () => {
             )}
           </ContentContainer>
         </ContentContainer>
-        {competition.description && (
-          <ContentContainer className="relative flex h-full flex-col gap-[20px]">
-            <div className="flex h-full flex-col gap-[10px] rounded-md bg-gray-300/5 p-[20px]">
-              {parse(sanitize(competition.description, sanitizeOptions))}
-            </div>
-          </ContentContainer>
-        )}
-        {competition.img && (
-          <ContentContainer className="relative h-full">
-            <ContentContainer className="sticky top-[40px] flex flex-col gap-[20px]">
-              <ImageContainer
-                animateOnHover
-                className="h-full w-full"
-                src={competition.img}
-              />
-            </ContentContainer>
-          </ContentContainer>
-        )}
       </ContentContainer>
     </Page>
   )
