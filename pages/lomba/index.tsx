@@ -5,7 +5,6 @@ import {
 import Button from "components/Button"
 import { ContentContainer, ImageContainer, Page } from "components/Container"
 import { TagLabel } from "components/Label"
-import parse from "html-react-parser"
 import type { NextPage } from "next"
 import NextLink from "next/link"
 import { useState } from "react"
@@ -50,7 +49,7 @@ const CompetitionPage: NextPage = () => {
 
   const description =
     competition.description &&
-    parse(sanitize(competition.description, sanitizeOptions))
+    sanitize(competition.description, sanitizeOptions)
 
   return (
     <Page>
@@ -73,12 +72,12 @@ const CompetitionPage: NextPage = () => {
             </ContentContainer>
           </ContentContainer>
         )}
-
         {description && (
           <ContentContainer className="relative order-3 flex h-full flex-col gap-[20px] xl:order-2">
-            <div className="flex h-full flex-col gap-[10px] rounded-md bg-gray-300/5 p-[20px]">
-              {description}
-            </div>
+            <div
+              className="flex h-full flex-col gap-[10px] rounded-md bg-gray-300/5 p-[20px]"
+              dangerouslySetInnerHTML={{ __html: description }}
+            />
           </ContentContainer>
         )}
         <ContentContainer className="order-1 h-full xl:order-3">
