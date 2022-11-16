@@ -8,19 +8,24 @@ export interface Image {
 }
 
 export interface Competition {
+  uuid?: string
   id?: number
   title: string
   description: string
   tags: string[]
-  isFree?: boolean
+  registration: "Gratis" | "Berbayar"
   level: "Nasional" | "Internasional" | undefined
-  deadline: string
-  featured?: boolean
-  image: string
+  deadline_date: string
+  deadline_time: string
+  img: string
   likes?: number
   views?: number
   eo: string
-  url: string
+  slug: string
+  contact: string
+  is_featured: boolean
+  link?: string
+  created_at: string
 }
 
 export interface CompressResult {
