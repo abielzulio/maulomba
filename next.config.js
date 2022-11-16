@@ -3,7 +3,7 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   images: {
-    domains: [""], // Add your CDN image url here
+    domains: [`${process.env.NEXT_PUBLIC_SUPABASE_PROJECT_ID}.supabase.in`], // Add your CDN image url here
   },
 }
 
