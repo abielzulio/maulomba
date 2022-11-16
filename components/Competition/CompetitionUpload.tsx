@@ -602,7 +602,7 @@ export const CompetitionUpload = () => {
                 ? `cursor-pointer opacity-100`
                 : `cursor-not-allowed opacity-50 grayscale`
             }`}
-            /*             disabled={!form.isValid()} */
+            disabled={!isStepTwoValid}
             icon={
               form.values.isFeatured ? (
                 <QrCodeIcon className="h-4 w-4" />
