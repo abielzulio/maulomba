@@ -117,6 +117,7 @@ const UploadInputContainer = (props: UploadInputContainerProps) => {
 export const CompetitionUpload = () => {
   const [image, setImage] = useState<Image[]>([])
   const [isTittleTooLong, setIsTittleTooLong] = useState<boolean>(false)
+  const [isEoTooLong, setIsEoTooLong] = useState<boolean>(false)
   const [description, setDescription] = useState<string>("")
   const [isDescriptionValid, setIsDescriptionValid] = useState<boolean>(true)
   const [isImageValid, setIsImageValid] = useState<boolean>(true)
@@ -125,6 +126,7 @@ export const CompetitionUpload = () => {
 
   const date_now = new Date()
   const NUMBER_COMPETITION_TITLE_MAX_LENGTH: number = 85
+  const NUMBER_COMPETITION_EO_MAX_LENGTH: number = 50
 
   const form = useForm({
     initialValues: {
@@ -234,6 +236,14 @@ export const CompetitionUpload = () => {
       )
     }
   }, [form.values.title])
+
+  useEffect(() => {
+    if (form.values.eo.length >= NUMBER_COMPETITION_EO_MAX_LENGTH) {
+      setIsEoTooLong(true)
+    } else {
+      setIsEoTooLong(false)
+    }
+  }, [form.values.eo])
 
   useEffect(() => {
     if (description.length > 10) {
@@ -450,8 +460,16 @@ export const CompetitionUpload = () => {
                 )}
               </div>
             </UploadInputContainer>
-            <UploadInputContainer title="Penyelenggara kompetisi">
+            <UploadInputContainer
+              title="Penyelenggara kompetisi"
+              wordCount={{
+                count: form.values.eo?.length,
+                max: NUMBER_COMPETITION_EO_MAX_LENGTH,
+                state: isEoTooLong,
+              }}
+            >
               <TextInput
+                maxLength={NUMBER_COMPETITION_EO_MAX_LENGTH}
                 className="w-full text-white/80"
                 {...form.getInputProps("eo")}
                 placeholder={`Himpunan Teknik Fisika UGM, ASEAN, dll`}
