@@ -44,6 +44,11 @@ interface UploadStepProps {
 
 interface UploadInputContainerProps {
   title?: string
+  wordCount?: {
+    max: number
+    count: number
+    state: boolean
+  }
   description?: string
   children: React.ReactNode
 }
@@ -76,12 +81,27 @@ const UploadStep = (props: UploadStepProps) => {
 }
 
 const UploadInputContainer = (props: UploadInputContainerProps) => {
-  const { title, children, description } = props
+  const { title, children, description, wordCount } = props
   return (
     <div className="flex flex-col gap-[10px]">
       {title && (
         <div className="flex flex-col gap-[5px]">
-          <p className="text-sm font-medium">{title}</p>
+          <div className="flex justify-between text-sm font-medium">
+            <p>{title}</p>
+            {wordCount && (
+              <p
+                className={`transition ${
+                  wordCount?.count > 0 ? `opacity-50` : `opacity-0`
+                } ${
+                  wordCount.count >= wordCount.max
+                    ? `text-red-500 opacity-100`
+                    : `opacity-50`
+                }`}
+              >
+                {wordCount?.count}/{wordCount?.max}
+              </p>
+            )}
+          </div>
           {description && (
             <p className="text-[12px] font-medium opacity-50">{description}</p>
           )}
