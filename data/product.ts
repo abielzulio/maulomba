@@ -24,8 +24,8 @@ export const product: Product = {
   },
   tagline: "Cari kompetisi, tanpa distraksi",
   keywords: `info lomba ${CURRENT_YEAR}, lomba ${CURRENT_YEAR}, kompetisi ${CURRENT_YEAR}, lomba, lomba kuliah`,
-  url: "https://maulomba.com/",
-  img: "/img/og.png",
+  url: "https://mau-lomba.vercel.app",
+  img: "/og.png",
   author: "Abiel Zulio M",
   favicon: "/img/favicon.png",
 }

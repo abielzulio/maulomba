@@ -35,7 +35,7 @@ Head.defaultProps = {
   title: product.name + " | " + product.description.short,
   description: product.description.long,
   keywords: product.keywords,
-  img: "https://mau-lomba.vercel.app/og.png",
+  img: product.url + product.img,
   url: product.url,
   author: product.author,
   favicon: product.favicon,
