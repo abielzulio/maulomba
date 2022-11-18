@@ -4,7 +4,9 @@ import {
 } from "@heroicons/react/24/outline"
 import Button from "components/Button"
 import { ContentContainer, ImageContainer, Page } from "components/Container"
+import Head from "components/Head"
 import { TagLabel } from "components/Label"
+import { product } from "data/product"
 import type { NextPage } from "next"
 import NextLink from "next/link"
 import { useState } from "react"
@@ -53,8 +55,26 @@ const CompetitionPage: NextPage = () => {
 
   const description = sanitize(competition?.description, sanitizeOptions)
 
+  const stringStripper = (str: string) => {
+    return str
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/\W+/g, "%20")
+      .replace(/[-]+$/, "")
+  }
 
   return (
+    <>
+      <Head
+        title={competition.title + "|" + product.description.short}
+        description={competition.description.slice(0, 160)}
+        author={competition.eo}
+        img={`https://mau-lomba.vercel.app/api/og?img=${
+          competition.img
+        }&title=${stringStripper(competition.title)}&eo=${stringStripper(
+          competition.eo
+        )}`}
+      />
       <Page>
         <ContentContainer className="padding-x padding-y flex h-fit justify-between">
           <NextLink href="/">
