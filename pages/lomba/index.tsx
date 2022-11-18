@@ -25,12 +25,12 @@ const CompetitionPage: NextPage = () => {
     registration: "Gratis",
     level: "Nasional",
     is_featured: false,
-    created_at: "2022-11-14T11:56:13.39688+00:00",
+    created_at: "2022-11-16T11:56:13.39688+00:00",
     link: "google.com",
-    img: "/1.jpg",
+    img: "https://mau-lomba.vercel.app/1.jpg",
     deadline_date: "2022-11-16",
     deadline_time: "18:23:00",
-    slug: "pec-2022-padjajaran-english-competition-speech-story-telling-poetry-and-essay",
+    slug: "/pec-2022-padjajaran-english-competition-speech-story-telling-poetry-and-essay",
     contact: "wa.me/6283826361142",
   }
 
