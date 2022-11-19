@@ -39,38 +39,40 @@ export default async function handler(req: NextRequest) {
             display: "flex",
             color: "#f0f6fc",
             backgroundImage:
-              "linear-gradient(to bottom right, #0d1116 75%, #0a2442)",
-            width: "100%",
-            height: "100%",
-            gap: 40,
+              "linear-gradient(to bottom right, #0d1116 30%, #0a2442)",
+            width: 1200,
+            height: 630,
             flexDirection: "row",
             justifyContent: "center",
             alignItems: "center",
           }}
         >
           <img
-            width="600"
+            width="500"
             height="630"
             src="https://mau-lomba.vercel.app/1.jpg"
-            style={{ objectFit: "cover", height: "100%", width: "100%" }}
+            style={{ objectFit: "cover", height: "100%" }}
           />
           <div
             style={{
+              width: 650,
               display: "flex",
               flexDirection: "column",
-              justifyContent: "left",
-              alignItems: "left",
-              gap: 40,
-              paddingTop: 30,
-              paddingBottom: 30,
-              paddingLeft: 20,
+              paddingLeft: 40,
               paddingRight: 20,
             }}
           >
-            <h1 style={{ fontSize: 45, fontWeight: 600 }}>
-              {hasTitle.toString()}
-            </h1>
-            {/*             <p style={{ fontSize: 35, opacity: 0.5 }}>{eo}</p> */}
+            <span
+              style={{
+                fontSize: 50,
+                fontWeight: 600,
+                wordBreak: "break-word",
+                width: "100%",
+              }}
+            >
+              {title}
+            </span>
+            <p style={{ fontSize: 35, paddingTop: 30, opacity: 0.5 }}>{eo}</p>
             {/*           <div
             style={{
               display: "flex",
