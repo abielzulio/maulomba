@@ -14,7 +14,7 @@ export default async function handler(req: NextRequest) {
     /*   const tags = searchParams.get("tags") */
     /* const img = searchParams.get("img") */
 
-    if (!title || !eo) {
+    /*     if (!title || !eo) {
       return new ImageResponse(
         (
           <img
@@ -31,7 +31,7 @@ export default async function handler(req: NextRequest) {
         }
       )
     }
-
+ */
     return new ImageResponse(
       (
         <div
