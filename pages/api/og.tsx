@@ -12,7 +12,7 @@ export default async function handler(req: NextRequest) {
   /*   const tags = searchParams.get("tags") */
   const img = searchParams.get("img")
 
-  if (!title || !eo || !img) {
+  if (!title || !eo) {
     return new ImageResponse(
       (
         <img
@@ -49,7 +49,7 @@ export default async function handler(req: NextRequest) {
         <img
           width="600"
           height="630"
-          src={img}
+          src="https://mau-lomba.vercel.app/1.jpg"
           style={{ objectFit: "cover", height: "100%", width: "100%" }}
         />
         <div
