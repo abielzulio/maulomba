@@ -8,10 +8,11 @@ export const config = {
 export default async function handler(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url)
-    const title = searchParams.get("title")
-    const eo = searchParams.get("eo")
+    const title: string = searchParams?.get("title") || ""
+    const eo: string = searchParams?.get("eo") || ""
+    const hasTitle = searchParams.has("title")
     /*   const tags = searchParams.get("tags") */
-    const img = searchParams.get("img")
+    /* const img = searchParams.get("img") */
 
     if (!title || !eo) {
       return new ImageResponse(
@@ -66,8 +67,10 @@ export default async function handler(req: NextRequest) {
               paddingRight: 20,
             }}
           >
-            <h1 style={{ fontSize: 45, fontWeight: 600 }}>{title}</h1>
-            <p style={{ fontSize: 35, opacity: 0.5 }}>{eo}</p>
+            <h1 style={{ fontSize: 45, fontWeight: 600 }}>
+              {hasTitle.toString()}
+            </h1>
+            {/*             <p style={{ fontSize: 35, opacity: 0.5 }}>{eo}</p> */}
             {/*           <div
             style={{
               display: "flex",
