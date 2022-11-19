@@ -13,7 +13,7 @@ const Button = (props: ButtonProps) => {
   } = props
   return (
     <button
-      className={`${className} flex h-fit items-center justify-center rounded-lg border-[1.3px] border-opacity-20 text-sm transition hover:border-opacity-50 ${
+      className={`${className} flex h-fit items-center justify-center rounded-lg border-[1.3px] border-opacity-20 transition hover:border-opacity-50 ${
         width === "fit" ? `w-fit` : `w-full`
       } ${
         size === "small"
@@ -37,9 +37,17 @@ const Button = (props: ButtonProps) => {
       {...rest}
     >
       {icon}
-      {title && <span className="text-center">{title}</span>}
+      {title && (
+        <span
+          className={`text-center ${
+            size === "small" ? `text-[14px]` : `text-sm`
+          }`}
+        >
+          {title}
+        </span>
+      )}
       {label && (
-        <span className="rounded-full border-[0.5px] border-white/30 bg-black/20 px-[8px] font-mono text-[10px] tracking-tight text-opacity-50">
+        <span className="rounded-full border-[0.5px] border-blue-500/30 bg-black/20 px-[8px] font-mono text-[10px] tracking-tight text-opacity-50">
           {label}
         </span>
       )}
