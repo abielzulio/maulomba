@@ -4,7 +4,7 @@
 
 /** Tailwind **/
 .padding-x {
-  @apply px-[15px] sm:px-[20px] md:px-[40px] lg:px-[60px];
+  @apply px-[15px] sm:px-[20px] md:px-[30px] xl:px-[60px];
 }
 
 .padding-y {
