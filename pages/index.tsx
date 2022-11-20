@@ -115,7 +115,6 @@ const HomePage: NextPage<
   InferGetStaticPropsType<typeof getStaticProps>,
   React.ReactNode
 > = ({ competitions }: InferGetStaticPropsType<typeof getStaticProps>) => {
-  console.table(competitions[0])
   return (
     <>
       <Head />
