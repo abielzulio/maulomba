@@ -27,5 +27,5 @@ export const product: Product = {
   url: "https://mau-lomba.vercel.app",
   img: "/og.png",
   author: "Abiel Zulio M",
-  favicon: "/img/favicon.png",
+  favicon: "/favicon.png",
 }
