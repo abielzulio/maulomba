@@ -30,3 +30,8 @@ export const STRING_COMPETITION_UPLOAD_IMAGE_DRAG_ALLOW: string =
 
 export const STRING_COMPETITION_UPLOAD_IMAGE_DRAG_REJECT: string =
   "Hanya mendukung file poste kompetisi berjenis .png, .jpg, dan .jpeg`"
+
+// Not found page
+export const STRING_404_PAGE_TITLE: string = "Maaf"
+export const STRING_404_PAGE_DESCRIPTION: string =
+  "Halaman yang Anda cari tidak dapat ditemukan"
