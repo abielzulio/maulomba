@@ -606,6 +606,9 @@ export const CompetitionUpload = () => {
                 className="w-full text-white/80"
                 searchable
                 clearable
+                transitionDuration={150}
+                transition="pop-top-left"
+                transitionTimingFunction="ease"
                 nothingFound="Kategori kompetisi tidak ada"
                 {...form.getInputProps("tags")}
                 data={COMPETITION_FILTER_OPTIONS}
