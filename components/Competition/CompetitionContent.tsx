@@ -82,13 +82,13 @@ const CompetitionContent = ({ competition }: CompetitionProps) => {
     competition && (
       <ContentContainer className="padding-x padding-y mx-auto grid w-full grid-cols-1 gap-[30px] lg:grid-cols-3">
         {/* Competition image section */}
-        {competition?.img_url && (
+        {competition.img_url && (
           <ContentContainer className="relative order-2 h-full lg:order-1">
             <ContentContainer className="sticky top-[40px] flex flex-col gap-[20px]">
               <ImageContainer
                 animateOnHover
                 className="h-full w-full"
-                src={competition?.img_url}
+                src={competition.img_url}
               />
             </ContentContainer>
           </ContentContainer>
@@ -105,21 +105,19 @@ const CompetitionContent = ({ competition }: CompetitionProps) => {
         <ContentContainer className="order-1 h-full lg:order-3">
           <ContentContainer className="sticky top-[40px] flex flex-col gap-[20px] ">
             {/* Competition title section */}
-            {competition?.title && (
-              <h2 className="text-[24px] font-semibold">
-                {competition?.title}
-              </h2>
+            {competition.title && (
+              <h2 className="text-[24px] font-semibold">{competition.title}</h2>
             )}
             {/* Competition event organizer section */}
-            {competition?.eo && (
+            {competition.eo && (
               <p className="text-base font-medium opacity-75">
-                {competition?.eo}
+                {competition.eo}
               </p>
             )}
             {/* Competition CTA section */}
             <div className="flex gap-[10px]">
               {/* Competition contact section */}
-              {competition?.contact_url && (
+              {competition.contact_url && (
                 <Link href={competition?.contact_url} newTab className="w-full">
                   <Button
                     icon={<ChatBubbleLeftEllipsisIcon width={18} height={18} />}
@@ -131,9 +129,9 @@ const CompetitionContent = ({ competition }: CompetitionProps) => {
                 </Link>
               )}
               {/* Competition registration link section */}
-              {competition?.registration_url && (
+              {competition.registration_url && (
                 <Link
-                  href={competition?.registration_url}
+                  href={competition.registration_url}
                   newTab
                   className="w-full"
                 >
@@ -143,7 +141,7 @@ const CompetitionContent = ({ competition }: CompetitionProps) => {
                     kind="primary"
                     width="full"
                     size="medium"
-                    onClick={() => incrementRegisterCount(competition?.uuid)}
+                    onClick={() => incrementRegisterCount(competition.uuid)}
                   />
                 </Link>
               )}
@@ -156,24 +154,24 @@ const CompetitionContent = ({ competition }: CompetitionProps) => {
               </div>
             )}
             {/* Competition registration fee information section */}
-            {competition?.registration_fee && (
+            {competition.registration_fee && (
               <div className="flex justify-between text-sm">
                 <p className="opacity-50">Pendaftaran</p>
-                <p className="font-semibold">{competition?.registration_fee}</p>
+                <p className="font-semibold">{competition.registration_fee}</p>
               </div>
             )}
             {/* Competition level section */}
-            {competition?.level && (
+            {competition.level && (
               <div className="flex justify-between text-sm">
                 <p className="opacity-50">Tingkat</p>
                 <p className="font-semibold">{competition?.level}</p>
               </div>
             )}
             {/* Competition category section */}
-            {competition?.tags && (
+            {competition.tags && (
               <div className="flex justify-between text-sm">
                 <p className="opacity-50">Kategori</p>
-                <TagLabel tag={competition?.tags} showAll />
+                <TagLabel tag={competition.tags} showAll />
               </div>
             )}
             <div className="flex flex-col gap-[10px] text-sm opacity-30">
