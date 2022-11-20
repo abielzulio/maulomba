@@ -14,7 +14,6 @@ import RichTextEditor from "components/RichTextEditor"
 import Compress from "compress.js"
 import { CURRENT_YEAR } from "data/date/year"
 import {
-  COMPETITION_FILTER_OPTIONS,
   COMPETITION_LEVEL_TYPE,
   COMPETITION_REGISTRATION_TYPE,
 } from "data/options"
@@ -109,6 +108,7 @@ const UploadInputContainer = (props: UploadInputContainerProps) => {
 
 export const CompetitionUpload = () => {
   const [image, setImage] = useState<Image[]>([])
+  const [tags, setTags] = useState<string[]>([])
   const [isTittleTooLong, setIsTittleTooLong] = useState<boolean>(false)
   const [isEoTooLong, setIsEoTooLong] = useState<boolean>(false)
   const [description, setDescription] = useState<string>("")
@@ -166,6 +166,19 @@ export const CompetitionUpload = () => {
         value.length > 0 ? null : "Kategori harus diisi minimal satu",
     },
   })
+
+  const getCompetitionTags = async () => {
+    const { data: tags, error } = await supabase.from("tags").select("*")
+    if (error) {
+      console.log(error)
+    } else {
+      setTags(tags.map(({ tag }) => tag))
+    }
+  }
+
+  useEffect(() => {
+    getCompetitionTags()
+  }, [getCompetitionTags])
 
   const onDropAccepted = useCallback((acceptedFiles: File[]) => {
     const compress = new Compress()
@@ -611,7 +624,7 @@ export const CompetitionUpload = () => {
                 transitionTimingFunction="ease"
                 nothingFound="Kategori kompetisi tidak ada"
                 {...form.getInputProps("tags")}
-                data={COMPETITION_FILTER_OPTIONS}
+                data={tags}
                 placeholder="Pilih tiga kategori"
                 maxSelectedValues={3}
               />
