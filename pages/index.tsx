@@ -14,11 +14,13 @@ const Home: NextPage = () => {
       <Page>
         <HeroContainer>
           <Hero
-            hero_title={["Cari kompetisi", "tanpa distraksi"]}
-            hero_desc={[
-              "Cari, simpan, dan ikuti berbagai jenis kompetisi",
-              "dengan mudah dan nyaman",
-            ]}
+            hero={{
+              title: ["Cari kompetisi", "tanpa distraksi"],
+              desc: [
+                "Cari, simpan, dan ikuti berbagai jenis kompetisi",
+                "dengan mudah dan nyaman",
+              ],
+            }}
           />
           <CTAContainer>
             <NextLink href="/kirim-lomba">
