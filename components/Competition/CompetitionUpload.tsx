@@ -126,14 +126,14 @@ export const CompetitionUpload = () => {
     initialValues: {
       title: "",
       eo: "",
-      img: "",
+      imgUrl: "",
       slug: "",
       deadlineDate: date_now,
       deadlineTime: date_now,
-      link: "",
-      contact: "",
+      registrationUrl: "",
+      contactUrl: "",
       level: "Nasional",
-      registration: "Gratis",
+      registrationFee: "Gratis",
       tags: [],
       isFeatured: true,
       isCustom: true,
@@ -158,9 +158,10 @@ export const CompetitionUpload = () => {
         value == null ? "Tanggal deadline harus diisi" : null,
       deadlineTime: (value) =>
         value == null ? "Jam deadline harus diisi" : null,
-      link: (value) =>
+      registrationUrl: (value) =>
         value ? null : "Link pendaftaran kompetisi harus diisi",
-      contact: (value) => (value ? null : "Link kontak kompetisi harus diisi"),
+      contactUrl: (value) =>
+        value ? null : "Link kontak kompetisi harus diisi",
       tags: (value) =>
         value.length > 0 ? null : "Kategori harus diisi minimal satu",
     },
@@ -284,18 +285,21 @@ export const CompetitionUpload = () => {
   // Validate registration and contact link url
   const handleURLValidation = () => {
     if (
-      form.values.link &&
-      (!form.values.link.includes("http://") ||
-        !form.values.link.includes("https://"))
+      form.values.registrationUrl &&
+      (!form.values.registrationUrl.includes("http://") ||
+        !form.values.registrationUrl.includes("https://"))
     ) {
-      form.setFieldValue("link", "https://" + form.values.link)
+      form.setFieldValue(
+        "registrationUrl",
+        "https://" + form.values.registrationUrl
+      )
     }
     if (
-      form.values.contact &&
-      (!form.values.contact.includes("http://") ||
-        !form.values.contact.includes("https://"))
+      form.values.contactUrl &&
+      (!form.values.contactUrl.includes("http://") ||
+        !form.values.contactUrl.includes("https://"))
     ) {
-      form.setFieldValue("contact", "https://" + form.values.contact)
+      form.setFieldValue("contactUrl", "https://" + form.values.contactUrl)
     }
   }
 
@@ -331,13 +335,13 @@ export const CompetitionUpload = () => {
             title: form.values.title,
             slug: form.values.slug,
             eo: form.values.eo,
-            img: img_url,
-            link: form.values.link,
-            contact: form.values.contact,
+            img_url: img_url,
+            registration_url: form.values.registrationUrl,
+            contact_url: form.values.contactUrl,
             level: form.values.level,
             deadline_date: form.values.deadlineDate,
             deadline_time: deadline_time,
-            registration: form.values.registration,
+            registration_fee: form.values.registrationFee,
             tags: form.values.tags,
             is_featured: form.values.isFeatured,
             description: form.values.description,
@@ -525,7 +529,7 @@ export const CompetitionUpload = () => {
             <UploadInputContainer title="Link pendaftaran kompetisi">
               <TextInput
                 className="w-full text-white/80"
-                {...form.getInputProps("link")}
+                {...form.getInputProps("registrationUrl")}
                 placeholder={`ugm.id/epsilon-${CURRENT_YEAR}`}
               />
             </UploadInputContainer>
@@ -535,7 +539,7 @@ export const CompetitionUpload = () => {
             >
               <TextInput
                 className="w-full text-white/80"
-                {...form.getInputProps("contact")}
+                {...form.getInputProps("contactUrl")}
                 placeholder={`wa.me/62812345678`}
               />
             </UploadInputContainer>
@@ -569,7 +573,7 @@ export const CompetitionUpload = () => {
             <UploadInputContainer title="Biaya pendaftaran kompetisi">
               <Radio.Group
                 className="font-white ml-[4px] -mt-[10px] flex w-full gap-[30px]"
-                {...form.getInputProps("registration")}
+                {...form.getInputProps("registrationFee")}
               >
                 {COMPETITION_REGISTRATION_TYPE.map((option, id) => (
                   <Radio

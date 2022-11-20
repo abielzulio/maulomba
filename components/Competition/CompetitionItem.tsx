@@ -101,8 +101,8 @@ const CompetitionItem = ({ competition }: { competition: Competition }) => {
             {competition.level && <LevelLabel level={competition.level} />}
             {/* Button to like a competition item */}
             {/* Main competition image */}
-            {competition.img && (
-              <ImageContainer src={competition.img} animateOnHover={true} />
+            {competition.img_url && (
+              <ImageContainer src={competition.img_url} animateOnHover={true} />
             )}
           </a>
         </NextLink>

@@ -38,13 +38,13 @@ const CompetitionContent = ({ competition }: CompetitionProps) => {
     competition && (
       <ContentContainer className="padding-x padding-y mx-auto grid w-full grid-cols-1 gap-[30px] lg:grid-cols-3">
         {/* Competition image section */}
-        {competition?.img && (
+        {competition?.img_url && (
           <ContentContainer className="relative order-2 h-full lg:order-1">
             <ContentContainer className="sticky top-[40px] flex flex-col gap-[20px]">
               <ImageContainer
                 animateOnHover
                 className="h-full w-full"
-                src={competition?.img}
+                src={competition?.img_url}
               />
             </ContentContainer>
           </ContentContainer>
@@ -75,8 +75,8 @@ const CompetitionContent = ({ competition }: CompetitionProps) => {
             {/* Competition CTA section */}
             <div className="flex gap-[10px]">
               {/* Competition contact section */}
-              {competition?.contact && (
-                <Link href={competition?.contact} newTab className="w-full">
+              {competition?.contact_url && (
+                <Link href={competition?.contact_url} newTab className="w-full">
                   <Button
                     icon={<ChatBubbleLeftEllipsisIcon width={18} height={18} />}
                     title="Narahubung"
@@ -87,8 +87,12 @@ const CompetitionContent = ({ competition }: CompetitionProps) => {
                 </Link>
               )}
               {/* Competition registration link section */}
-              {competition?.link && (
-                <Link href={competition?.link} newTab className="w-full">
+              {competition?.registration_url && (
+                <Link
+                  href={competition?.registration_url}
+                  newTab
+                  className="w-full"
+                >
                   <Button
                     icon={<PaperAirplaneIcon width={18} height={18} />}
                     title="Daftar"
@@ -107,10 +111,10 @@ const CompetitionContent = ({ competition }: CompetitionProps) => {
               </div>
             )}
             {/* Competition registration fee information section */}
-            {competition?.registration && (
+            {competition?.registration_fee && (
               <div className="flex justify-between text-sm">
                 <p className="opacity-50">Pendaftaran</p>
-                <p className="font-semibold">{competition?.registration}</p>
+                <p className="font-semibold">{competition?.registration_fee}</p>
               </div>
             )}
             {/* Competition level section */}

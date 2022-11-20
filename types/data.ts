@@ -13,18 +13,18 @@ export interface Competition {
   title: string
   description: string
   tags: string[]
-  registration: "Gratis" | "Berbayar"
-  level: "Nasional" | "Internasional" | undefined
+  registration_fee: "Gratis" | "Berbayar"
+  level: "Nasional" | "Internasional"
   deadline_date: string
   deadline_time: string
-  img: string
   likes?: number
   views?: number
+  img_url: string
   eo: string
   slug: string
-  contact: string
+  contact_url: string
   is_featured: boolean
-  link: string
+  registration_url: string
   created_at: string
 }
 
