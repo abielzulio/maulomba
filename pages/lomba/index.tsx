@@ -1,30 +1,17 @@
-import {
-  ChatBubbleLeftEllipsisIcon,
-  PaperAirplaneIcon,
-} from "@heroicons/react/24/outline"
+import { ArrowUpTrayIcon } from "@heroicons/react/24/outline"
 import Button from "components/Button"
-import { ContentContainer, ImageContainer, Page } from "components/Container"
+import CompetitionContent from "components/Competition/CompetitionContent"
+import { ContentContainer, Page } from "components/Container"
 import Head from "components/Head"
-import { TagLabel } from "components/Label"
 import { product } from "data/product"
+import { useWindowDimension } from "hooks/useWindowDimension"
 import type { NextPage } from "next"
 import NextLink from "next/link"
-import { useState } from "react"
-import sanitize from "sanitize-html"
 import { Competition } from "types/data"
-import { getFullDeadlineDateTime } from "utils"
-
-interface CompetitionPageProps {
-  competition: Competition
-}
 
 const CompetitionPage: NextPage = () => {
-  const sanitizeOptions = {
-    allowedClasses: {
-      a: ["link"],
-    },
-  }
-
+  const screenWidth = useWindowDimension()
+  const isMobile = screenWidth < 640
   const competition: Competition = {
     uuid: "c1129863-59cc-47c6-861c-b72539306c24",
     id: 15,
@@ -46,15 +33,6 @@ const CompetitionPage: NextPage = () => {
     contact: "wa.me/6283826361142",
   }
 
-  const today = new Date()
-
-  const [deadlineWithDateAndTime] = getFullDeadlineDateTime(
-    competition?.deadline_date,
-    competition?.deadline_time
-  )
-
-  const description = sanitize(competition?.description, sanitizeOptions)
-
   const stringStripper = (str: string) => {
     return str
       .normalize("NFD")
@@ -66,108 +44,29 @@ const CompetitionPage: NextPage = () => {
   return (
     <>
       <Head
-        title={competition.title + "|" + product.description.short}
+        title={competition.title + " | " + product.description.short}
         description={competition.description.slice(0, 160)}
         author={competition.eo}
-        img={`https://mau-lomba.vercel.app/api/og?img=${
-          competition.img
-        }&title=${stringStripper(competition.title)}&eo=${stringStripper(
-          competition.eo
-        )}`}
       />
       <Page>
-        <ContentContainer className="padding-x padding-y flex h-fit justify-between">
+        <ContentContainer className="padding-x padding-y flex h-fit items-center justify-between">
           <NextLink href="/">
             <a className="font-medium tracking-tight text-white opacity-50 transition hover:opacity-100">
               Maulomba
             </a>
           </NextLink>
+          <NextLink href="/kirim-lomba">
+            <Button
+              icon={<ArrowUpTrayIcon className="h-4 w-4" />}
+              title={isMobile ? undefined : "Unggah lomba"}
+              label={isMobile ? undefined : "Gratis!"}
+              kind="secondary"
+              size={isMobile ? "small" : "medium"}
+              width="fit"
+            />
+          </NextLink>
         </ContentContainer>
-        <ContentContainer className="padding-x padding-y mx-auto grid w-full grid-cols-1 gap-[30px] xl:grid-cols-3">
-          {competition?.img && (
-            <ContentContainer className="relative order-2 h-full xl:order-1">
-              <ContentContainer className="sticky top-[40px] flex flex-col gap-[20px]">
-                <ImageContainer
-                  animateOnHover
-                  className="h-full w-full"
-                  src={competition?.img}
-                />
-              </ContentContainer>
-            </ContentContainer>
-          )}
-          {description && (
-            <ContentContainer className="relative order-3 flex h-full flex-col gap-[20px] xl:order-2">
-              <div
-                className="flex h-full flex-col gap-[10px] rounded-md bg-gray-300/5 p-[20px]"
-                dangerouslySetInnerHTML={{ __html: description }}
-              />
-            </ContentContainer>
-          )}
-          <ContentContainer className="order-1 h-full xl:order-3">
-            <ContentContainer className="sticky top-[40px] flex flex-col gap-[20px] ">
-              {competition?.title && (
-                <h2 className="text-[24px] font-semibold">
-                  {competition?.title}
-                </h2>
-              )}
-              {competition?.eo && (
-                <p className="text-base font-medium opacity-75">
-                  {competition?.eo}
-                </p>
-              )}
-              <div className="flex gap-[10px]">
-                {competition?.contact && (
-                  <NextLink href={competition?.contact}>
-                    <Button
-                      icon={
-                        <ChatBubbleLeftEllipsisIcon width={18} height={18} />
-                      }
-                      title="Narahubung"
-                      kind="secondary"
-                      width="full"
-                      size="medium"
-                    />
-                  </NextLink>
-                )}
-                {competition?.link && (
-                  <NextLink href={competition?.link}>
-                    <Button
-                      icon={<PaperAirplaneIcon width={18} height={18} />}
-                      title="Daftar"
-                      kind="primary"
-                      width="full"
-                      size="medium"
-                    />
-                  </NextLink>
-                )}
-              </div>
-              {deadlineWithDateAndTime && (
-                <div className="flex justify-between text-sm">
-                  <p className="opacity-50">Deadline</p>
-                  <p className="font-semibold">{deadlineWithDateAndTime}</p>
-                </div>
-              )}
-              {competition?.registration && (
-                <div className="flex justify-between text-sm">
-                  <p className="opacity-50">Pendaftaran</p>
-                  <p className="font-semibold">{competition?.registration}</p>
-                </div>
-              )}
-              {competition?.level && (
-                <div className="flex justify-between text-sm">
-                  <p className="opacity-50">Tingkat</p>
-                  <p className="font-semibold">{competition?.level}</p>
-                </div>
-              )}
-              {competition?.tags && (
-                <div className="flex justify-between text-sm">
-                  <p className="opacity-50">Kategori</p>
-                  <TagLabel tag={competition?.tags} showAll />
-                </div>
-              )}
-            </ContentContainer>
-          </ContentContainer>
-        </ContentContainer>
+        <CompetitionContent competition={competition} />
       </Page>
     </>
   )
