@@ -17,7 +17,20 @@ interface CompetitionProps {
 }
 
 const CompetitionContent = ({ competition }: CompetitionProps) => {
+  const [viewsCount, setViewsCount] = useState<string>("0")
   const [registerCount, setRegisterCount] = useState<string>("0")
+
+  const getViewsCount = async (uuid: string) => {
+    const { data: views_count, error } = await supabase.rpc("get_views_count", {
+      item_uuid: uuid,
+    })
+    if (views_count) {
+      setViewsCount(Number(views_count).toLocaleString())
+    } else {
+      console.log(error)
+    }
+  }
+
   const getRegisterCount = async (uuid: string) => {
     const { data: register_count, error } = await supabase.rpc(
       "get_register_count",
@@ -31,16 +44,20 @@ const CompetitionContent = ({ competition }: CompetitionProps) => {
       console.log(error)
     }
   }
+
   const incrementRegisterCount = async (uuid: string) => {
     const { data, error } = await supabase.rpc("increment_register_count", {
       item_uuid: uuid,
       increment_num: 1,
     })
   }
+
   useEffect(() => {
     incrementRegisterCount(competition.uuid)
+    getViewsCount(competition.uuid)
     getRegisterCount(competition.uuid)
   }, [competition.uuid])
+
   // Return an array with full date in string and isDeadlineToday in boolean
   const [deadlineWithDateAndTime] = getFullDeadlineDateTime(
     competition?.deadline_date,
@@ -158,10 +175,16 @@ const CompetitionContent = ({ competition }: CompetitionProps) => {
                 <TagLabel tag={competition?.tags} showAll />
               </div>
             )}
+            <div className="flex flex-col gap-[10px] text-sm opacity-30">
+              <p className="flex gap-[10px]">
+                <EyeIcon width={16} height={16} />
+                {viewsCount} kali melihat
+              </p>
               <p className="flex gap-[10px]">
                 <PaperAirplaneIcon width={16} height={16} />
                 {registerCount} orang klik mendaftar
               </p>
+            </div>
           </ContentContainer>
         </ContentContainer>
       </ContentContainer>
