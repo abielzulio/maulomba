@@ -145,7 +145,7 @@ const CompetitionNotFound = (props: FilterProps) => {
       className="padding-x flex py-[30px] text-center"
     >
       <div className="mx-auto flex flex-col items-center gap-[10px] opacity-80">
-        <ArchiveBoxXMarkIcon className="h-[24px] w-[24px]" />
+        <ArchiveBoxXMarkIcon width={24} height={24} />
         Lomba yang Anda cari tidak ada
         <button
           onClick={() =>

@@ -25,9 +25,17 @@ const TagFilterToggle = (props: TagFilterProps) => (
     } group relative ml-[10px] flex min-w-fit items-center gap-[10px] rounded-md border-[0.5px] border-white border-opacity-20 bg-white py-[10px] px-[15px] text-sm text-white text-opacity-80 transition hover:border-opacity-50 focus:border-opacity-50 focus:bg-opacity-50`}
   >
     {props.showTag ? (
-      <EyeSlashIcon className="h-5 w-5 opacity-50 transition group-hover:opacity-100" />
+      <EyeSlashIcon
+        width={18}
+        height={18}
+        className="opacity-50 transition group-hover:opacity-100"
+      />
     ) : (
-      <EyeIcon className="h-5 w-5 opacity-50 transition group-hover:opacity-100" />
+      <EyeIcon
+        width={18}
+        height={18}
+        className="h-5 w-5 opacity-50 transition group-hover:opacity-100"
+      />
     )}
     Kategori
     {props.selectedTags && props.selectedTags.length > 0 && (
@@ -40,7 +48,11 @@ const TagFilterToggle = (props: TagFilterProps) => (
 
 const DateFilter = (props: FilterProps) => (
   <div className="group flex w-full items-center gap-[10px] rounded-md border-[0.5px] border-white border-opacity-20 bg-white/5 py-[10px] px-[15px] text-sm text-white text-opacity-80 transition hover:cursor-pointer hover:border-opacity-50 focus:border-opacity-100 focus:bg-opacity-50">
-    <CalendarIcon className="h-5 w-5 opacity-50 transition group-hover:opacity-100" />
+    <CalendarIcon
+      width={18}
+      height={18}
+      className="opacity-50 transition group-hover:opacity-100"
+    />
     <select
       className="w-full bg-transparent"
       value={props.sortDateValue}
@@ -54,7 +66,11 @@ const DateFilter = (props: FilterProps) => (
 
 const SearchFiler = (props: FilterProps) => (
   <div className="group flex w-full items-center gap-[10px] rounded-md border-[0.5px] border-white border-opacity-20 bg-white/0 py-[10px] pl-[15px] text-sm text-white transition hover:border-opacity-50 focus:border-[0.1px] focus:border-opacity-100">
-    <MagnifyingGlassIcon className="h-5 w-5 opacity-50 transition group-hover:opacity-100" />
+    <MagnifyingGlassIcon
+      width={18}
+      height={18}
+      className="opacity-50 transition group-hover:opacity-100"
+    />
     <input
       className="w-full bg-transparent transition placeholder:text-white placeholder:text-opacity-50 focus:outline-none focus:placeholder:text-opacity-100"
       type="text"
@@ -143,7 +159,7 @@ const TagFilter = (props: TagFilterProps) => {
               className="mx-auto ml-[10px] flex h-full min-w-fit items-center gap-[5px] rounded-full border-[0.75px] border-white bg-white pt-[3px] pb-[4px] pl-[10px] pr-[12px] text-sm font-medium text-black opacity-50 transition hover:opacity-100"
               onClick={() => props.setSelectedTags?.([])}
             >
-              <XMarkIcon className="h-4 w-4" /> Hapus semua
+              <XMarkIcon width={18} height={18} /> Hapus semua
             </button>
           )}
           {sortedTags &&

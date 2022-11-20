@@ -397,13 +397,25 @@ export const CompetitionUpload = () => {
                   }`}
                 />
                 {!isDragActive && (
-                  <ArrowUpTrayIcon className="h-5 w-5 opacity-50 transition group-hover:opacity-100" />
+                  <ArrowUpTrayIcon
+                    width={18}
+                    height={18}
+                    className="opacity-50 transition group-hover:opacity-100"
+                  />
                 )}
                 {isDragAccept && (
-                  <CheckCircleIcon className="h-5 w-5 opacity-50 transition group-hover:opacity-100" />
+                  <CheckCircleIcon
+                    width={18}
+                    height={18}
+                    className="opacity-50 transition group-hover:opacity-100"
+                  />
                 )}
                 {isDragReject && (
-                  <XCircleIcon className="h-5 w-5 opacity-50 transition group-hover:opacity-100" />
+                  <XCircleIcon
+                    width={18}
+                    height={18}
+                    className="opacity-50 transition group-hover:opacity-100"
+                  />
                 )}
                 <p className="text-md my-[20px] mx-auto text-center font-medium tracking-tight opacity-50 transition group-hover:opacity-100">
                   {!isDragActive &&
@@ -669,9 +681,9 @@ export const CompetitionUpload = () => {
             disabled={!isStepTwoValid}
             icon={
               form.values.isFeatured ? (
-                <QrCodeIcon className="h-4 w-4" />
+                <QrCodeIcon width={18} height={18} />
               ) : (
-                <ArrowUpTrayIcon className="h-4 w-4" />
+                <ArrowUpTrayIcon width={18} height={18} />
               )
             }
             onClick={handleFormSubmit}
