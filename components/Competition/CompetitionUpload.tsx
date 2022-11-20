@@ -7,9 +7,11 @@ import {
 import { Checkbox, MultiSelect, Radio, TextInput } from "@mantine/core"
 import { DatePicker, TimeInput } from "@mantine/dates"
 import { useForm } from "@mantine/form"
+import { decode } from "base64-arraybuffer"
 import Button from "components/Button"
 import { ContentContainer, ImageContainer } from "components/Container"
 import RichTextEditor from "components/RichTextEditor"
+import Compress from "compress.js"
 import { CURRENT_YEAR } from "data/date/year"
 import {
   COMPETITION_FILTER_OPTIONS,
@@ -19,12 +21,11 @@ import {
 import { COLOR_BLUE_PRIMARY, COLOR_WHITE } from "data/style"
 import { motion } from "framer-motion"
 import { supabase, SUPABASE_BUCKET_BASE_URL } from "lib/supabase"
+import { useRouter } from "next/router"
 import { useCallback, useEffect, useState } from "react"
 import { useDropzone } from "react-dropzone"
 import { CompressResult, Image } from "types/data"
 import { v4 as uuid } from "uuid"
-import { decode } from "base64-arraybuffer"
-import Compress from "compress.js"
 
 interface UploadStepProps {
   state: boolean
@@ -213,11 +214,13 @@ export const CompetitionUpload = () => {
 
   useEffect(() => {
     if (form.values.title) {
+      // Check if title is too long
       if (form.values.title.length >= NUMBER_COMPETITION_TITLE_MAX_LENGTH) {
         setIsTittleTooLong(true)
       } else {
         setIsTittleTooLong(false)
       }
+      // Sluggify title
       form.setFieldValue(
         "slug",
         form.values.title
@@ -231,6 +234,7 @@ export const CompetitionUpload = () => {
   }, [form.values.title])
 
   useEffect(() => {
+    // Check if event organizer is too long
     if (form.values.eo.length >= NUMBER_COMPETITION_EO_MAX_LENGTH) {
       setIsEoTooLong(true)
     } else {
@@ -239,6 +243,7 @@ export const CompetitionUpload = () => {
   }, [form.values.eo])
 
   useEffect(() => {
+    // Check if description is valid
     if (description.length > 10) {
       setIsDescriptionValid(true)
       form.setFieldValue("description", description)
@@ -246,31 +251,37 @@ export const CompetitionUpload = () => {
   }, [description])
 
   useEffect(() => {
+    // Check if image is valid
     if (image.length > 0) {
       setIsImageValid(true)
     }
   }, [image])
 
   useEffect(() => {
+    // Check if step one is valid
     image.length > 0 ? setIsStepOneValid(true) : setIsStepOneValid(false)
   }, [image])
 
   useEffect(() => {
+    // Check if step two is valid
     isStepOneValid && form.isValid() && description.length > 10
       ? setIsStepTwoValid(true)
       : setIsStepTwoValid(false)
   }, [isStepOneValid, form, description])
 
+  // Validate description
   const handleDescriptionValidation = () => {
     description.length > 10
       ? setIsDescriptionValid(true)
       : setIsDescriptionValid(false)
   }
 
+  // Validate image
   const handleImageValidation = () => {
     image.length > 0 ? setIsImageValid(true) : setIsImageValid(false)
   }
 
+  // Validate registration and contact link url
   const handleURLValidation = () => {
     if (
       form.values.link &&
