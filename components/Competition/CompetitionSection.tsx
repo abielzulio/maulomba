@@ -98,7 +98,7 @@ export const CompetitionSection = ({
   const slicedCompetitions = sortedCompetitions.slice(0, showCount)
 
   // Auto-delete past competition db and img
-  const pastCompetition = competitions.filter(
+  /*   const pastCompetition = competitions.filter(
     (competition) =>
       new Date(competition.deadline_date).getDate() < new Date().getDate()
   )
@@ -118,7 +118,7 @@ export const CompetitionSection = ({
         deletePastCompetition(competition.uuid, competition.img_url)
       })
     }
-  }, [pastCompetition])
+  }, [pastCompetition]) */
 
   // Show competition tags by its tags
   const competitionTags: string[] = union(
