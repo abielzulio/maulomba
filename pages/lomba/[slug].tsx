@@ -32,10 +32,10 @@ const CompetitionPage: NextPage<
   return (
     <>
       <Head
-        title={competition.title + " | " + product.description.short}
-        description={competition.description.slice(0, 160)}
-        author={competition.eo}
-        url={product.url + "/lomba/" + competition.slug}
+        title={competition?.title + " | " + product.description.short}
+        description={competition?.description.slice(0, 160)}
+        author={competition?.event_organizer}
+        url={product.url + "/lomba/" + competition?.slug}
       />
       <Page>
         <ContentContainer className="padding-x padding-y flex h-fit items-center justify-between">
