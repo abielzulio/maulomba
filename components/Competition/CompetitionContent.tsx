@@ -109,9 +109,9 @@ const CompetitionContent = ({ competition }: CompetitionProps) => {
               <h2 className="text-[24px] font-semibold">{competition.title}</h2>
             )}
             {/* Competition event organizer section */}
-            {competition.eo && (
+            {competition.event_organizer && (
               <p className="text-base font-medium opacity-75">
-                {competition.eo}
+                {competition.event_organizer}
               </p>
             )}
             {/* Competition CTA section */}

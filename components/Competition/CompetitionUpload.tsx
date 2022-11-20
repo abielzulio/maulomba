@@ -125,7 +125,7 @@ export const CompetitionUpload = () => {
   const form = useForm({
     initialValues: {
       title: "",
-      eo: "",
+      eventOrganizer: "",
       imgUrl: "",
       slug: "",
       deadlineDate: date_now,
@@ -152,7 +152,7 @@ export const CompetitionUpload = () => {
           return "Judul kompetisi harus diisi"
         }
       },
-      eo: (value) =>
+      eventOrganizer: (value) =>
         value ? null : "Nama penyelenggara kompetisi harus diisi",
       deadlineDate: (value) =>
         value == null ? "Tanggal deadline harus diisi" : null,
@@ -236,12 +236,12 @@ export const CompetitionUpload = () => {
 
   useEffect(() => {
     // Check if event organizer is too long
-    if (form.values.eo.length >= NUMBER_COMPETITION_EO_MAX_LENGTH) {
+    if (form.values.eventOrganizer.length >= NUMBER_COMPETITION_EO_MAX_LENGTH) {
       setIsEoTooLong(true)
     } else {
       setIsEoTooLong(false)
     }
-  }, [form.values.eo])
+  }, [form.values.eventOrganizer])
 
   useEffect(() => {
     // Check if description is valid
@@ -334,7 +334,7 @@ export const CompetitionUpload = () => {
             uuid: random_uuid,
             title: form.values.title,
             slug: form.values.slug,
-            eo: form.values.eo,
+            event_organizer: form.values.eventOrganizer,
             img_url: img_url,
             registration_url: form.values.registrationUrl,
             contact_url: form.values.contactUrl,
@@ -495,7 +495,7 @@ export const CompetitionUpload = () => {
             <UploadInputContainer
               title="Penyelenggara kompetisi"
               wordCount={{
-                count: form.values.eo?.length,
+                count: form.values.eventOrganizer?.length,
                 max: NUMBER_COMPETITION_EO_MAX_LENGTH,
                 state: isEoTooLong,
               }}
@@ -503,7 +503,7 @@ export const CompetitionUpload = () => {
               <TextInput
                 maxLength={NUMBER_COMPETITION_EO_MAX_LENGTH}
                 className="w-full text-white/80"
-                {...form.getInputProps("eo")}
+                {...form.getInputProps("eventOrganizer")}
                 placeholder={`Himpunan Teknik Fisika UGM, ASEAN, dll`}
               />
             </UploadInputContainer>

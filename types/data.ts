@@ -18,7 +18,7 @@ export interface Competition {
   deadline_date: string
   deadline_time: string
   img_url: string
-  eo: string
+  event_organizer: string
   slug: string
   contact_url: string
   is_featured: boolean

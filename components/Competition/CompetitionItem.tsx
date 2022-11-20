@@ -140,18 +140,19 @@ const CompetitionItem = ({ competition }: { competition: Competition }) => {
               </p>
             )}
             {/* Competition organizer title */}
-            {competition.eo && competition.eo.length > 30 ? (
+            {competition.event_organizer &&
+            competition.event_organizer.length > 30 ? (
               <Marquee
                 pauseOnHover
                 gradientColor={[13, 17, 22]}
                 gradientWidth={20}
                 className="text-sm opacity-50"
               >
-                <p className="px-[2px]">{competition.eo} |</p>
+                <p className="px-[2px]">{competition.event_organizer} |</p>
               </Marquee>
             ) : (
               <span className="px-[2px] text-[12px] opacity-50">
-                {competition.eo}
+                {competition.event_organizer}
               </span>
             )}
           </a>
