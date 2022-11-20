@@ -98,22 +98,25 @@ export const CompetitionSection = ({
   const slicedCompetitions = sortedCompetitions.slice(0, showCount)
 
   // Auto-delete past competition db and img
-  useEffect(() => {
-    const pastCompetition = competitions.filter((competition) => {
+  const pastCompetition = competitions.filter(
+    (competition) =>
       new Date(competition.deadline_date).getDate() < new Date().getDate()
-    })
-    const deletePastCompetition = async (uuid: string, img_path: string) => {
-      await supabase.from("competition").delete().match({ uuid })
-      await supabase.storage
-        .from("competition")
-        .remove([img_path.replace(SUPABASE_BUCKET_BASE_URL, "")])
-    }
+  )
+
+  const deletePastCompetition = async (uuid: string, img_path: string) => {
+    await supabase.from("competitions").delete().match({ uuid })
+    await supabase.storage
+      .from("competition-img")
+      .remove([img_path.replace(SUPABASE_BUCKET_BASE_URL, "")])
+  }
+
+  useEffect(() => {
     if (pastCompetition.length > 0) {
       pastCompetition.map((competition) => {
-        deletePastCompetition(competition.uuid, competition.img)
+        deletePastCompetition(competition.uuid, competition.img_url)
       })
     }
-  }, [])
+  }, [pastCompetition])
 
   // Show competition tags by its tags
   const competitionTags: string[] = union(
