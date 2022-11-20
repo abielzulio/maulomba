@@ -18,7 +18,7 @@ import {
 import { getFullDeadlineDateTime } from "utils"
 import Button from "components/Button"
 
-const competition: Competition[] = [
+const competitions: Competition[] = [
   {
     uuid: "c1129863-59cc-47c6-861c-b72539306c24",
     id: 15,
@@ -264,7 +264,7 @@ export const CompetitionSection = () => {
   const [sortDateValue, setSortDateValue] = useState<string>("deadline")
   const [showCount, setShowCount] = useState<number>(4)
 
-  const filteredCompetition = competition
+  const filteredCompetitions = competitions
     // Filter past competition by its deadline
     .filter(
       (competition) =>
@@ -285,7 +285,7 @@ export const CompetitionSection = () => {
         : true
     )
 
-  const sortedCompetition = filteredCompetition
+  const sortedCompetitions = filteredCompetitions
     // Sort by deadline
     .sort((a, b) => {
       if (sortDateValue === "deadline") {
@@ -303,7 +303,7 @@ export const CompetitionSection = () => {
     .sort((a, b) => Number(b.is_featured) - Number(a.is_featured))
 
   // Show competitions based n showCount
-  const slicedCompetition = sortedCompetition.slice(0, showCount)
+  const slicedCompetitions = sortedCompetitions.slice(0, showCount)
 
   return (
     <ContentContainer className="mb-[60px]">
@@ -315,26 +315,26 @@ export const CompetitionSection = () => {
         sortDateValue={sortDateValue}
         setSortDateValue={setSortDateValue}
       />
-      {filteredCompetition.length > 0 ? (
+      {filteredCompetitions.length > 0 ? (
         <div className="flex flex-col gap-[30px]">
           <ResponsiveMasonry
             className="padding-x"
             columnsCountBreakPoints={{ 350: 1, 640: 2, 900: 3, 1300: 4 }}
           >
             <Masonry columnsCount={4} gutter="20px">
-              {slicedCompetition.map((competition, id) => (
+              {slicedCompetitions.map((competition, id) => (
                 <CompetitionItem key={id} competition={competition} />
               ))}
             </Masonry>
           </ResponsiveMasonry>
-          {showCount < filteredCompetition.length && (
+          {showCount < filteredCompetitions.length && (
             <div className="padding-x padding-y">
               <Button
                 kind="neutral"
                 size="medium"
                 width="full"
                 title={`Tampilkan ${
-                  filteredCompetition.length - showCount
+                  filteredCompetitions.length - showCount
                 } kompetisi lainnya`}
                 onClick={() => setShowCount(showCount + 4)}
               />
