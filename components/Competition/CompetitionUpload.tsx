@@ -307,30 +307,40 @@ export const CompetitionUpload = () => {
       const image_file_name = `${random_uuid}${image[0].type}`
       const img_url = `${SUPABASE_BUCKET_BASE_URL}/competition-img/${image_file_name}`
       const deadline_time = `${form.values.deadlineTime.getHours()}:${form.values.deadlineTime.getMinutes()}:${form.values.deadlineTime.getSeconds()}`
-      await supabase.storage
+      const { data: image_data, error: image_error } = await supabase.storage
         .from("competition-img")
         .upload(image_file_name, decode(image[0].data), {
           contentType: image[0].mime,
         })
-      const { data, error } = await supabase
-        .from("competitions")
-        .insert({
-          uuid: random_uuid,
-          title: form.values.title,
-          slug: form.values.slug,
-          eo: form.values.eo,
-          img: img_url,
-          link: form.values.link,
-          contact: form.values.contact,
-          level: form.values.level,
-          deadline_date: form.values.deadlineDate,
-          deadline_time: deadline_time,
-          registration: form.values.registration,
-          tags: form.values.tags,
-          is_featured: form.values.isFeatured,
-          description: form.values.description,
-        })
-        .select()
+      if (image_data) {
+        const { data, error } = await supabase
+          .from("competitions")
+          .insert({
+            uuid: random_uuid,
+            title: form.values.title,
+            slug: form.values.slug,
+            eo: form.values.eo,
+            img: img_url,
+            link: form.values.link,
+            contact: form.values.contact,
+            level: form.values.level,
+            deadline_date: form.values.deadlineDate,
+            deadline_time: deadline_time,
+            registration: form.values.registration,
+            tags: form.values.tags,
+            is_featured: form.values.isFeatured,
+            description: form.values.description,
+          })
+          .select()
+        if (data) {
+          const router = useRouter()
+          router.push(`/lomba/${form.values.slug}`)
+        } else {
+          console.table(error)
+        }
+      } else {
+        console.table(image_error)
+      }
       // add loader when: submitting -> added to supabase -> next.js generate page ondemand isr -> check if new page accesible -> then redirect to new page
     }
   }
