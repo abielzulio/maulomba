@@ -25,11 +25,11 @@ const Home: NextPage = () => {
           <CTAContainer>
             <NextLink href="/kirim-lomba">
               <Button
-                icon={<ArrowUpTrayIcon className="h-4 w-4" />}
-                title={"Unggah lomba"}
+                icon={<ArrowUpTrayIcon width={18} height={18} />}
+                title="Unggah lomba"
                 label="Gratis!"
                 kind="primary"
-                size={"medium"}
+                size="medium"
                 width="full"
                 className="sticky top-[20px] mr-auto"
               />
