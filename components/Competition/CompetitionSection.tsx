@@ -278,6 +278,7 @@ export const CompetitionSection = () => {
           .toLowerCase()
           .includes(searchValue.toLowerCase())
     )
+    // Filter by tags
     .filter((competition) =>
       selectedTags.length > 0
         ? competition.tags.find((tag) => selectedTags.includes(tag))
@@ -301,6 +302,7 @@ export const CompetitionSection = () => {
     // Sort by is_featured
     .sort((a, b) => Number(b.is_featured) - Number(a.is_featured))
 
+  // Show competitions based n showCount
   const slicedCompetition = sortedCompetition.slice(0, showCount)
 
   return (
