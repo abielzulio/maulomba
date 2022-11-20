@@ -125,7 +125,7 @@ const CompetitionItem = ({ competition }: { competition: Competition }) => {
         <NextLink passHref href={competition.slug} className="relative">
           <a className="flex flex-col gap-[3px]">
             {/* Competition title */}
-            {competition.title && competition.title.length > 30 ? (
+            {/*             {competition.title.length > 10 ? (
               <Marquee
                 pauseOnHover
                 gradientColor={[13, 17, 22]}
@@ -134,11 +134,11 @@ const CompetitionItem = ({ competition }: { competition: Competition }) => {
               >
                 <p className="px-[2px]">{competition.title} |</p>
               </Marquee>
-            ) : (
-              <p className="text-md font-semibold tracking-tight">
-                {competition.title}
-              </p>
-            )}
+            ) : ( */}
+            <p className="text-md font-semibold tracking-tight">
+              {competition.title}
+            </p>
+            {/*             )} */}
             {/* Competition organizer title */}
             {competition.event_organizer &&
             competition.event_organizer.length > 30 ? (
@@ -148,10 +148,10 @@ const CompetitionItem = ({ competition }: { competition: Competition }) => {
                 gradientWidth={20}
                 className="text-sm opacity-50"
               >
-                <p className="px-[2px]">{competition.event_organizer} |</p>
+                <p className="px-[2px]">{competition.event_organizer}</p>
               </Marquee>
             ) : (
-              <span className="px-[2px] text-[12px] opacity-50">
+              <span className="mt-[2px] text-[12px] opacity-50">
                 {competition.event_organizer}
               </span>
             )}
