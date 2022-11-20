@@ -299,27 +299,6 @@ export const CompetitionUpload = () => {
     image.length > 0 ? setIsImageValid(true) : setIsImageValid(false)
   }
 
-  // Validate registration and contact link url
-  const handleURLValidation = () => {
-    if (
-      form.values.registrationUrl &&
-      (!form.values.registrationUrl.includes("http://") ||
-        !form.values.registrationUrl.includes("https://"))
-    ) {
-      form.setFieldValue(
-        "registrationUrl",
-        "https://" + form.values.registrationUrl
-      )
-    }
-    if (
-      form.values.contactUrl &&
-      (!form.values.contactUrl.includes("http://") ||
-        !form.values.contactUrl.includes("https://"))
-    ) {
-      form.setFieldValue("contactUrl", "https://" + form.values.contactUrl)
-    }
-  }
-
   const handleChangeImage = () => {
     setImage([])
     setIsImageValid(true)
@@ -327,7 +306,6 @@ export const CompetitionUpload = () => {
 
   const handleFormValidation = () => {
     form.validate()
-    handleURLValidation()
     handleDescriptionValidation()
     handleImageValidation()
   }
@@ -354,8 +332,12 @@ export const CompetitionUpload = () => {
             slug: form.values.slug,
             event_organizer: form.values.eventOrganizer,
             img_url: img_url,
-            registration_url: form.values.registrationUrl,
-            contact_url: form.values.contactUrl,
+            registration_url: !/^https?:\/\//i.test(form.values.registrationUrl)
+              ? `https://${form.values.registrationUrl}`
+              : form.values.registrationUrl,
+            contact_url: !/^https?:\/\//i.test(form.values.contactUrl)
+              ? `https://${form.values.contactUrl}`
+              : form.values.contactUrl,
             level: form.values.level,
             deadline_date: form.values.deadlineDate,
             deadline_time: deadline_time,
