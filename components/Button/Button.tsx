@@ -13,6 +13,7 @@ const Button = (props: ButtonProps) => {
   } = props
   return (
     <button
+      type="button"
       className={`${className} flex h-fit items-center justify-center rounded-lg border-[1.3px] border-opacity-20 transition hover:border-opacity-50 ${
         width === "fit" ? `w-fit` : `w-full`
       } ${
