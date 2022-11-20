@@ -1,4 +1,7 @@
-import { ArrowUpTrayIcon } from "@heroicons/react/24/outline"
+import {
+  ArrowUpTrayIcon,
+  MagnifyingGlassIcon,
+} from "@heroicons/react/24/outline"
 import Button from "components/Button"
 import CompetitionContent from "components/Competition/CompetitionContent"
 import { ContentContainer, Page } from "components/Container"
@@ -10,6 +13,7 @@ import NextLink from "next/link"
 import { ParsedUrlQuery } from "querystring"
 import { Competition } from "types/data"
 import { useWindowDimension } from "hooks/useWindowDimension"
+import Link from "components/Link"
 
 interface CompetitionPageProps {
   competition: Competition
@@ -51,6 +55,15 @@ const CompetitionPage: NextPage<
           </NextLink>
         </ContentContainer>
         <CompetitionContent competition={competition} />
+        <Link href="/" newTab className="padding-x w-full">
+          <Button
+            icon={<MagnifyingGlassIcon width={18} height={18} />}
+            title="Cari kompetisi lainnya"
+            kind="secondary"
+            width="full"
+            size="medium"
+          />
+        </Link>
       </Page>
     </>
   )
