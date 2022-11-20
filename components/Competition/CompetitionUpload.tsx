@@ -1,4 +1,5 @@
 import {
+  ArrowPathIcon,
   ArrowUpTrayIcon,
   CheckCircleIcon,
   QrCodeIcon,
@@ -116,8 +117,11 @@ export const CompetitionUpload = () => {
   const [isImageValid, setIsImageValid] = useState<boolean>(true)
   const [isStepOneValid, setIsStepOneValid] = useState<boolean>(false)
   const [isStepTwoValid, setIsStepTwoValid] = useState<boolean>(false)
+  const [isUploading, setIsUploading] = useState<boolean>(false)
 
   const date_now: Date = new Date()
+
+  const router = useRouter()
 
   const NUMBER_COMPETITION_TITLE_MAX_LENGTH: number = 85
   const NUMBER_COMPETITION_EO_MAX_LENGTH: number = 50
@@ -331,6 +335,7 @@ export const CompetitionUpload = () => {
   const handleFormSubmit = async () => {
     handleFormValidation()
     if (isStepTwoValid) {
+      setIsUploading(true)
       const random_uuid = uuid()
       const image_file_name = `${random_uuid}${image[0].type}`
       const img_url = `${SUPABASE_BUCKET_BASE_URL}/competition-img/${image_file_name}`
@@ -361,7 +366,6 @@ export const CompetitionUpload = () => {
           })
           .select()
         if (data) {
-          const router = useRouter()
           router.push(`/lomba/${form.values.slug}`)
         } else {
           console.table(error)
@@ -710,7 +714,7 @@ export const CompetitionUpload = () => {
             </div> */}
           </div>
           <Button
-            kind="primary"
+            kind={isUploading ? "neutral" : "primary"}
             type="submit"
             size="medium"
             width="full"
@@ -721,7 +725,13 @@ export const CompetitionUpload = () => {
             }`}
             disabled={!isStepTwoValid}
             icon={
-              form.values.isFeatured ? (
+              isUploading ? (
+                <ArrowPathIcon
+                  width={18}
+                  height={18}
+                  className="animate-spin"
+                />
+              ) : form.values.isFeatured ? (
                 <QrCodeIcon width={18} height={18} />
               ) : (
                 <ArrowUpTrayIcon width={18} height={18} />
@@ -729,7 +739,9 @@ export const CompetitionUpload = () => {
             }
             onClick={handleFormSubmit}
             title={`${
-              form.values.isFeatured
+              isUploading
+                ? "Sedang mengunggah"
+                : form.values.isFeatured
                 ? `Bayar lalu unggah`
                 : `Unggah secara gratis`
             }`}
