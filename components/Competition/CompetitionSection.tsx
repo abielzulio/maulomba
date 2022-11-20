@@ -264,9 +264,13 @@ export const CompetitionSection = () => {
   const [sortDateValue, setSortDateValue] = useState<string>("deadline")
   const [showCount, setShowCount] = useState<number>(4)
 
-  /* Filter by title and description */
-  /* Filter by tags */
   const filteredCompetition = competition
+    // Filter past competition by its deadline
+    .filter(
+      (competition) =>
+        new Date(competition.deadline_date).getDate() >= new Date().getDate()
+    )
+    // Filter by title and description
     .filter(
       (competition) =>
         competition.title.toLowerCase().includes(searchValue.toLowerCase()) ||
