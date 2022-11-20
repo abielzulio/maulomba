@@ -3,29 +3,71 @@ import { ImageContainer } from "components/Container"
 import { LevelLabel, TagLabel } from "components/Label"
 import { DeadlinePill, FeaturedPill } from "components/Pill"
 import { motion } from "framer-motion"
+import { supabase } from "lib/supabase"
 import NextLink from "next/link"
+import { useEffect, useState } from "react"
 import Marquee from "react-fast-marquee"
 import { Competition } from "types/data"
 import { getFullDeadlineDateTime } from "utils"
 
-const LikeViewSection = (props: { likes: number; views: number }) => (
-  <div className="flex items-center justify-between gap-[10px] text-[12px] font-semibold tracking-tighter">
-    <div className="flex items-center gap-[3px] opacity-50">
-      <EyeIcon className="h-3 w-3" />
-      <span>{props.views}</span>
+const LikeViewSection = ({
+  uuid,
+}: {
+  likes?: number
+  views?: number
+  uuid: string
+}) => {
+  const [viewsCount, setViewsCount] = useState<string>("0")
+  const getViews = async (uuid: string) => {
+    const { data: views, error } = await supabase.rpc("get_views", {
+      item_uuid: uuid,
+    })
+    if (views) {
+      setViewsCount(Number(views).toLocaleString())
+    } else {
+      console.log(error)
+    }
+  }
+
+  useEffect(() => {
+    getViews(uuid)
+  }, [uuid])
+
+  return (
+    <div className="flex items-center justify-between gap-[10px] text-[12px] font-semibold tracking-tighter">
+      {viewsCount && (
+        <motion.div
+          animate={{ opacity: 0.5 }}
+          initial={{ opacity: 0 }}
+          exit={{ opacity: 0.5 }}
+          className="flex items-center gap-[3px] opacity-50"
+        >
+          <EyeIcon className="h-3 w-3" />
+          <span>{viewsCount}</span>
+        </motion.div>
+      )}
+      {/*       {likes && (
+        <div className="flex items-center gap-[3px] opacity-50">
+          <HeartIcon className="h-3 w-3" />
+          <span>{likes}</span>
+        </div>
+      )} */}
     </div>
-    <div className="flex items-center gap-[3px] opacity-50">
-      <HeartIcon className="h-3 w-3" />
-      <span>{props.likes}</span>
-    </div>
-  </div>
-)
+  )
+}
 
 const CompetitionItem = ({ competition }: { competition: Competition }) => {
   const [deadlineWithDateAndTime, isDeadlineToday] = getFullDeadlineDateTime(
     competition.deadline_date,
     competition.deadline_time
   )
+
+  const incrementViews = async (uuid: string) => {
+    const { data, error } = await supabase.rpc("increment_view", {
+      item_uuid: uuid,
+      increment_num: 1,
+    })
+  }
 
   return (
     <motion.div
@@ -48,7 +90,10 @@ const CompetitionItem = ({ competition }: { competition: Competition }) => {
           className="relative"
         >
           {/* Competition image compositioned */}
-          <a className="relative h-full w-full overflow-hidden rounded-md border-[1px] border-white border-opacity-30 shadow-2xl transition md:hover:shadow-blue-500/30">
+          <a
+            onClick={() => incrementViews(competition.uuid)}
+            className="relative h-full w-full overflow-hidden rounded-md border-[1px] border-white border-opacity-30 shadow-2xl transition md:hover:shadow-blue-500/30"
+          >
             {/* Layers on-top competition image */}
             <span className="absolute z-10 h-[100px] w-full bg-gradient-to-b from-gray-900/60 to-transparent" />
             {competition.is_featured && <FeaturedPill />}
@@ -72,12 +117,7 @@ const CompetitionItem = ({ competition }: { competition: Competition }) => {
             <p className="text-sm opacity-50">{deadlineWithDateAndTime}</p>
           )}
           {/* Competition likes and views */}
-          {competition.likes && competition.views && (
-            <LikeViewSection
-              likes={competition.likes}
-              views={competition.views}
-            />
-          )}
+          <LikeViewSection uuid={competition?.uuid} />
         </div>
         <NextLink passHref href={competition.slug} className="relative">
           <a className="flex flex-col gap-[3px]">
