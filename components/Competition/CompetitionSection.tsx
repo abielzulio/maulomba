@@ -107,7 +107,9 @@ export const CompetitionSection = ({
     await supabase.from("competitions").delete().match({ uuid })
     await supabase.storage
       .from("competition-img")
-      .remove([img_path.replace(SUPABASE_BUCKET_BASE_URL, "")])
+      .remove([
+        img_path.replace(SUPABASE_BUCKET_BASE_URL + "/competition-img/", ""),
+      ])
   }
 
   useEffect(() => {
