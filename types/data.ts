@@ -17,8 +17,6 @@ export interface Competition {
   level: "Nasional" | "Internasional"
   deadline_date: string
   deadline_time: string
-  likes?: number
-  views?: number
   img_url: string
   eo: string
   slug: string
