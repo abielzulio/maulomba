@@ -6,7 +6,7 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/outline"
 import { Chip, createStyles } from "@mantine/core"
-import { COMPETITION_FILTER_OPTIONS, DATE_FILTER_OPTIONS } from "data/options"
+import { DATE_FILTER_OPTIONS } from "data/options"
 import { COLOR_BLUE_PRIMARY, COLOR_WHITE } from "data/style"
 import { motion } from "framer-motion"
 import { useState } from "react"
