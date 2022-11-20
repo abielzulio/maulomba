@@ -6,6 +6,8 @@ import Button from "components/Button"
 import { ContentContainer, ImageContainer } from "components/Container"
 import { TagLabel } from "components/Label"
 import Link from "components/Link"
+import { supabase } from "lib/supabase"
+import { useEffect, useState } from "react"
 import sanitize from "sanitize-html"
 import { Competition } from "types/data"
 import { getFullDeadlineDateTime } from "utils"
@@ -15,6 +17,30 @@ interface CompetitionProps {
 }
 
 const CompetitionContent = ({ competition }: CompetitionProps) => {
+  const [registerCount, setRegisterCount] = useState<string>("0")
+  const getRegisterCount = async (uuid: string) => {
+    const { data: register_count, error } = await supabase.rpc(
+      "get_register_count",
+      {
+        item_uuid: uuid,
+      }
+    )
+    if (register_count) {
+      setRegisterCount(Number(register_count).toLocaleString())
+    } else {
+      console.log(error)
+    }
+  }
+  const incrementRegisterCount = async (uuid: string) => {
+    const { data, error } = await supabase.rpc("increment_register_count", {
+      item_uuid: uuid,
+      increment_num: 1,
+    })
+  }
+  useEffect(() => {
+    incrementRegisterCount(competition.uuid)
+    getRegisterCount(competition.uuid)
+  }, [competition.uuid])
   // Return an array with full date in string and isDeadlineToday in boolean
   const [deadlineWithDateAndTime] = getFullDeadlineDateTime(
     competition?.deadline_date,
@@ -99,6 +125,7 @@ const CompetitionContent = ({ competition }: CompetitionProps) => {
                     kind="primary"
                     width="full"
                     size="medium"
+                    onClick={() => incrementRegisterCount(competition?.uuid)}
                   />
                 </Link>
               )}
@@ -131,6 +158,10 @@ const CompetitionContent = ({ competition }: CompetitionProps) => {
                 <TagLabel tag={competition?.tags} showAll />
               </div>
             )}
+              <p className="flex gap-[10px]">
+                <PaperAirplaneIcon width={16} height={16} />
+                {registerCount} orang klik mendaftar
+              </p>
           </ContentContainer>
         </ContentContainer>
       </ContentContainer>
