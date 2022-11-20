@@ -63,7 +63,7 @@ const CompetitionItem = ({ competition }: { competition: Competition }) => {
   )
 
   const incrementViewsCount = async (uuid: string) => {
-    const { data, error } = await supabase.rpc("increment_view_count", {
+    const { data, error } = await supabase.rpc("increment_views_count", {
       item_uuid: uuid,
       increment_num: 1,
     })

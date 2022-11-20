@@ -113,7 +113,7 @@ export const CompetitionSection = ({
         deletePastCompetition(competition.uuid, competition.img)
       })
     }
-  }, [competitions])
+  }, [])
 
   // Show competition tags by its tags
   const competitionTags: string[] = union(
