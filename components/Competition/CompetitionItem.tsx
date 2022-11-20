@@ -42,7 +42,7 @@ const LikeViewSection = ({
           exit={{ opacity: 0.5 }}
           className="flex items-center gap-[3px] opacity-50"
         >
-          <EyeIcon className="h-3 w-3" />
+          <EyeIcon width={16} height={16} />
           <span>{viewsCount}</span>
         </motion.div>
       )}
