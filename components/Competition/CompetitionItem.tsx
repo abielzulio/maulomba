@@ -62,16 +62,6 @@ const CompetitionItem = ({ competition }: { competition: Competition }) => {
     competition.deadline_time
   )
 
-  const incrementViewsCount = async (uuid: string) => {
-    const { data, error } = await supabase.rpc("increment_views_count", {
-      item_uuid: uuid,
-      increment_num: 1,
-    })
-    if (error) {
-      console.log(error)
-    }
-  }
-
   return (
     <motion.div
       animate={{ opacity: 1 }}
@@ -93,10 +83,7 @@ const CompetitionItem = ({ competition }: { competition: Competition }) => {
           className="relative"
         >
           {/* Competition image compositioned */}
-          <a
-            onClick={() => incrementViewsCount(competition.uuid)}
-            className="relative h-full w-full overflow-hidden rounded-md border-[1px] border-white border-opacity-30 shadow-2xl transition md:hover:shadow-blue-500/30"
-          >
+          <a className="relative h-full w-full overflow-hidden rounded-md border-[1px] border-white border-opacity-30 shadow-2xl transition md:hover:shadow-blue-500/30">
             {/* Layers on-top competition image */}
             <span className="absolute z-10 h-[100px] w-full bg-gradient-to-b from-gray-900/60 to-transparent" />
             {competition.is_featured && <FeaturedPill />}
