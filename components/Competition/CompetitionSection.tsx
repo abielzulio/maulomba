@@ -301,6 +301,24 @@ export const CompetitionSection = () => {
   // Show competitions based n showCount
   const slicedCompetitions = sortedCompetitions.slice(0, showCount)
 
+  // Auto-delete past competition db and img
+  useEffect(() => {
+    const pastCompetition = competitions.filter((competition) => {
+      new Date(competition.deadline_date).getDate() < new Date().getDate()
+    })
+    const deletePastCompetition = async (uuid: string, img_path: string) => {
+      await supabase.from("competition").delete().match({ uuid })
+      await supabase.storage
+        .from("competition")
+        .remove([img_path.replace(SUPABASE_BUCKET_BASE_URL, "")])
+    }
+    if (pastCompetition.length > 0) {
+      pastCompetition.map((competition) => {
+        deletePastCompetition(competition.uuid, competition.img)
+      })
+    }
+  }, [competitions])
+
   // Show competition tags by its tags
   const competitionTags: string[] = union(
     filteredCompetitions.flatMap(({ tags }) => tags)
