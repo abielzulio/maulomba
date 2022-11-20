@@ -1,11 +1,7 @@
 import { motion } from "framer-motion"
 import NextImage from "next/image"
 import { useState } from "react"
-import {
-  ContainerProps,
-  ImageContainerProps,
-  MotionContainerProps,
-} from "types/component"
+import { ContainerProps, MotionContainerProps } from "types/component"
 
 const Container = (props: ContainerProps) => {
   const { className = `` } = props
@@ -27,7 +23,7 @@ export const Page = (props: MotionContainerProps) => {
       initial={{ opacity: 0 }}
       exit={{ opacity: 0 }}
       transition={{ delay: 0.25 }}
-      className={`min-w-screen relative flex min-h-screen flex-col ${className}`}
+      className={`min-w-screen relative flex min-h-fit flex-col ${className}`}
       {...props}
     >
       {props.children}
