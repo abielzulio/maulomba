@@ -102,12 +102,18 @@ export const getStaticPaths = async () => {
     console.log(error)
   }
 
+  if (!competitions) {
+    return {
+      notFound: true,
+    }
+  }
+
   const paths = competitions?.map((competition) => ({
     params: { slug: competition?.slug },
   }))
 
   return {
     paths,
-    fallback: true,
+    fallback: "blocking",
   }
 }
