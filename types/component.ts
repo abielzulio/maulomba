@@ -30,6 +30,7 @@ export interface FilterProps {
   setSearchValue?: (value: string) => void
   selectedTags?: string[]
   setSelectedTags?: (value: string[]) => void
+  tags?: string[]
   sortDateValue?: string
   setSortDateValue?: (value: string) => void
 }

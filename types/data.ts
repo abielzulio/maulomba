@@ -8,8 +8,8 @@ export interface Image {
 }
 
 export interface Competition {
-  uuid?: string
-  id?: number
+  uuid: string
+  id: number
   title: string
   description: string
   tags: string[]
@@ -24,7 +24,7 @@ export interface Competition {
   slug: string
   contact: string
   is_featured: boolean
-  link?: string
+  link: string
   created_at: string
 }
 
