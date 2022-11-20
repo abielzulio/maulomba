@@ -15,6 +15,7 @@ import { FilterProps } from "types/component"
 interface TagFilterProps extends FilterProps {
   showTag?: boolean
   setShowTag?: (value: boolean) => void
+  tags?: string[]
 }
 
 const TagFilterToggle = (props: TagFilterProps) => (
@@ -125,15 +126,13 @@ const TagFilter = (props: TagFilterProps) => {
   // Array of unselected tags
   const unselectedTags =
     props.selectedTags &&
-    COMPETITION_FILTER_OPTIONS &&
-    COMPETITION_FILTER_OPTIONS.filter(
-      (tag) => props.selectedTags?.indexOf(tag) === -1
-    )
+    props.tags &&
+    props.tags.filter((tag) => props.selectedTags?.indexOf(tag) === -1)
   // New array with selected tags prioritized and the rest from the unselected tags
   const sortedTags =
-    unselectedTags && COMPETITION_FILTER_OPTIONS && unselectedTags.length > 0
+    unselectedTags && props.tags && unselectedTags.length > 0
       ? props.selectedTags?.concat(unselectedTags)
-      : COMPETITION_FILTER_OPTIONS
+      : props.tags
   return (
     <motion.div
       className="h-min w-full bg-black"
@@ -156,7 +155,7 @@ const TagFilter = (props: TagFilterProps) => {
         >
           {props.selectedTags && props.selectedTags.length > 0 && (
             <button
-              className="mx-auto ml-[10px] flex h-full min-w-fit items-center gap-[5px] rounded-full border-[0.75px] border-white bg-white pt-[3px] pb-[4px] pl-[10px] pr-[12px] text-sm font-medium text-black opacity-50 transition hover:opacity-100"
+              className="ml-[10px] flex h-full min-w-fit items-center gap-[5px] rounded-full border-[0.75px] border-white bg-white pt-[3px] pb-[4px] pl-[10px] pr-[12px] text-sm font-medium text-black opacity-50 transition hover:opacity-100"
               onClick={() => props.setSelectedTags?.([])}
             >
               <XMarkIcon width={18} height={18} /> Hapus semua
@@ -165,7 +164,7 @@ const TagFilter = (props: TagFilterProps) => {
           {sortedTags &&
             sortedTags.map((option, id) => (
               <Chip
-                className="font-medium"
+                className="font-medium transition"
                 styles={{}}
                 value={option}
                 classNames={classes}
@@ -210,6 +209,7 @@ const Filter = (props: FilterProps) => {
         showTag={showTag}
         selectedTags={props.selectedTags}
         setSelectedTags={props.setSelectedTags}
+        tags={props.tags}
       />
       <span
         className={`padding-x h-[20px] w-full bg-gradient-to-b from-black to-transparent`}

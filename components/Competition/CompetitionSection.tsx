@@ -301,6 +301,10 @@ export const CompetitionSection = () => {
   // Show competitions based n showCount
   const slicedCompetitions = sortedCompetitions.slice(0, showCount)
 
+  // Show competition tags by its tags
+  const competitionTags: string[] = union(
+    filteredCompetitions.flatMap(({ tags }) => tags)
+  )
   return (
     <ContentContainer className="mb-[60px]">
       <Filter
@@ -310,6 +314,7 @@ export const CompetitionSection = () => {
         setSelectedTags={setSelectedTags}
         sortDateValue={sortDateValue}
         setSortDateValue={setSortDateValue}
+        tags={competitionTags}
       />
       {filteredCompetitions.length > 0 ? (
         <div className="flex flex-col gap-[30px]">
