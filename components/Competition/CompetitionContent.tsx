@@ -53,8 +53,18 @@ const CompetitionContent = ({ competition }: CompetitionProps) => {
     })
   }
 
+  const incrementViewsCount = async (uuid: string) => {
+    const { data, error } = await supabase.rpc("increment_views_count", {
+      item_uuid: uuid,
+      increment_num: 1,
+    })
+  }
+
   useEffect(() => {
-    incrementRegisterCount(competition.uuid)
+    incrementViewsCount(competition.uuid)
+  }, [])
+
+  useEffect(() => {
     getViewsCount(competition.uuid)
     getRegisterCount(competition.uuid)
   }, [competition.uuid])
@@ -177,7 +187,7 @@ const CompetitionContent = ({ competition }: CompetitionProps) => {
             <div className="flex flex-col gap-[10px] text-sm opacity-30">
               <p className="flex gap-[10px]">
                 <EyeIcon width={16} height={16} />
-                {viewsCount} kali melihat
+                {viewsCount} kali dilihat
               </p>
               <p className="flex gap-[10px]">
                 <PaperAirplaneIcon width={16} height={16} />
