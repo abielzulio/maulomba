@@ -18,19 +18,19 @@ const LikeViewSection = ({
   uuid: string
 }) => {
   const [viewsCount, setViewsCount] = useState<string>("0")
-  const getViews = async (uuid: string) => {
-    const { data: views, error } = await supabase.rpc("get_views", {
+  const getViewsCount = async (uuid: string) => {
+    const { data: views_count, error } = await supabase.rpc("get_views_count", {
       item_uuid: uuid,
     })
-    if (views) {
-      setViewsCount(Number(views).toLocaleString())
+    if (views_count) {
+      setViewsCount(Number(views_count).toLocaleString())
     } else {
       console.log(error)
     }
   }
 
   useEffect(() => {
-    getViews(uuid)
+    getViewsCount(uuid)
   }, [uuid])
 
   return (
@@ -62,11 +62,14 @@ const CompetitionItem = ({ competition }: { competition: Competition }) => {
     competition.deadline_time
   )
 
-  const incrementViews = async (uuid: string) => {
-    const { data, error } = await supabase.rpc("increment_view", {
+  const incrementViewsCount = async (uuid: string) => {
+    const { data, error } = await supabase.rpc("increment_view_count", {
       item_uuid: uuid,
       increment_num: 1,
     })
+    if (error) {
+      console.log(error)
+    }
   }
 
   return (
@@ -91,7 +94,7 @@ const CompetitionItem = ({ competition }: { competition: Competition }) => {
         >
           {/* Competition image compositioned */}
           <a
-            onClick={() => incrementViews(competition.uuid)}
+            onClick={() => incrementViewsCount(competition.uuid)}
             className="relative h-full w-full overflow-hidden rounded-md border-[1px] border-white border-opacity-30 shadow-2xl transition md:hover:shadow-blue-500/30"
           >
             {/* Layers on-top competition image */}
