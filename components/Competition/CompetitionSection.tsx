@@ -11,10 +11,6 @@ import { Competition } from "types/data"
 import { LevelLabel, TagLabel } from "components/Label"
 import { FeaturedPill, DeadlinePill } from "components/Pill"
 import { FilterProps } from "types/component"
-import {
-  STRING_CLEAR_FILTERED_COMPETITON_BUTTON,
-  STRING_FILTERED_COMPETITON_IS_NOT_FOUND,
-} from "data/string"
 import { getFullDeadlineDateTime } from "utils"
 import Button from "components/Button"
 
@@ -150,14 +146,14 @@ const CompetitionNotFound = (props: FilterProps) => {
     >
       <div className="mx-auto flex flex-col items-center gap-[10px] opacity-80">
         <ArchiveBoxXMarkIcon className="h-[24px] w-[24px]" />
-        {STRING_FILTERED_COMPETITON_IS_NOT_FOUND}
+        Lomba yang Anda cari tidak ada
         <button
           onClick={() =>
             handleClearFilter(props.searchValue, props.selectedTags)
           }
           className="mt-[10px] text-sm underline opacity-50 transition hover:opacity-80"
         >
-          {STRING_CLEAR_FILTERED_COMPETITON_BUTTON}
+          Hapus pencarian
         </button>
       </div>
     </motion.section>

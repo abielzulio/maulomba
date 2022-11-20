@@ -16,14 +16,6 @@ import {
   COMPETITION_LEVEL_TYPE,
   COMPETITION_REGISTRATION_TYPE,
 } from "data/options"
-import {
-  STRING_COMPETITION_UPLOAD_CHANGE_IMAGE_BUTTON,
-  STRING_COMPETITION_UPLOAD_IMAGE_DRAG_ALLOW,
-  STRING_COMPETITION_UPLOAD_IMAGE_DRAG_INIT,
-  STRING_COMPETITION_UPLOAD_IMAGE_DRAG_REJECT,
-  STRING_COMPETITION_UPLOAD_PAGE_TITLE,
-  STRING_COMPETITION_UPLOAD_STEP,
-} from "data/string"
 import { COLOR_BLUE_PRIMARY, COLOR_WHITE } from "data/style"
 import { motion } from "framer-motion"
 import { supabase, SUPABASE_BUCKET_BASE_URL } from "lib/supabase"
@@ -346,13 +338,13 @@ export const CompetitionUpload = () => {
   return (
     <ContentContainer className="padding-y">
       <h2 className="text-[24px] font-semibold md:text-[36px]">
-        {STRING_COMPETITION_UPLOAD_PAGE_TITLE}
+        Unggah kompetisi
       </h2>
       <ContentContainer className="padding-y grid grid-cols-1 gap-[30px] xl:grid-cols-3">
         <UploadStep
           state={isStepOneValid}
           number={0}
-          title={STRING_COMPETITION_UPLOAD_STEP[0]}
+          title="Unggah poster kompetisi"
           className="sticky top-[20px]"
         >
           {image && image.length > 0 ? (
@@ -373,7 +365,7 @@ export const CompetitionUpload = () => {
                 className="tracking-tight opacity-50 transition hover:underline hover:opacity-80"
                 onClick={handleChangeImage}
               >
-                {STRING_COMPETITION_UPLOAD_CHANGE_IMAGE_BUTTON}
+                Klik untuk ganti poster
               </button>
             </motion.div>
           ) : (
@@ -414,9 +406,11 @@ export const CompetitionUpload = () => {
                   <XCircleIcon className="h-5 w-5 opacity-50 transition group-hover:opacity-100" />
                 )}
                 <p className="text-md my-[20px] mx-auto text-center font-medium tracking-tight opacity-50 transition group-hover:opacity-100">
-                  {!isDragActive && STRING_COMPETITION_UPLOAD_IMAGE_DRAG_INIT}
-                  {isDragAccept && STRING_COMPETITION_UPLOAD_IMAGE_DRAG_ALLOW}
-                  {isDragReject && STRING_COMPETITION_UPLOAD_IMAGE_DRAG_REJECT}
+                  {!isDragActive &&
+                    "Tarik poster kompetisi ke sini atau klik untuk mengunggah"}
+                  {isDragAccept && "Poster kompetisi dapat diunggah"}
+                  {isDragReject &&
+                    "Hanya mendukung file poste kompetisi berjenis .png, .jpg, dan .jpeg"}
                 </p>
               </motion.div>
               {!isImageValid && (
@@ -430,7 +424,7 @@ export const CompetitionUpload = () => {
         <UploadStep
           state={isStepTwoValid}
           number={1}
-          title={STRING_COMPETITION_UPLOAD_STEP[1]}
+          title="Isi deskripsi kompetisi"
         >
           <form className="flex flex-col gap-[20px]">
             <UploadInputContainer
@@ -594,7 +588,7 @@ export const CompetitionUpload = () => {
         <UploadStep
           state={isStepTwoValid}
           number={2}
-          title={STRING_COMPETITION_UPLOAD_STEP[2]}
+          title="Opsi pengunggahan"
           className="sticky top-[20px]"
         >
           <div className="flex flex-col gap-[20px]">

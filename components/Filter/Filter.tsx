@@ -7,10 +7,6 @@ import {
 } from "@heroicons/react/24/outline"
 import { Chip, createStyles } from "@mantine/core"
 import { COMPETITION_FILTER_OPTIONS, DATE_FILTER_OPTIONS } from "data/options"
-import {
-  STRING_CATEGORY_TOGGLE_BUTTON,
-  STRING_SEARCH_FILTER_PLACEHOLDER,
-} from "data/string"
 import { COLOR_BLUE_PRIMARY, COLOR_WHITE } from "data/style"
 import { motion } from "framer-motion"
 import { useState } from "react"
@@ -33,7 +29,7 @@ const TagFilterToggle = (props: TagFilterProps) => (
     ) : (
       <EyeIcon className="h-5 w-5 opacity-50 transition group-hover:opacity-100" />
     )}
-    {STRING_CATEGORY_TOGGLE_BUTTON}
+    Kategori
     {props.selectedTags && props.selectedTags.length > 0 && (
       <span className="rounded-full bg-white/10 px-[6px] text-[10px] font-semibold">
         {props.selectedTags.length}
@@ -62,7 +58,7 @@ const SearchFiler = (props: FilterProps) => (
     <input
       className="w-full bg-transparent transition placeholder:text-white placeholder:text-opacity-50 focus:outline-none focus:placeholder:text-opacity-100"
       type="text"
-      placeholder={STRING_SEARCH_FILTER_PLACEHOLDER}
+      placeholder="Cari kompetisi..."
       value={props.searchValue}
       onChange={(e) => props.setSearchValue?.(e.target.value)}
     />
