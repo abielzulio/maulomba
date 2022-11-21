@@ -33,7 +33,10 @@ const CompetitionPage: NextPage<
     <>
       <Head
         title={competition?.title + " | " + product.description.short}
-        description={competition?.description.slice(0, 160)}
+        description={competition?.description
+          .replace(/(<([^>]+)>)/gi, "")
+          .replace(/&nbsp;/g, " ")
+          .slice(0, 200)}
         author={competition?.event_organizer}
         url={product.url + "/lomba/" + competition?.slug}
       />
