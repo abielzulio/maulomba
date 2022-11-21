@@ -1,12 +1,12 @@
 import {
+  ArrowsUpDownIcon,
   EyeIcon,
   EyeSlashIcon,
   MagnifyingGlassIcon,
   XMarkIcon,
-  ArrowsUpDownIcon,
 } from "@heroicons/react/24/outline"
 import { Chip, createStyles } from "@mantine/core"
-import { DATE_FILTER_OPTIONS, SORT_FILTER_OPTIONS } from "data/options"
+import { SORT_FILTER_OPTIONS } from "data/options"
 import { COLOR_BLUE_PRIMARY, COLOR_WHITE } from "data/style"
 import { motion } from "framer-motion"
 import { useState } from "react"
