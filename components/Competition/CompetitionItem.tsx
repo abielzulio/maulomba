@@ -67,7 +67,6 @@ const CompetitionItem = ({ competition }: { competition: Competition }) => {
       animate={{ opacity: 1 }}
       initial={{ opacity: 0 }}
       exit={{ opacity: 0 }}
-      layout
       className="group relative flex h-fit w-full flex-col gap-[15px] text-white"
     >
       <div className="relative flex h-full w-full">
