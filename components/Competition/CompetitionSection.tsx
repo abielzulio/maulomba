@@ -9,6 +9,7 @@ import Masonry, { ResponsiveMasonry } from "react-responsive-masonry"
 import { FilterProps } from "types/component"
 import { Competition } from "types/data"
 import { union } from "underscore"
+import { getTotalMilisecond, toLocalGMTMilisecond } from "utils"
 import CompetitionItem from "./CompetitionItem"
 
 const CompetitionNotFound = (props: FilterProps) => {
@@ -58,10 +59,12 @@ export const CompetitionSection = ({
 
   const filteredCompetitions = competitions
     // Filter past competition by its deadline
-    /*     .filter(
+    .filter(
       (competition) =>
-        new Date(competition.deadline_date).getDate() > new Date().getDate()
-    ) */
+        Date.parse(new Date(competition.deadline_date).toISOString()) +
+          getTotalMilisecond(competition.deadline_time) >=
+        toLocalGMTMilisecond(Date.now())
+    )
     // Filter by title and description
     .filter(
       (competition) =>
