@@ -56,7 +56,7 @@ const CompetitionPage: NextPage<
           </NextLink>
         </ContentContainer>
         <CompetitionContent competition={competition} />
-        <Link href="/" newTab className="padding-x w-full">
+        <Link href="/" className="padding-x w-full">
           <Button
             icon={<MagnifyingGlassIcon width={18} height={18} />}
             title="Cari kompetisi lainnya"
