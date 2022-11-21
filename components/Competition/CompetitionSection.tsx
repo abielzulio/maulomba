@@ -58,10 +58,10 @@ export const CompetitionSection = ({
 
   const filteredCompetitions = competitions
     // Filter past competition by its deadline
-    .filter(
+    /*     .filter(
       (competition) =>
-        new Date(competition.deadline_date).getDate() >= new Date().getDate()
-    )
+        new Date(competition.deadline_date).getDate() > new Date().getDate()
+    ) */
     // Filter by title and description
     .filter(
       (competition) =>
