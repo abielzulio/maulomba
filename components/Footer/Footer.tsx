@@ -3,7 +3,7 @@ import { socials } from "data/socials"
 
 const Footer = () => {
   return (
-    <footer className="padding-x padding-y flex w-full items-center justify-center">
+    <footer className="padding-x padding-y flex w-full items-center justify-center text-white">
       <div className="flex flex-col items-center justify-center gap-[20px]">
         <div className="flex gap-[20px]">
           {socials.map(({ href, icon }, id) => (

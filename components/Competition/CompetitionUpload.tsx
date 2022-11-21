@@ -76,9 +76,9 @@ const UploadStep = (props: UploadStepProps) => {
 const UploadInputContainer = (props: UploadInputContainerProps) => {
   const { title, children, description, wordCount } = props
   return (
-    <div className="flex flex-col gap-[10px]">
+    <div className="flex flex-col gap-[10px] ">
       {title && (
-        <div className="flex flex-col gap-[5px]">
+        <div className="flex flex-col gap-[5px] text-white">
           <div className="flex justify-between text-sm font-medium">
             <p>{title}</p>
             {wordCount && (
@@ -361,7 +361,7 @@ export const CompetitionUpload = () => {
 
   return (
     <ContentContainer className="padding-y">
-      <h2 className="text-[24px] font-semibold md:text-[36px]">
+      <h2 className="text-[24px] font-semibold text-white md:text-[36px]">
         Unggah kompetisi
       </h2>
       <ContentContainer className="padding-y grid grid-cols-1 gap-[30px] xl:grid-cols-3">

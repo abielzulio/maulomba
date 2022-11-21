@@ -13,7 +13,7 @@ const Hero = (props: HeroProps) => {
       {...rest}
     >
       <h1 className="text-[36px] font-semibold tracking-tight md:text-[54px]">
-        {hero.title[0] && hero.title[0]}
+        {hero.title[0] && <span className="text-white">{hero.title[0]}</span>}
         {hero.title[1] && (
           <>
             ,<br />

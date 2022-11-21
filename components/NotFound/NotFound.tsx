@@ -26,7 +26,7 @@ const NotFound = () => {
           </NextLink>
         </ContentContainer>
         <ContentContainer className="padding-y padding-x flex min-h-fit w-full flex-col items-center justify-center gap-[30px] text-center">
-          <div className="flex flex-col gap-[10px]">
+          <div className="flex flex-col gap-[10px] text-white">
             <h1 className="text-[36px] font-semibold tracking-tight md:text-[54px]">
               Maaf
             </h1>

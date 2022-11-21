@@ -90,7 +90,7 @@ const CompetitionContent = ({ competition }: CompetitionProps) => {
 
   return (
     competition && (
-      <ContentContainer className="padding-x padding-y mx-auto grid w-full grid-cols-1 gap-[30px] lg:grid-cols-3">
+      <ContentContainer className="padding-x padding-y mx-auto grid w-full grid-cols-1 gap-[30px] text-white lg:grid-cols-3">
         {/* Competition image section */}
         {competition.img_url && (
           <ContentContainer className="relative order-2 h-full lg:order-1">
