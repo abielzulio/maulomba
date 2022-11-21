@@ -55,7 +55,7 @@ export const CompetitionSection = ({
   const [searchValue, setSearchValue] = useState<string>("")
   const [selectedTags, setSelectedTags] = useState<string[]>([])
   const [sortByValue, setSortByValue] = useState<string>("deadline")
-  const [showCount, setShowCount] = useState<number>(4)
+  const [showCount, setShowCount] = useState<number>(12)
 
   const filteredCompetitions = competitions
     // Filter past competition by its deadline
