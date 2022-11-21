@@ -18,6 +18,7 @@ export interface Competition {
   deadline_date: string
   deadline_time: string
   img_url: string
+  views_count?: number
   event_organizer: string
   slug: string
   contact_url: string

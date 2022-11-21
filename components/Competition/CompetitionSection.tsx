@@ -53,7 +53,7 @@ export const CompetitionSection = ({
 }) => {
   const [searchValue, setSearchValue] = useState<string>("")
   const [selectedTags, setSelectedTags] = useState<string[]>([])
-  const [sortDateValue, setSortDateValue] = useState<string>("deadline")
+  const [sortByValue, setSortByValue] = useState<string>("deadline")
   const [showCount, setShowCount] = useState<number>(4)
 
   const filteredCompetitions = competitions
@@ -80,15 +80,21 @@ export const CompetitionSection = ({
   const sortedCompetitions = filteredCompetitions
     // Sort by deadline
     .sort((a, b) => {
-      if (sortDateValue === "deadline") {
-        return (
-          new Date(a.deadline_date).getTime() -
-          new Date(b.deadline_date).getTime()
-        )
-      } else {
-        return (
-          new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
-        )
+      switch (sortByValue) {
+        // Sort by created_at
+        case "baru":
+          return (
+            new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+          )
+        // Sort by views_count
+        case "populer":
+          return b.views_count! - a.views_count!
+        // Sort by deadline
+        default:
+          return (
+            new Date(a.deadline_date).getTime() -
+            new Date(b.deadline_date).getTime()
+          )
       }
     })
     // Sort by is_featured
@@ -132,8 +138,8 @@ export const CompetitionSection = ({
         setSearchValue={setSearchValue}
         selectedTags={selectedTags}
         setSelectedTags={setSelectedTags}
-        sortDateValue={sortDateValue}
-        setSortDateValue={setSortDateValue}
+        sortByValue={sortByValue}
+        setSortByValue={setSortByValue}
         tags={competitionTags}
       />
       {filteredCompetitions.length > 0 ? (

@@ -31,6 +31,6 @@ export interface FilterProps {
   selectedTags?: string[]
   setSelectedTags?: (value: string[]) => void
   tags?: string[]
-  sortDateValue?: string
-  setSortDateValue?: (value: string) => void
+  sortByValue?: string
+  setSortByValue?: (value: string) => void
 }

@@ -1,12 +1,12 @@
 import {
-  CalendarIcon,
   EyeIcon,
   EyeSlashIcon,
   MagnifyingGlassIcon,
   XMarkIcon,
+  ArrowsUpDownIcon,
 } from "@heroicons/react/24/outline"
 import { Chip, createStyles } from "@mantine/core"
-import { DATE_FILTER_OPTIONS } from "data/options"
+import { DATE_FILTER_OPTIONS, SORT_FILTER_OPTIONS } from "data/options"
 import { COLOR_BLUE_PRIMARY, COLOR_WHITE } from "data/style"
 import { motion } from "framer-motion"
 import { useState } from "react"
@@ -47,20 +47,23 @@ const TagFilterToggle = (props: TagFilterProps) => (
   </button>
 )
 
-const DateFilter = (props: FilterProps) => (
+const SortFilter = (props: FilterProps) => (
   <div className="group flex w-full items-center gap-[10px] rounded-md border-[0.5px] border-white border-opacity-20 bg-white/5 py-[10px] px-[15px] text-sm text-white text-opacity-80 transition hover:cursor-pointer hover:border-opacity-50 focus:border-opacity-100 focus:bg-opacity-50">
-    <CalendarIcon
+    <ArrowsUpDownIcon
       width={18}
       height={18}
       className="opacity-50 transition group-hover:opacity-100"
     />
     <select
       className="w-full bg-transparent"
-      value={props.sortDateValue}
-      onChange={(e) => props.setSortDateValue?.(e.target.value)}
+      value={props.sortByValue}
+      onChange={(e) => props.setSortByValue?.(e.target.value)}
     >
-      <option value="deadline">{DATE_FILTER_OPTIONS[0]}</option>
-      <option value="baru">{DATE_FILTER_OPTIONS[1]}</option>
+      {SORT_FILTER_OPTIONS.map(({ value, label }, id) => (
+        <option key={id} value={value}>
+          {label}
+        </option>
+      ))}
     </select>
   </div>
 )
@@ -194,9 +197,9 @@ const Filter = (props: FilterProps) => {
           setSearchValue={props.setSearchValue}
         />
         <div className="flex w-full">
-          <DateFilter
-            sortDateValue={props.sortDateValue}
-            setSortDateValue={props.setSortDateValue}
+          <SortFilter
+            sortByValue={props.sortByValue}
+            setSortByValue={props.setSortByValue}
           />
           <TagFilterToggle
             showTag={showTag}
