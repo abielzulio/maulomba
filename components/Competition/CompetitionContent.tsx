@@ -90,10 +90,10 @@ const CompetitionContent = ({ competition }: CompetitionProps) => {
 
   return (
     competition && (
-      <ContentContainer className="padding-x padding-y mx-auto grid w-full grid-cols-1 gap-[30px] text-white lg:grid-cols-3 ">
+      <ContentContainer className="padding-x padding-y mx-auto grid h-full min-w-full grid-cols-1 gap-[30px] text-white xl:mb-[30px] xl:grid-cols-3 ">
         {/* Competition image section */}
         {competition.img_url && (
-          <ContentContainer className="relative order-2 h-full lg:order-1">
+          <ContentContainer className="relative order-2 h-full xl:order-1">
             <ContentContainer className="sticky top-[40px] flex flex-col gap-[20px]">
               <ImageContainer
                 animateOnHover
@@ -105,14 +105,14 @@ const CompetitionContent = ({ competition }: CompetitionProps) => {
         )}
         {/* Competition description section */}
         {sanitizedDescription && (
-          <ContentContainer className="relative order-3 flex h-full flex-col gap-[20px] lg:order-2">
+          <ContentContainer className="relative order-3 flex h-full flex-col gap-[20px] xl:order-2">
             <div
               className="flex h-full flex-col gap-[10px] rounded-md bg-gray-300/5 p-[20px]"
               dangerouslySetInnerHTML={{ __html: sanitizedDescription }}
             />
           </ContentContainer>
         )}
-        <ContentContainer className="order-1 h-full lg:order-3">
+        <ContentContainer className="order-1 h-full xl:order-3">
           <ContentContainer className="sticky top-[40px] flex flex-col gap-[20px] ">
             {/* Competition title section */}
             {competition.title && (
