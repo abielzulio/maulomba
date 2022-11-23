@@ -139,7 +139,7 @@ export const CompetitionUpload = () => {
       level: "Nasional",
       registrationFee: "Gratis",
       tags: [],
-      isFeatured: true,
+      isFeatured: false,
       isCustom: true,
       description: description,
     },
