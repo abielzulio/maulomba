@@ -506,7 +506,10 @@ export const CompetitionUpload = () => {
                 placeholder={`Himpunan Teknik Fisika UGM, ASEAN, dll`}
               />
             </UploadInputContainer>
-            <UploadInputContainer title="Deadline kompetisi">
+            <UploadInputContainer
+              title="Deadline kompetisi"
+              description="Kompetisi akan otomatis dihapus dari laman situs ketika telah melewati deadline"
+            >
               <>
                 <DatePicker
                   className="w-full"
