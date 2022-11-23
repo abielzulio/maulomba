@@ -3,6 +3,7 @@ import React from "react"
 interface TagLabelProps {
   tag: string[]
   showAll?: boolean
+  align?: "left" | "right"
 }
 
 interface LevelLabelProps {
@@ -28,7 +29,11 @@ export const TagLabel = (props: TagLabelProps) => {
     </p>
   )
   return (
-    <div className="flex flex-row flex-wrap gap-[5px]">
+    <div
+      className={`flex flex-row flex-wrap gap-[5px] ${
+        props.align === "right" ? `justify-end` : `justify-start`
+      }`}
+    >
       {props.tag
         .slice(0, props.showAll ? props.tag.length : 2)
         .map((tag, id) => (
