@@ -181,7 +181,7 @@ const CompetitionContent = ({ competition }: CompetitionProps) => {
             {competition.tags && (
               <div className="flex justify-between text-sm">
                 <p className="opacity-50">Kategori</p>
-                <TagLabel tag={competition.tags} showAll align="right" />
+                <TagLabel tags={competition.tags} showAll align="right" />
               </div>
             )}
             <div className="flex flex-col gap-[10px] text-sm opacity-30">

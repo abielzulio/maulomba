@@ -1,7 +1,7 @@
 import React from "react"
 
 interface TagLabelProps {
-  tag: string[]
+  tags: string[]
   showAll?: boolean
   align?: "left" | "right"
 }
@@ -18,8 +18,12 @@ export const LevelLabel = (props: LevelLabelProps) => {
   )
 }
 
-export const TagLabel = (props: TagLabelProps) => {
-  const isMoreTags = props.tag.length > 2
+export const TagLabel = ({
+  tags,
+  showAll = false,
+  align = "left",
+}: TagLabelProps) => {
+  const isMoreTags = tags.length > 2
   const TagLabelItem = (props: { children: React.ReactNode }) => (
     <p
       className="h-fit w-fit whitespace-nowrap rounded-md bg-white/10 p-[5px] text-[12px] font-semibold opacity-80"
@@ -31,16 +35,14 @@ export const TagLabel = (props: TagLabelProps) => {
   return (
     <div
       className={`flex flex-row flex-wrap gap-[5px] ${
-        props.align === "right" ? `justify-end` : `justify-start`
+        align === "right" ? `justify-end` : `justify-start`
       }`}
     >
-      {props.tag
-        .slice(0, props.showAll ? props.tag.length : 2)
-        .map((tag, id) => (
-          <TagLabelItem key={id}>{tag}</TagLabelItem>
-        ))}
-      {!props.showAll && isMoreTags && (
-        <TagLabelItem>{`+${props.tag.length - 2}`}</TagLabelItem>
+      {tags.slice(0, showAll ? tags.length : 2).map((tag, id) => (
+        <TagLabelItem key={id}>{tag}</TagLabelItem>
+      ))}
+      {!showAll && isMoreTags && (
+        <TagLabelItem>{`+${tags.length - 2}`}</TagLabelItem>
       )}
     </div>
   )

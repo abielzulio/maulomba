@@ -99,7 +99,7 @@ const CompetitionItem = ({ competition }: { competition: Competition }) => {
       {/* Competition information section */}
       <div className="flex flex-col gap-[5px]">
         {/* Competition tags */}
-        {competition.tags && <TagLabel tag={competition.tags} />}
+        {competition.tags && <TagLabel tags={competition.tags} />}
         <div className="flex justify-between gap-[20px]">
           {/* Competiton deadline */}
           {deadlineWithDateAndTime && (
