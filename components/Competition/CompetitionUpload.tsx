@@ -110,6 +110,7 @@ const UploadInputContainer = (props: UploadInputContainerProps) => {
 export const CompetitionUpload = () => {
   const [image, setImage] = useState<Image[]>([])
   const [tags, setTags] = useState<string[]>([])
+  const [sources, setSources] = useState<string[]>([])
   const [isTittleTooLong, setIsTittleTooLong] = useState<boolean>(false)
   const [isEoTooLong, setIsEoTooLong] = useState<boolean>(false)
   const [description, setDescription] = useState<string>("")
@@ -140,6 +141,7 @@ export const CompetitionUpload = () => {
       registrationFee: "Gratis",
       tags: [],
       isFeatured: false,
+      sources: [],
       isCustom: true,
       description: description,
     },
@@ -168,6 +170,8 @@ export const CompetitionUpload = () => {
         value ? null : "Link kontak kompetisi harus diisi",
       tags: (value) =>
         value.length > 0 ? null : "Kategori harus diisi minimal satu",
+      sources: (value) =>
+        value.length > 0 ? null : "Sumber harus diisi minimal satu",
     },
   })
 
@@ -180,9 +184,22 @@ export const CompetitionUpload = () => {
     }
   }
 
+  const getSources = async () => {
+    const { data: sources, error } = await supabase.from("sources").select("*")
+    if (error) {
+      console.log(error)
+    } else {
+      setSources(sources.map(({ source }) => source))
+    }
+  }
+
   useEffect(() => {
     getCompetitionTags()
   }, [getCompetitionTags])
+
+  useEffect(() => {
+    getSources()
+  }, [getSources])
 
   const onDropAccepted = useCallback((acceptedFiles: File[]) => {
     const compress = new Compress()
@@ -343,6 +360,7 @@ export const CompetitionUpload = () => {
             deadline_time: deadline_time,
             registration_fee: form.values.registrationFee,
             tags: form.values.tags,
+            sources: form.values.sources,
             is_featured: form.values.isFeatured,
             description: form.values.description,
           })
@@ -630,17 +648,36 @@ export const CompetitionUpload = () => {
         <UploadStep
           state={isStepTwoValid}
           number={2}
-          title="Opsi pengunggahan"
+          title="Survei pengunggahan"
           className="sticky top-[20px]"
         >
           <div className="flex flex-col gap-[20px]">
+            <UploadInputContainer
+              title="Darimana mengetahui Maulomba?"
+              description="Dapat memilih lebih dari 1 sumber"
+            >
+              <MultiSelect
+                className="w-full text-white/80"
+                searchable
+                clearable
+                transitionDuration={150}
+                transition="pop-top-left"
+                transitionTimingFunction="ease"
+                nothingFound="Tidak dapat ditemukan"
+                {...form.getInputProps("sources")}
+                data={sources}
+                placeholder="Pilih sumber"
+              />
+            </UploadInputContainer>
             <div className="flex justify-between gap-[20px]">
               <Checkbox
                 label={
                   <span>
-                    Tayang kompetisi di paling atas hingga deadline{" "}
+                    {
+                      "Saya ingin menayangkan kompetisi di paling atas dengan harga terjangkau "
+                    }
                     <span className="text-blue-500">
-                      (3x lebih banyak dilihat)
+                      {"(< Rp50.000, 5x lebih banyak dilihat)"}
                     </span>
                   </span>
                 }
@@ -661,13 +698,13 @@ export const CompetitionUpload = () => {
                 })}
                 {...form.getInputProps("isFeatured", { type: "checkbox" })}
               />
-              <p
+              {/*               <p
                 className={`font-mono text-green-500 transition ${
                   form.values.isFeatured ? `opacity-100` : `opacity-0`
                 }`}
               >
                 +Rp50.000
-              </p>
+              </p> */}
             </div>
             {/*             <div className="flex justify-between gap-[20px]">
               <Checkbox
@@ -716,29 +753,29 @@ export const CompetitionUpload = () => {
                   height={18}
                   className="animate-spin"
                 />
-              ) : form.values.isFeatured ? (
-                <QrCodeIcon width={18} height={18} />
               ) : (
-                <ArrowUpTrayIcon width={18} height={18} />
+                /* form.values.isFeatured ? (
+                <QrCodeIcon width={18} height={18} />
+              ) :  */ <ArrowUpTrayIcon width={18} height={18} />
               )
             }
             onClick={handleFormSubmit}
             title={`${
               isUploading
                 ? "Sedang mengunggah"
-                : form.values.isFeatured
-                ? `Bayar lalu unggah`
-                : `Unggah secara gratis`
+                : /*                 : form.values.isFeatured
+                ? `Bayar lalu unggah` */
+                  `Unggah secara gratis`
             }`}
           />
-          <p
+          {/*           <p
             className={`text-center font-mono text-sm transition ${
               form.values.isFeatured ? `opacity-50` : `opacity-0`
             }`}
           >
             Pembayaran menggunakan QRIS dengan dukungan semua dompet digital dan
             bank lokal
-          </p>
+          </p> */}
         </UploadStep>
       </ContentContainer>
     </ContentContainer>

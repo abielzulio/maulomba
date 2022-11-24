@@ -88,7 +88,7 @@ const CompetitionItem = ({ competition }: { competition: Competition }) => {
           <a className="relative h-full w-full overflow-hidden rounded-md border-[1px] border-white border-opacity-30 shadow-2xl transition md:hover:shadow-blue-500/30">
             {/* Layers on-top competition image */}
             <span className="absolute z-10 h-[100px] w-full bg-gradient-to-b from-gray-900/60 to-transparent" />
-            {competition.is_featured && <FeaturedPill />}
+            {/* {competition.is_featured && <FeaturedPill />} */}
             {deadlineCountdown && <DeadlinePill deadline={deadlineCountdown} />}
             {competition.level && <LevelLabel level={competition.level} />}
             {/* Button to like a competition item */}
