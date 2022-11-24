@@ -56,13 +56,9 @@ export const toLocalGMTMilisecond = (ms: number): number => {
 }
 
 export const URLify = (oldUrl: string): string => {
-  const addReferral = (url: string): string => {
-    const ref: string = "ref=maulomba"
-    return url + (url.slice(-1) === "/" ? ref : `/${ref}`)
-  }
   if (/^https?:\/\//i.test(oldUrl)) {
-    return addReferral(oldUrl)
+    return oldUrl
   } else {
-    return `https://${addReferral(oldUrl)}`
+    return `https://${oldUrl}`
   }
 }
