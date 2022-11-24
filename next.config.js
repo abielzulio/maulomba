@@ -14,7 +14,8 @@ const nextConfig = {
   images: {
     domains: [
       `${process.env.NEXT_PUBLIC_SUPABASE_PROJECT_ID}.supabase.in`,
-      "mau-lomba.vercel.app",
+      "maulomba.vercel.app",
+      "maulomba.com"
     ], // Add your CDN image url here
   },
 }

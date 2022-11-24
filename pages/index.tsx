@@ -4,6 +4,7 @@ import { CompetitionSection } from "components/Competition"
 import { CTAContainer, HeroContainer, Page } from "components/Container"
 import Head from "components/Head"
 import Hero from "components/Hero"
+import { UPLOAD_PATH } from "data/paths"
 import { supabase } from "lib/supabase"
 import type { GetStaticProps, InferGetStaticPropsType, NextPage } from "next"
 import NextLink from "next/link"
@@ -27,7 +28,7 @@ const HomePage: NextPage<
             }}
           />
           <CTAContainer>
-            <NextLink href="/kirim-lomba">
+            <NextLink href={UPLOAD_PATH}>
               <Button
                 icon={<ArrowUpTrayIcon width={18} height={18} />}
                 title="Unggah lomba"

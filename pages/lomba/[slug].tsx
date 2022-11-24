@@ -14,6 +14,7 @@ import { ParsedUrlQuery } from "querystring"
 import { Competition } from "types/data"
 import { useWindowDimension } from "hooks/useWindowDimension"
 import Link from "components/Link"
+import { HOME_PATH, UPLOAD_PATH } from "data/paths"
 
 interface CompetitionPageProps {
   competition: Competition
@@ -42,12 +43,12 @@ const CompetitionPage: NextPage<
       />
       <Page>
         <ContentContainer className="padding-x padding-y flex h-fit items-center justify-between">
-          <NextLink href="/">
+          <NextLink href={HOME_PATH}>
             <a className="font-medium tracking-tight text-white opacity-50 transition hover:opacity-100">
               Maulomba
             </a>
           </NextLink>
-          <NextLink href="/kirim-lomba">
+          <NextLink href={UPLOAD_PATH}>
             <Button
               icon={<ArrowUpTrayIcon className="h-4 w-4" />}
               title={isMobile ? undefined : "Unggah lomba"}
@@ -59,7 +60,7 @@ const CompetitionPage: NextPage<
           </NextLink>
         </ContentContainer>
         <CompetitionContent competition={competition} />
-        <Link href="/" className="padding-x w-full">
+        <Link href={HOME_PATH} className="padding-x w-full">
           <Button
             icon={<MagnifyingGlassIcon width={18} height={18} />}
             title="Cari kompetisi lainnya"

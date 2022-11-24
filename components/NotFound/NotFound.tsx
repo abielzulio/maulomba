@@ -5,6 +5,7 @@ import {
 import Button from "components/Button"
 import { ContentContainer, Page } from "components/Container"
 import Head from "components/Head"
+import { HOME_PATH, UPLOAD_PATH } from "data/paths"
 import { product } from "data/product"
 import { useWindowDimension } from "hooks/useWindowDimension"
 import NextLink from "next/link"
@@ -19,7 +20,7 @@ const NotFound = () => {
       />
       <Page>
         <ContentContainer className="padding-x padding-y flex h-fit items-center justify-between">
-          <NextLink href="/">
+          <NextLink href={HOME_PATH}>
             <a className="font-medium tracking-tight text-white opacity-50 transition hover:opacity-100">
               Maulomba
             </a>
@@ -39,7 +40,7 @@ const NotFound = () => {
               isMobile ? `w-full flex-col-reverse` : `w-fit flex-row`
             }`}
           >
-            <NextLink href="/kirim-lomba">
+            <NextLink href={UPLOAD_PATH}>
               <Button
                 icon={<ArrowUpTrayIcon width={18} height={18} />}
                 title="Unggah lomba"
@@ -49,7 +50,7 @@ const NotFound = () => {
                 width={isMobile ? "full" : "fit"}
               />
             </NextLink>
-            <NextLink href="/">
+            <NextLink href={HOME_PATH}>
               <Button
                 icon={<MagnifyingGlassIcon width={18} height={18} />}
                 title="Cari lomba"
