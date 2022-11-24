@@ -100,8 +100,8 @@ export const CompetitionSection = ({
           )
       }
     })
-    // Sort by is_featured
-    .sort((a, b) => Number(b.is_featured) - Number(a.is_featured))
+  // Sort by is_featured
+  /*     .sort((a, b) => Number(b.is_featured) - Number(a.is_featured)) */
 
   // Show competitions based n showCount
   const slicedCompetitions = sortedCompetitions.slice(0, showCount)
