@@ -66,7 +66,6 @@ const CompetitionItem = ({ competition }: { competition: Competition }) => {
 
   return (
     <motion.div
-      layout
       animate={{ opacity: 1 }}
       initial={{ opacity: 0 }}
       exit={{ opacity: 0 }}
