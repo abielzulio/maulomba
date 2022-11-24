@@ -1,3 +1,7 @@
+export const getDeadlineTime = (date: Date): string => {
+  return `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
+}
+
 export const getFullDeadlineDateTime = (date: string, time: string): string => {
   const today: Date = new Date()
 

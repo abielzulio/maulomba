@@ -25,6 +25,7 @@ import { useRouter } from "next/router"
 import { useCallback, useEffect, useState } from "react"
 import { useDropzone } from "react-dropzone"
 import { CompressResult, Image } from "types/data"
+import { getDeadlineTime, URLify } from "utils"
 import { v4 as uuid } from "uuid"
 
 interface UploadStepProps {
@@ -120,7 +121,7 @@ export const CompetitionUpload = () => {
   const [isStepTwoValid, setIsStepTwoValid] = useState<boolean>(false)
   const [isUploading, setIsUploading] = useState<boolean>(false)
 
-  const date_now: Date = new Date()
+  const today: Date = new Date()
 
   const router = useRouter()
 
@@ -133,8 +134,8 @@ export const CompetitionUpload = () => {
       eventOrganizer: "",
       imgUrl: "",
       slug: "",
-      deadlineDate: date_now,
-      deadlineTime: date_now,
+      deadlineDate: today,
+      deadlineTime: today,
       registrationUrl: "",
       contactUrl: "",
       level: "Nasional",
@@ -334,12 +335,12 @@ export const CompetitionUpload = () => {
       const random_uuid = uuid()
       const image_file_name = `${random_uuid}${image[0].type}`
       const img_url = `${SUPABASE_BUCKET_BASE_URL}/competition-img/${image_file_name}`
-      const deadline_time = `${form.values.deadlineTime.getHours()}:${form.values.deadlineTime.getMinutes()}:${form.values.deadlineTime.getSeconds()}`
       const { data: image_data, error: image_error } = await supabase.storage
         .from("competition-img")
         .upload(image_file_name, decode(image[0].data), {
           contentType: image[0].mime,
         })
+
       if (image_data) {
         const { data, error } = await supabase
           .from("competitions")
@@ -357,7 +358,7 @@ export const CompetitionUpload = () => {
               : form.values.contactUrl,
             level: form.values.level,
             deadline_date: form.values.deadlineDate,
-            deadline_time: deadline_time,
+            deadline_time: getDeadlineTime(form.values.deadlineTime),
             registration_fee: form.values.registrationFee,
             tags: form.values.tags,
             sources: form.values.sources,
@@ -531,7 +532,7 @@ export const CompetitionUpload = () => {
               <>
                 <DatePicker
                   className="w-full"
-                  minDate={new Date()}
+                  minDate={today}
                   {...form.getInputProps("deadlineDate")}
                   inputFormat="D MMMM YYYY"
                   labelFormat="MMMM YYYY"
