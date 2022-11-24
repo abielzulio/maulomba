@@ -95,8 +95,8 @@ export const CompetitionSection = ({
         // Sort by deadline
         default:
           return (
-            new Date(a.deadline_date).getTime() -
-            new Date(b.deadline_date).getTime()
+            Number(new Date(a.deadline_date)) -
+            Number(new Date(b.deadline_date))
           )
       }
     })
