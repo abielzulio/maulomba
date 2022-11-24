@@ -8,10 +8,10 @@ export const FeaturedPill = () => {
   )
 }
 
-export const DeadlinePill = () => {
+export const DeadlinePill = ({ deadline }: { deadline: string }) => {
   return (
     <PillContainer className="top-[10px] right-[10px] bg-red-600">
-      Deadline
+      {deadline}
     </PillContainer>
   )
 }

@@ -8,7 +8,7 @@ import NextLink from "next/link"
 import { useEffect, useState } from "react"
 import Marquee from "react-fast-marquee"
 import { Competition } from "types/data"
-import { getFullDeadlineDateTime } from "utils"
+import { getDeadlineCountdown, getFullDeadlineDateTime } from "utils"
 
 const LikeViewSection = ({
   uuid,
@@ -57,13 +57,16 @@ const LikeViewSection = ({
 }
 
 const CompetitionItem = ({ competition }: { competition: Competition }) => {
-  const [deadlineWithDateAndTime, isDeadlineToday] = getFullDeadlineDateTime(
+  const deadlineWithDateAndTime = getFullDeadlineDateTime(
     competition.deadline_date,
     competition.deadline_time
   )
 
+  const [deadlineCountdown] = getDeadlineCountdown(competition.deadline_date)
+
   return (
     <motion.div
+      layout
       animate={{ opacity: 1 }}
       initial={{ opacity: 0 }}
       exit={{ opacity: 0 }}
@@ -86,7 +89,7 @@ const CompetitionItem = ({ competition }: { competition: Competition }) => {
             {/* Layers on-top competition image */}
             <span className="absolute z-10 h-[100px] w-full bg-gradient-to-b from-gray-900/60 to-transparent" />
             {competition.is_featured && <FeaturedPill />}
-            {isDeadlineToday && <DeadlinePill />}
+            {deadlineCountdown && <DeadlinePill deadline={deadlineCountdown} />}
             {competition.level && <LevelLabel level={competition.level} />}
             {/* Button to like a competition item */}
             {/* Main competition image */}

@@ -1,7 +1,4 @@
-export const getFullDeadlineDateTime = (
-  date: string,
-  time: string
-): [string, boolean] => {
+export const getFullDeadlineDateTime = (date: string, time: string): string => {
   const today: Date = new Date()
 
   const isDeadlineToday: boolean =
@@ -18,7 +15,27 @@ export const getFullDeadlineDateTime = (
           }
         )}`) + `, ${time}`
 
-  return [deadlineDateWithTime, isDeadlineToday]
+  return deadlineDateWithTime
+}
+
+export const getDeadlineCountdown = (
+  date: string
+): [string | null, boolean] => {
+  const today: Date = new Date()
+  const nDays: number = 8
+  const inTheSameMonth: boolean = new Date(date).getMonth() === today.getMonth()
+  const isInUpcomingDays: boolean =
+    new Date(date).getDate() - today.getDate() < nDays
+  const isTodayDeadline: boolean = new Date(date).getDate() === today.getDate()
+
+  const deadlineCountdown: string | null =
+    inTheSameMonth && isInUpcomingDays
+      ? isTodayDeadline
+        ? "Hari ini"
+        : `H-${new Date(date).getDate() - today.getDate()}`
+      : null
+
+  return [deadlineCountdown, isTodayDeadline]
 }
 
 export const getTotalMilisecond = (time: string): number => {

@@ -70,7 +70,7 @@ const CompetitionContent = ({ competition }: CompetitionProps) => {
   }, [competition?.uuid])
 
   // Return an array with full date in string and isDeadlineToday in boolean
-  const [deadlineWithDateAndTime] = getFullDeadlineDateTime(
+  const deadlineWithDateAndTime = getFullDeadlineDateTime(
     competition?.deadline_date,
     competition?.deadline_time
   )
@@ -157,7 +157,7 @@ const CompetitionContent = ({ competition }: CompetitionProps) => {
               )}
             </div>
             {/* Competition deadline section */}
-            {deadlineWithDateAndTime && (
+            {competition?.deadline_date && competition?.deadline_time && (
               <div className="flex justify-between text-sm">
                 <p className="opacity-50">Deadline</p>
                 <p className="font-semibold">{deadlineWithDateAndTime}</p>
