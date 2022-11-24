@@ -4,6 +4,7 @@ import { product } from "data/product"
 import type { NextPage } from "next"
 import NextLink from "next/link"
 import Head from "components/Head"
+import { HOME_PATH } from "data/paths"
 
 const UploadCompetition: NextPage = () => (
   <>
@@ -11,7 +12,7 @@ const UploadCompetition: NextPage = () => (
     <Page>
       <ContentContainer className="padding-x mx-auto w-full">
         <ContentContainer className="padding-y flex h-fit justify-between">
-          <NextLink href="/">
+          <NextLink href={HOME_PATH}>
             <a className="font-medium tracking-tight text-white opacity-50 transition hover:opacity-100">
               Maulomba
             </a>
