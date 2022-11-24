@@ -196,7 +196,7 @@ export const CompetitionUpload = () => {
 
   useEffect(() => {
     getCompetitionTags()
-  }, [tags])
+  }, [])
 
   useEffect(() => {
     getSources()
