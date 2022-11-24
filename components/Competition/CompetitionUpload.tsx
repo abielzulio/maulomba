@@ -196,11 +196,11 @@ export const CompetitionUpload = () => {
 
   useEffect(() => {
     getCompetitionTags()
-  }, [getCompetitionTags])
+  }, [tags])
 
   useEffect(() => {
     getSources()
-  }, [getSources])
+  }, [])
 
   const onDropAccepted = useCallback((acceptedFiles: File[]) => {
     const compress = new Compress()
