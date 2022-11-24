@@ -158,28 +158,28 @@ const CompetitionContent = ({ competition }: CompetitionProps) => {
             </div>
             {/* Competition deadline section */}
             {competition?.deadline_date && competition?.deadline_time && (
-              <div className="flex justify-between text-sm">
+              <div className="flex justify-between gap-[10px] text-sm">
                 <p className="opacity-50">Deadline</p>
                 <p className="font-semibold">{deadlineWithDateAndTime}</p>
               </div>
             )}
             {/* Competition registration fee information section */}
             {competition.registration_fee && (
-              <div className="flex justify-between text-sm">
+              <div className="flex justify-between gap-[10px] text-sm">
                 <p className="opacity-50">Pendaftaran</p>
                 <p className="font-semibold">{competition.registration_fee}</p>
               </div>
             )}
             {/* Competition level section */}
             {competition.level && (
-              <div className="flex justify-between text-sm">
+              <div className="flex justify-between gap-[10px] text-sm">
                 <p className="opacity-50">Tingkat</p>
                 <p className="font-semibold">{competition?.level}</p>
               </div>
             )}
             {/* Competition category section */}
             {competition.tags && (
-              <div className="flex justify-between text-sm">
+              <div className="flex justify-between gap-[10px] text-sm">
                 <p className="opacity-50">Kategori</p>
                 <TagLabel tags={competition.tags} showAll align="right" />
               </div>
