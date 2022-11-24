@@ -54,3 +54,15 @@ export const getTotalMilisecond = (time: string): number => {
 export const toLocalGMTMilisecond = (ms: number): number => {
   return ms + 25_200_000
 }
+
+export const URLify = (oldUrl: string): string => {
+  const addReferral = (url: string): string => {
+    const ref: string = "ref=maulomba"
+    return url + (url.slice(-1) === "/" ? ref : `/${ref}`)
+  }
+  if (/^https?:\/\//i.test(oldUrl)) {
+    return addReferral(oldUrl)
+  } else {
+    return `https://${addReferral(oldUrl)}`
+  }
+}

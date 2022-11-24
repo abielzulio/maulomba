@@ -350,12 +350,8 @@ export const CompetitionUpload = () => {
             slug: form.values.slug,
             event_organizer: form.values.eventOrganizer,
             img_url: img_url,
-            registration_url: !/^https?:\/\//i.test(form.values.registrationUrl)
-              ? `https://${form.values.registrationUrl}`
-              : form.values.registrationUrl,
-            contact_url: !/^https?:\/\//i.test(form.values.contactUrl)
-              ? `https://${form.values.contactUrl}`
-              : form.values.contactUrl,
+            registration_url: URLify(form.values.registrationUrl),
+            contact_url: URLify(form.values.contactUrl),
             level: form.values.level,
             deadline_date: form.values.deadlineDate,
             deadline_time: getDeadlineTime(form.values.deadlineTime),
