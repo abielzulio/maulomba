@@ -2,7 +2,7 @@ import { ArchiveBoxXMarkIcon } from "@heroicons/react/24/outline"
 import Button from "components/Button"
 import { ContentContainer } from "components/Container"
 import Filter from "components/Filter"
-import { motion } from "framer-motion"
+import { LayoutGroup, motion } from "framer-motion"
 import { supabase, SUPABASE_BUCKET_BASE_URL } from "lib/supabase"
 import { useEffect, useState } from "react"
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry"
@@ -147,16 +147,18 @@ export const CompetitionSection = ({
       />
       {filteredCompetitions.length > 0 ? (
         <div className="flex flex-col gap-[30px]">
-          <ResponsiveMasonry
-            className="padding-x"
-            columnsCountBreakPoints={{ 350: 1, 640: 2, 900: 3, 1300: 4 }}
-          >
-            <Masonry columnsCount={4} gutter="20px">
-              {slicedCompetitions.map((competition, id) => (
-                <CompetitionItem key={id} competition={competition} />
-              ))}
-            </Masonry>
-          </ResponsiveMasonry>
+          <LayoutGroup>
+            <ResponsiveMasonry
+              className="padding-x"
+              columnsCountBreakPoints={{ 350: 1, 640: 2, 900: 3, 1300: 4 }}
+            >
+              <Masonry columnsCount={4} gutter="20px">
+                {slicedCompetitions.map((competition, id) => (
+                  <CompetitionItem key={id} competition={competition} />
+                ))}
+              </Masonry>
+            </ResponsiveMasonry>
+          </LayoutGroup>
           {showCount < filteredCompetitions.length && (
             <div className="padding-x padding-y">
               <Button
