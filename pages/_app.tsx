@@ -1,13 +1,12 @@
-import Head from "components/Head"
-import type { AppProps } from "next/app"
-import "../styles/globals.css"
 import { MantineProvider } from "@mantine/core"
-import Footer from "components/Footer"
-import Script from "next/script"
-import { useRouter } from "next/router"
-import { useEffect } from "react"
-import * as gtag from "lib/gtag"
 import { Analytics } from "@vercel/analytics/react"
+import Footer from "components/Footer"
+import * as gtag from "lib/gtag"
+import type { AppProps } from "next/app"
+import { useRouter } from "next/router"
+import Script from "next/script"
+import { useEffect } from "react"
+import "../styles/globals.css"
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter()
