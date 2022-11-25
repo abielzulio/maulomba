@@ -7,6 +7,7 @@ import Script from "next/script"
 import { useRouter } from "next/router"
 import { useEffect } from "react"
 import * as gtag from "lib/gtag"
+import { Analytics } from "@vercel/analytics/react"
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter()
@@ -44,6 +45,7 @@ page_path: window.location.pathname,
         <Component {...pageProps} />
         <Footer />
       </MantineProvider>
+      <Analytics />
     </>
   )
 }
