@@ -71,14 +71,27 @@ export const ImageContainer = ({
   className?: string
   animateOnHover?: boolean
 }) => {
-  const [paddingTop, setPaddingTop] = useState(`0`)
+  const [paddingTop, setPaddingTop] = useState<string>(`0`)
+  const [isLoading, setIsLoading] = useState<boolean>(true)
   return (
-    <div className={`relative ${className}`} style={{ paddingTop }}>
+    <div
+      className={`relative ${className} ${
+        isLoading ? `h-[100px] w-[100px]` : undefined
+      }`}
+      style={{ paddingTop }}
+    >
       <NextImage
         src={src}
         layout="fill"
         objectFit="contain"
-        className={animateOnHover ? `transition hover:scale-110` : undefined}
+        className={`${
+          animateOnHover ? `transition hover:scale-110` : undefined
+        } ${
+          isLoading
+            ? `animate-pulse blur-2xl grayscale`
+            : `animate-none blur-0 grayscale-0`
+        }`}
+        onLoadingComplete={() => setIsLoading(false)}
         onLoad={({ target }) => {
           const { naturalWidth, naturalHeight } = target as HTMLImageElement
           setPaddingTop(`calc(100% / (${naturalWidth} / ${naturalHeight})`)
