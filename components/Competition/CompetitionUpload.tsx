@@ -363,7 +363,9 @@ export const CompetitionUpload = () => {
             event_organizer: form.values.eventOrganizer,
             img_url: img_url,
             registration_url: URLify(form.values.registrationUrl),
-            contact_url: URLify(form.values.contactUrl),
+            contact_url: isValidUrl(form.values.contactUrl)
+              ? URLify(form.values.contactUrl)
+              : URLify(form.values.registrationUrl),
             level: form.values.level,
             deadline_date: form.values.deadlineDate,
             deadline_time: getDeadlineTime(form.values.deadlineTime),
