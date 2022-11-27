@@ -25,7 +25,7 @@ import { useRouter } from "next/router"
 import { useCallback, useEffect, useState } from "react"
 import { useDropzone } from "react-dropzone"
 import { CompressResult, Image } from "types/data"
-import { getDeadlineTime, URLify } from "utils"
+import { getDeadlineTime, isValidUrl, URLify } from "utils"
 import { v4 as uuid } from "uuid"
 
 interface UploadStepProps {
@@ -166,9 +166,17 @@ export const CompetitionUpload = () => {
       deadlineTime: (value) =>
         value == null ? "Jam deadline harus diisi" : null,
       registrationUrl: (value) =>
-        value ? null : "Link pendaftaran kompetisi harus diisi",
+        value
+          ? isValidUrl(value)
+            ? null
+            : "Link pendaftaran kompetisi valid. Cek penggunaan http, https, atau www."
+          : "Link pendaftaran kompetisi harus diisi",
       contactUrl: (value) =>
-        value ? null : "Link kontak kompetisi harus diisi",
+        value
+          ? isValidUrl(value)
+            ? null
+            : "Link kontak kompetisi tidak valid. Gunakan link kontak WhatsApp/Instagram/LINE."
+          : "Link kontak kompetisi harus diisi",
       tags: (value) =>
         value.length > 0 ? null : "Kategori harus diisi minimal satu",
       sources: (value) =>

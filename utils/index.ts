@@ -55,6 +55,15 @@ export const toLocalGMTMilisecond = (ms: number): number => {
   return ms + 25_200_000
 }
 
+export const isValidUrl = (url: string): boolean => {
+  try {
+    new URL(url)
+    return true
+  } catch (error) {
+    return false
+  }
+}
+
 export const URLify = (oldUrl: string): string => {
   if (/^https?:\/\//i.test(oldUrl)) {
     return oldUrl
