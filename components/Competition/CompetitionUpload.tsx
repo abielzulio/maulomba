@@ -160,7 +160,11 @@ export const CompetitionUpload = () => {
         }
       },
       eventOrganizer: (value) =>
-        value ? null : "Nama penyelenggara kompetisi harus diisi",
+        value
+          ? value.length > 3
+            ? null
+            : "Nama penyelenggara minimal memiliki 3 karakter huruf"
+          : "Nama penyelenggara kompetisi harus diisi",
       deadlineDate: (value) =>
         value == null ? "Tanggal deadline harus diisi" : null,
       deadlineTime: (value) =>
