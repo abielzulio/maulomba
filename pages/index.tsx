@@ -53,6 +53,7 @@ export const getStaticProps: GetStaticProps = async () => {
   const { data: competitions, error } = await supabase
     .from("competitions")
     .select("*")
+    .filter("deadline_date", "gte", new Date().toISOString())
 
   if (error) {
     console.log(error)

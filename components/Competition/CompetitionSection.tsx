@@ -59,12 +59,12 @@ export const CompetitionSection = ({
 
   const filteredCompetitions = competitions
     // Filter past competition by its deadline
-    .filter(
+    /*     .filter(
       (competition) =>
         Date.parse(new Date(competition.deadline_date).toISOString()) +
           getTotalMilisecond(competition.deadline_time) >=
         toLocalGMTMilisecond(Date.now())
-    )
+    ) */
     // Filter by title and description
     .filter(
       (competition) =>
