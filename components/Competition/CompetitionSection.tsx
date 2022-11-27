@@ -106,28 +106,42 @@ export const CompetitionSection = ({
   // Show competitions based n showCount
   const slicedCompetitions = sortedCompetitions.slice(0, showCount)
 
-  // Auto-delete past competition db and img
-  useEffect(() => {
-    const pastCompetition = competitions.filter(
-      (competition) =>
-        Date.parse(new Date(competition.deadline_date).toISOString()) +
-          getTotalMilisecond(competition.deadline_time) <
-        toLocalGMTMilisecond(Date.now())
-    )
-    const deletePastCompetition = async (uuid: string, img_path: string) => {
-      await supabase.from("competitions").delete().match({ uuid })
-      await supabase.storage
-        .from("competition-img")
-        .remove([
-          img_path.replace(SUPABASE_BUCKET_BASE_URL + "/competition-img/", ""),
-        ])
-    }
-    if (pastCompetition.length > 0) {
-      pastCompetition.map((competition) => {
-        deletePastCompetition(competition.uuid, competition.img_url)
+  const deletePastCompetition = async () => {
+    const { data: pastCompetitions, error } = await supabase
+      .from("competitions")
+      .select(`uuid, img_url`)
+      .filter("deadline_date", "lt", new Date().toISOString())
+    if (error) {
+      console.log(error)
+    } else {
+      pastCompetitions?.forEach(async (pastCompetition) => {
+        const { data, error } = await supabase.storage
+          .from("competition_images")
+          .remove([
+            pastCompetition.img_url.replace(
+              SUPABASE_BUCKET_BASE_URL + "/competition-img/",
+              ""
+            ),
+          ])
+        if (error) {
+          console.log(error)
+        } else {
+          const { data, error } = await supabase
+            .from("competitions")
+            .delete()
+            .match({ uuid: pastCompetition.uuid })
+          if (error) {
+            console.log(error)
+          }
+        }
       })
     }
-  }, [competitions])
+  }
+
+  // Auto-delete past competition db and img
+  useEffect(() => {
+    deletePastCompetition()
+  }, [])
 
   // Show competition tags by its tags
   const competitionTags: string[] = union(
