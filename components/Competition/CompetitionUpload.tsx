@@ -25,7 +25,7 @@ import { useRouter } from "next/router"
 import { useCallback, useEffect, useState } from "react"
 import { useDropzone } from "react-dropzone"
 import { CompressResult, Image } from "types/data"
-import { getDeadlineTime, isValidUrl, URLify } from "utils"
+import { getDeadlineTime, URLify } from "utils"
 import { v4 as uuid } from "uuid"
 
 interface UploadStepProps {
@@ -160,27 +160,15 @@ export const CompetitionUpload = () => {
         }
       },
       eventOrganizer: (value) =>
-        value
-          ? value.length > 3
-            ? null
-            : "Nama penyelenggara minimal memiliki 3 karakter huruf"
-          : "Nama penyelenggara kompetisi harus diisi",
+        value ? null : "Nama penyelenggara kompetisi harus diisi",
       deadlineDate: (value) =>
         value == null ? "Tanggal deadline harus diisi" : null,
       deadlineTime: (value) =>
         value == null ? "Jam deadline harus diisi" : null,
       registrationUrl: (value) =>
-        value
-          ? isValidUrl(value)
-            ? null
-            : "Link pendaftaran kompetisi valid. Cek penggunaan http, https, atau www."
-          : "Link pendaftaran kompetisi harus diisi",
+        value ? null : "Link pendaftaran kompetisi harus diisi",
       contactUrl: (value) =>
-        value
-          ? isValidUrl(value)
-            ? null
-            : "Link kontak kompetisi tidak valid. Gunakan link kontak WhatsApp/Instagram/LINE."
-          : "Link kontak kompetisi harus diisi",
+        value ? null : "Link kontak kompetisi harus diisi",
       tags: (value) =>
         value.length > 0 ? null : "Kategori harus diisi minimal satu",
       sources: (value) =>
@@ -363,9 +351,10 @@ export const CompetitionUpload = () => {
             event_organizer: form.values.eventOrganizer,
             img_url: img_url,
             registration_url: URLify(form.values.registrationUrl),
-            contact_url: isValidUrl(form.values.contactUrl)
-              ? URLify(form.values.contactUrl)
-              : URLify(form.values.registrationUrl),
+            contact_url:
+              form.values.contactUrl.length < 3
+                ? URLify(form.values.registrationUrl)
+                : URLify(form.values.contactUrl),
             level: form.values.level,
             deadline_date: form.values.deadlineDate,
             deadline_time: getDeadlineTime(form.values.deadlineTime),
