@@ -116,7 +116,7 @@ export const CompetitionSection = ({
     } else {
       pastCompetitions?.forEach(async (pastCompetition) => {
         const { data, error } = await supabase.storage
-          .from("competition_images")
+          .from("competition-img")
           .remove([
             pastCompetition.img_url.replace(
               SUPABASE_BUCKET_BASE_URL + "/competition-img/",
