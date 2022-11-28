@@ -113,7 +113,7 @@ export const CompetitionSection = ({
       .filter("deadline_date", "lt", new Date().toISOString())
     if (error) {
       console.log(error)
-    } else {
+    } else if (pastCompetitions) {
       pastCompetitions?.forEach(async (pastCompetition) => {
         const { data, error } = await supabase.storage
           .from("competition-img")
@@ -135,13 +135,15 @@ export const CompetitionSection = ({
           }
         }
       })
+    } else {
+      console.log("Tidak ada lomba yang sudah berakhir")
     }
   }
 
   // Auto-delete past competition db and img
   useEffect(() => {
     deletePastCompetition()
-  }, [])
+  }, [competitions])
 
   // Show competition tags by its tags
   const competitionTags: string[] = union(
