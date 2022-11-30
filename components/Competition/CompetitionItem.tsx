@@ -126,7 +126,6 @@ const CompetitionItem = ({ competition }: { competition: Competition }) => {
             <p className="text-md font-semibold tracking-tight">
               {competition.title}
             </p>
-            {/*             )} */}
             {/* Competition organizer title */}
             {competition.event_organizer &&
             competition.event_organizer.length > 30 ? (
