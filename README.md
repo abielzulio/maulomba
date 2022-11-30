@@ -1,6 +1,8 @@
 # Maulomba.com
 
-> [Maulomba](https://maulomba.com) is a web-based Indonesian college/high-school level competition media platform. Maulomba built using Next.js + Typescript + TailwindCSS + Supabase deployed using Vercel.
+![GNU GPLv3](/public/og.png)
+
+> [Maulomba](https://maulomba.com) is a web-based ads-free Indonesian college/high-school level competition media platform. Maulomba built using Next.js + Typescript + TailwindCSS + Supabase deployed using Vercel.
 
 ## Getting Started
 
@@ -9,9 +11,6 @@ First, run the development server:
 ```bash
 npm install
 npm run dev
-# or
-yarn install
-yarn dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
