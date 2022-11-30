@@ -1,12 +1,20 @@
+const isInTheSameDayAndMonth = (date: string): [boolean, boolean] => {
+  const today = new Date()
+  const dateToCompare = new Date(date)
+  const isInTheSameDay = today.getDate() === dateToCompare.getDate()
+  const isInTheSameMonth = today.getMonth() === dateToCompare.getMonth()
+  return [isInTheSameDay, isInTheSameMonth]
+}
+
 export const getDeadlineTime = (date: Date): string => {
   return `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
 }
 
 export const getFullDeadlineDateTime = (date: string, time: string): string => {
-  const today: Date = new Date()
+  const [isInTheSameDay, isInTheSameMonth] = isInTheSameDayAndMonth(date)
 
   const isDeadlineToday: boolean =
-    new Date(date).getDate() === today.getDate() ? true : false
+    isInTheSameDay && isInTheSameMonth ? true : false
 
   const deadlineDateWithTime: string =
     (isDeadlineToday
@@ -27,19 +35,21 @@ export const getDeadlineCountdown = (
 ): [string | null, boolean] => {
   const today: Date = new Date()
   const nDays: number = 8
-  const inTheSameMonth: boolean = new Date(date).getMonth() === today.getMonth()
+  const [isInTheSameDay, isInTheSameMonth] = isInTheSameDayAndMonth(date)
   const isInUpcomingDays: boolean =
     new Date(date).getDate() - today.getDate() < nDays
-  const isTodayDeadline: boolean = new Date(date).getDate() === today.getDate()
+
+  const isDeadlineToday: boolean =
+    isInTheSameDay && isInTheSameMonth ? true : false
 
   const deadlineCountdown: string | null =
-    inTheSameMonth && isInUpcomingDays
-      ? isTodayDeadline
+    isInTheSameMonth && isInUpcomingDays
+      ? isInTheSameDay
         ? "Hari ini"
         : `H-${new Date(date).getDate() - today.getDate()}`
       : null
 
-  return [deadlineCountdown, isTodayDeadline]
+  return [deadlineCountdown, isDeadlineToday]
 }
 
 export const getTotalMilisecond = (time: string): number => {
