@@ -106,44 +106,45 @@ export const CompetitionSection = ({
   // Show competitions based n showCount
   const slicedCompetitions = sortedCompetitions.slice(0, showCount)
 
-  const deletePastCompetition = async () => {
-    const { data: pastCompetitions, error } = await supabase
-      .from("competitions")
-      .select(`uuid, img_url`)
-      .filter("deadline_date", "lt", new Date().toISOString())
-    if (error) {
-      console.log(error)
-    } else if (pastCompetitions) {
-      pastCompetitions?.forEach(async (pastCompetition) => {
-        const { data, error } = await supabase.storage
-          .from("competition-img")
-          .remove([
-            pastCompetition.img_url.replace(
-              SUPABASE_BUCKET_BASE_URL + "/competition-img/",
-              ""
-            ),
-          ])
-        if (error) {
-          console.log(error)
-        } else {
-          const { data, error } = await supabase
-            .from("competitions")
-            .delete()
-            .match({ uuid: pastCompetition.uuid })
-          if (error) {
-            console.log(error)
-          }
-        }
-      })
-    } else {
-      console.log("Tidak ada lomba yang sudah berakhir")
-    }
-  }
-
   // Auto-delete past competition db and img
   useEffect(() => {
+    const deletePastCompetition = async () => {
+      const { data: pastCompetitions, error } = await supabase
+        .from("competitions")
+        .select("*")
+        .filter("deadline_date", "lte", new Date().toISOString())
+      if (error) {
+        console.log(error)
+      } else if (pastCompetitions) {
+        console.table(pastCompetitions)
+        pastCompetitions?.forEach(async (pastCompetition) => {
+          const { data, error } = await supabase.storage
+            .from("competition-img")
+            .remove([
+              pastCompetition.img_url.replace(
+                SUPABASE_BUCKET_BASE_URL + "/competition-img/",
+                ""
+              ),
+            ])
+          if (error) {
+            console.log(error)
+          } else {
+            const { data, error } = await supabase
+              .from("competitions")
+              .delete()
+              .match({ uuid: pastCompetition.uuid })
+            if (error) {
+              console.log(error)
+            }
+          }
+        })
+      } else {
+        console.log("Tidak ada lomba yang sudah berakhir")
+      }
+    }
+
     deletePastCompetition()
-  }, [competitions])
+  }, [])
 
   // Show competition tags by its tags
   const competitionTags: string[] = union(
