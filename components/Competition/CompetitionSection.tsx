@@ -117,7 +117,7 @@ export const CompetitionSection = ({
         return pastFeaturedCompetitions?.forEach(
           async (pastFeaturedCompetition: Competition) => {
             const { data, error } = await supabase
-              .from("past_featured")
+              .from("past_featured_competitions")
               .insert(pastFeaturedCompetition)
               .select()
             if (error) {
