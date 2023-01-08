@@ -59,12 +59,12 @@ export const CompetitionSection = ({
 
   const filteredCompetitions = competitions
     // Filter past competition by its deadline
-    /*     .filter(
+    .filter(
       (competition) =>
         Date.parse(new Date(competition.deadline_date).toISOString()) +
           getTotalMilisecond(competition.deadline_time) >=
         toLocalGMTMilisecond(Date.now())
-    ) */
+    )
     // Filter by title and description
     .filter(
       (competition) =>
@@ -106,18 +106,38 @@ export const CompetitionSection = ({
   // Show competitions based n showCount
   const slicedCompetitions = sortedCompetitions.slice(0, showCount)
 
-  // Auto-delete past competition db and img
   useEffect(() => {
+    const savePastFeaturedCompetition = async () => {
+      const { data: pastFeaturedCompetitions, error } = await supabase
+        .from("competitions")
+        .select("*")
+        .filter("is_featured", "eq", true)
+        .filter("deadline_date", "lte", new Date().toISOString())
+      if (pastFeaturedCompetitions) {
+        return pastFeaturedCompetitions?.forEach(
+          async (pastFeaturedCompetition: Competition) => {
+            const { data, error } = await supabase
+              .from("past_featured")
+              .insert(pastFeaturedCompetition)
+              .select()
+            if (error) {
+              console.log(error)
+            }
+          }
+        )
+      }
+      if (error) return console.log(error)
+    }
     const deletePastCompetition = async () => {
       const { data: pastCompetitions, error } = await supabase
         .from("competitions")
         .select("*")
+        .filter("is_featured", "eq", false)
         .filter("deadline_date", "lte", new Date().toISOString())
       if (error) {
         console.log(error)
       } else if (pastCompetitions) {
-        console.table(pastCompetitions)
-        pastCompetitions?.forEach(async (pastCompetition) => {
+        pastCompetitions?.forEach(async (pastCompetition: Competition) => {
           const { data, error } = await supabase.storage
             .from("competition-img")
             .remove([
@@ -138,11 +158,13 @@ export const CompetitionSection = ({
             }
           }
         })
-      } else {
-        console.log("Tidak ada lomba yang sudah berakhir")
       }
     }
 
+    // Auto-move past featured competition db and img
+    savePastFeaturedCompetition()
+
+    // Auto-delete past competition db and img
     deletePastCompetition()
   }, [])
 
