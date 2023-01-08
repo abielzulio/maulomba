@@ -128,6 +128,7 @@ export const CompetitionSection = ({
       }
       if (error) return console.log(error)
     }
+
     const deletePastCompetition = async () => {
       const { data: pastCompetitions, error } = await supabase
         .from("competitions")
@@ -161,7 +162,7 @@ export const CompetitionSection = ({
       }
     }
 
-    // Auto-move past featured competition db and img
+    // Auto-save past featured competition to new db
     savePastFeaturedCompetition()
 
     // Auto-delete past competition db and img
